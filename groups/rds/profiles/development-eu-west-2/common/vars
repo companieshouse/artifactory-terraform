@@ -1,0 +1,26 @@
+account_name = "development"
+allow_broker_automation_access = true
+environment = "common"
+
+instance_specifications = {
+  "eu-west-2a" = {
+    "1" = {}
+  }
+  "eu-west-2b" = {
+    "2" = {}
+  }
+  "eu-west-2c" = {
+    "3" = {}
+  }
+}
+
+lvm_block_definitions = [
+  {
+    aws_volume_size_gb: "100",
+    filesystem_resize_tool: "xfs_growfs",
+    lvm_logical_volume_device_node: "/dev/artifactory/data",
+    lvm_physical_volume_device_node: "/dev/xvdb"
+  }
+]
+
+route53_available = true
