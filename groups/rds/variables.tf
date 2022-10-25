@@ -26,7 +26,7 @@ variable "region" {
 }
 
 variable "repository_name" {
-  default     = "artifactory-terraform"
+  default     = "artifactory"
   description = "The name of the repository in which we're operating"
   type        = string
 }
