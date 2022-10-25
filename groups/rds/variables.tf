@@ -36,3 +36,9 @@ variable "service" {
   description = "The service name to be used when creating AWS resources"
   type        = string
 }
+
+variable "team" {
+  default     = "platform"
+  description = "The name of the team"
+  type        = string
+}

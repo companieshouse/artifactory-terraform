@@ -13,13 +13,12 @@ resource "aws_vpc_ipam_pool" "main" {
 }
 
 data "aws_vpc" "all_vpc_id" {
-  for_each = data.aws_vpc.all_vpc_id.id
+  for_each = data.aws_vpc.all_vpc_id[*].id
   id = each.value
 }
 
 data "aws_subnet" "placement" {
   for_each = data.aws_subnet_ids.placement.ids
-
   id = each.value
 }
 

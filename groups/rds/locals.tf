@@ -12,18 +12,7 @@ locals {
   ))
 
   secrets = data.vault_generic_secret.secrets.data
-
-  ssh_access = {
-    cidr_blocks: []
-    list_ids: [
-      data.aws_ec2_managed_prefix_list.administration.id
-    ]
-    security_group_ids: []
-  }
-
-  ssh_keyname = data.aws_key_pair.kafka_stack.key_name
-
-# ----------------------------------------------------------------------------
+  placement_subnet_pattern = local.secrets.placement_subnet_pattern
 
   certificate_arn = lookup(local.secrets, "certificate_arn", null)
   dns_zone_name = local.secrets.dns_zone_name
