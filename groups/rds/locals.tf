@@ -17,7 +17,6 @@ locals {
   certificate_arn = lookup(local.secrets, "certificate_arn", null)
   dns_zone_name = local.secrets.dns_zone_name
   load_balancer_dns_zone_name = local.secrets.load_balancer_dns_zone_name
-  placement_subnet_name_patterns = jsondecode(local.secrets.placement_subnet_name_patterns)
   placement_vpc_pattern = local.secrets.placement_vpc_pattern
 
 }
