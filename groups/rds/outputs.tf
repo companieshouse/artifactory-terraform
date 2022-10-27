@@ -1,7 +1,7 @@
 output vpc_ids {
-  value = data.aws_vpc.all_vpc_id
+  value = data.aws_vpc.placement.id
 }
 
 output subnet_ids {
-  value = data.aws_subnet.placement
+  value = local.placement_subnet_ids
 }
