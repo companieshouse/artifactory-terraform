@@ -7,7 +7,7 @@ resource "aws_security_group" "db_security_group" {
     description      = "Ingress from permitted CIDRs"
     from_port        = 3306
     to_port          = 3306
-    protocol         = "-1"
+    protocol         = "tcp"
     cidr_blocks      = concat(local.placement_subnet_cidrs, local.automation_subnet_cidrs)
   }
 
@@ -16,7 +16,6 @@ resource "aws_security_group" "db_security_group" {
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {

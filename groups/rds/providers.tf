@@ -3,7 +3,7 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = var.environment
-      Owner       = var.team
+      Team        = var.team
       Service     = var.service
     }
   }

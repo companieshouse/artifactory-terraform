@@ -4,6 +4,7 @@ variable "account_name" {
 }
 
 variable "environment" {
+  default     = "devops1"
   description = "The environment name to be used when creating AWS resources"
   type        = string
 }
