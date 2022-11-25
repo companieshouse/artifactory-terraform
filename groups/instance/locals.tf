@@ -1,5 +1,7 @@
 locals {
-  account_ids = data.vault_generic_secret.account_ids.data
+  account_ids             = data.vault_generic_secret.account_ids.data
+  artifactory_account_ids = local.secrets.artifactory_account_ids
+
   secrets     = data.vault_generic_secret.secrets.data
 
   placement_subnet_cidrs = values(zipmap(
