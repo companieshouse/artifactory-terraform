@@ -8,7 +8,7 @@ resource "aws_security_group" "db_security_group" {
     from_port        = 3306
     to_port          = 3306
     protocol         = "tcp"
-    cidr_blocks      = concat(local.placement_subnet_cidrs, local.automation_subnet_cidrs)
+    cidr_blocks      = local.db_cidrs
   }
 
   egress {

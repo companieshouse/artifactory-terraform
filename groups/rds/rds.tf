@@ -41,10 +41,10 @@ resource "aws_db_instance" "db" {
   storage_type                    = var.db_storage_type
   port                            = local.db_port
   enabled_cloudwatch_logs_exports = var.rds_cloudwatch_logs_exports
-  deletion_protection             = true
-  backup_retention_period         = 7
-  backup_window                   = "03:00-06:00"
-  maintenance_window              = "Sat:00:00-Sat:03:00"
+  deletion_protection             = var.db_deletion_protection
+  backup_retention_period         = var.db_backup_retention_period
+  backup_window                   = var.db_backup_window
+  maintenance_window              = var.db_maintenance_window
   final_snapshot_identifier       = "${var.environment}-${var.service}-${var.db_engine}-final-deletion-snapshot"
   skip_final_snapshot             = false
   tags                            = {
