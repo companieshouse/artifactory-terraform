@@ -37,6 +37,4 @@ locals {
     local.placement_subnet_cidrs,
     local.automation_subnet_cidrs
   )
-
-
 }

@@ -1,10 +1,10 @@
 resource "aws_security_group" "db_security_group" {
   name        = "${var.environment}-${var.service}-rds"
-  description = "Allow TLS inbound traffic"
+  description = "Restricts access for ${var.service}-${var.environment} artifactory nodes"
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {
-    description      = "Ingress from permitted CIDRs"
+    description      = "MySQL ingress from permitted CIDRs"
     from_port        = 3306
     to_port          = 3306
     protocol         = "tcp"

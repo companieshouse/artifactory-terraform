@@ -84,3 +84,29 @@ variable "rds_cloudwatch_logs_exports" {
   default     = ["audit", "error", "general", "slowquery"]
   type        = list(any)
 }
+
+variable "db_deletion_protection"
+{
+  description = "Database deletion protection"
+  default = true
+  type = bool
+}
+
+variable "db_backup_retention_period"
+{
+  description = "Database backup retention period"
+  default = 7
+  type = number
+}
+
+variable "db_backup_window" {
+  description = "Database backup window"
+  default = "03:00-06:00"
+  type = string
+}
+
+variable "db_maintenance_window" {
+  description = "Database maintenance window"
+  default = "Sat:00:00-Sat:03:00"
+  type = string
+}
