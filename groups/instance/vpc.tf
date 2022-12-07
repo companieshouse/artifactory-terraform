@@ -11,5 +11,5 @@ data "aws_subnet_ids" "placement" {
 
 data "aws_subnet" "placement" {
   for_each = data.aws_subnet_ids.placement.ids
-  id = each.value
+  id       = each.value
 }
