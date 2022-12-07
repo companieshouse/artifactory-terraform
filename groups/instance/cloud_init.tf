@@ -1,5 +1,4 @@
 data "cloudinit_config" "artifactory" {
-  count         = var.instance_count
   gzip          = true
   base64_encode = true
 

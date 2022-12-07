@@ -54,3 +54,8 @@ variable "instance_count" {
   type        = number
   default     = 1
 }
+
+variable "ssh_keyname" {
+  description = "The SSH keypair name to use for remote connectivity"
+  type        = string
+}

@@ -1,5 +1,5 @@
 resource "aws_security_group" "instance_security_group" {
-  name        = "${var.environment}-${var.service}-rds"
+  name        = "${var.environment}-${var.service}-instance"
   description = "Allow TLS inbound traffic"
   vpc_id      = data.aws_vpc.placement.id
 
@@ -8,7 +8,7 @@ resource "aws_security_group" "instance_security_group" {
     from_port        = 8081
     to_port          = 8081
     protocol         = "tcp"
-    cidr_blocks      = local.placement_subnet_cidrs
+    cidr_blocks      = data.aws_ec2_managed_prefix_list.administration
   }
 
   ingress {
@@ -16,7 +16,7 @@ resource "aws_security_group" "instance_security_group" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = local.placement_subnet_cidrs
+    cidr_blocks      = data.aws_ec2_managed_prefix_list.administration
   }
 
   egress {

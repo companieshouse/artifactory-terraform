@@ -5,7 +5,7 @@ runcmd:
   - yum install unzip -y
   - yum install mariadb -y
   - unzip mysql-connector-j-8.0.31.zip
-  - cp mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar ~/artifactory/var/bootstrap/artifactory/tomcat/lib
+  - cp mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar /opt/jfrog/artifactory/var/bootstrap/artifactory/tomcat/lib
   - mysql --version
   - mysql -h ${db_fqdn} -P ${db_port} -u ${db_username} -p ${db_password} -e "CREATE DATABASE artdb CHARACTER SET utf8 COLLATE utf8_bin;"
   - mysql -h ${db_fqdn} -P ${db_port} -u ${db_username} -p ${db_password} -e "CREATE USER '${db_username}'@'%' IDENTIFIED BY '${db_password}';"
@@ -15,7 +15,7 @@ runcmd:
   - service artifactory enable
   - service artifactory start
 write-files:
-  - path: ~/artifactory/var/etc
+  - path: /opt/jfrog/artifactory/var/etc
     content: |
       shared:
         database:
