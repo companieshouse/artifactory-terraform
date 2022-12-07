@@ -31,6 +31,7 @@ locals {
   dns_zone_name               = local.secrets.dns_zone_name
   load_balancer_dns_zone_name = local.secrets.load_balancer_dns_zone_name
 
+  db_name                     = "${var.environment}-${var.service}-${var.db_engine}"
   db_subnet                   = local.secrets.db_subnet
   db_username                 = local.secrets.db_username
   db_password                 = local.secrets.db_password

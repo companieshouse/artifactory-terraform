@@ -15,6 +15,7 @@ data "cloudinit_config" "artifactory" {
       service       = var.service
       dns_zone      = data.aws_route53_zone.selected.name
       db_port       = local.db_port
+      db_name       = local.db_name
       db_username   = local.db_username
       db_password   = local.db_password
 
