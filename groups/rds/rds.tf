@@ -48,6 +48,7 @@ resource "aws_db_instance" "db" {
   final_snapshot_identifier       = "${var.environment}-${var.service}-${var.db_engine}-final-deletion-snapshot"
   skip_final_snapshot             = false
   identifier                      = "${var.environment}-${var.service}-${var.db_engine}"
+  vpc_security_group_ids          = [aws_security_group.db_security_group.id]
   tags                            = {
     Type = "rds"
   }
