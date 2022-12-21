@@ -29,7 +29,7 @@ resource "aws_db_option_group" "db_option_group" {
 
 resource "aws_db_instance" "db" {
   allocated_storage               = var.db_storage_gb
-  name                            = "${var.environment}-${var.service}-${var.db_engine}"
+  name                            = var.service
   engine                          = var.db_engine
   engine_version                  = var.db_engine_version
   instance_class                  = var.db_instance_class
@@ -47,6 +47,7 @@ resource "aws_db_instance" "db" {
   maintenance_window              = var.db_maintenance_window
   final_snapshot_identifier       = "${var.environment}-${var.service}-${var.db_engine}-final-deletion-snapshot"
   skip_final_snapshot             = false
+  identifier                      = "${var.environment}-${var.service}-${var.db_engine}"
   tags                            = {
     Type = "rds"
   }
