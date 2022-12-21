@@ -4,7 +4,7 @@ resource "aws_instance" "artifactory" {
   subnet_id              = local.placement_subnet_ids
   vpc_security_group_ids = [aws_security_group.instance_security_group.id]
   key_name               = var.ssh_keyname
-  user_data_base64       = data.cloudinit_config.artifactory.*.rendered[count.index]
+  user_data_base64       = data.cloudinit_config.artifactory.*.rendered
 
 }
 
