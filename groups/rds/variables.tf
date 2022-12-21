@@ -85,15 +85,13 @@ variable "rds_cloudwatch_logs_exports" {
   type        = list(any)
 }
 
-variable "db_deletion_protection"
-{
+variable "db_deletion_protection" {
   description = "Database deletion protection"
   default = true
   type = bool
 }
 
-variable "db_backup_retention_period"
-{
+variable "db_backup_retention_period" {
   description = "Database backup retention period"
   default = 7
   type = number
