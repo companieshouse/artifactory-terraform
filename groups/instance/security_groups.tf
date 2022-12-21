@@ -4,7 +4,7 @@ resource "aws_security_group" "instance_security_group" {
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {
-    description      = "Ingress from permitted CIDRs"
+    description      = "Artifactory Ingress from permitted CIDRs"
     from_port        = 8081
     to_port          = 8081
     protocol         = "tcp"
@@ -12,7 +12,7 @@ resource "aws_security_group" "instance_security_group" {
   }
 
   ingress {
-    description      = "Ingress from permitted CIDRs"
+    description      = "SSH Ingress from permitted CIDRs"
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
