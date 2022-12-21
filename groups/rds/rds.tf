@@ -39,7 +39,7 @@ resource "aws_db_instance" "db" {
   parameter_group_name            = aws_db_parameter_group.db_parameter_group.name
   option_group_name               = aws_db_option_group.db_option_group.name
   storage_type                    = var.db_storage_type
-  port                            = local.db_port
+  port                            = var.db_port
   enabled_cloudwatch_logs_exports = var.rds_cloudwatch_logs_exports
   deletion_protection             = var.db_deletion_protection
   backup_retention_period         = var.db_backup_retention_period
