@@ -8,7 +8,8 @@ resource "aws_security_group" "instance_security_group" {
     from_port        = 8081
     to_port          = 8081
     protocol         = "tcp"
-    cidr_blocks      = data.aws_ec2_managed_prefix_list.administration
+    cidr_blocks      = local.instance_cidrs
+
   }
 
   ingress {
@@ -16,7 +17,7 @@ resource "aws_security_group" "instance_security_group" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = data.aws_ec2_managed_prefix_list.administration
+    cidr_blocks      = local.instance_cidrs
   }
 
   egress {

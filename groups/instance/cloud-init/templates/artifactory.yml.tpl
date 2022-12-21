@@ -1,11 +1,6 @@
 #cloud-config
 fqdn: ${instance_fqdn}
 runcmd:
-  - wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.31.zip
-  - yum install unzip -y
-  - yum install mariadb -y
-  - unzip mysql-connector-j-8.0.31.zip
-  - cp mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar /opt/jfrog/artifactory/var/bootstrap/artifactory/tomcat/lib
   - mysql --version
   - service artifactory enable
   - service artifactory start

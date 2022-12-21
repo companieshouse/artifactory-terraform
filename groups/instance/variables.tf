@@ -45,7 +45,6 @@ variable "team" {
 
 variable "ami" {
   description = "The AMI ID"
-  default     = "ami-09958e8db3b1f3210"
   type        = string
 }
 
@@ -57,5 +56,11 @@ variable "instance_count" {
 
 variable "ssh_keyname" {
   description = "The SSH keypair name to use for remote connectivity"
+  type        = string
+}
+
+variable "db_engine" {
+  description = "Database engine"
+  default     = "mysql"
   type        = string
 }
