@@ -43,6 +43,12 @@ variable "team" {
   type        = string
 }
 
+variable "db_port" {
+  description = "The port that MySQL can be reached on"
+  default     = 3306
+  type        = number
+
+}
 variable "db_engine" {
   description = "Database engine"
   default     = "mysql"

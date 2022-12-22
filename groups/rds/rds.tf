@@ -29,7 +29,7 @@ resource "aws_db_option_group" "db_option_group" {
 
 resource "aws_db_instance" "db" {
   allocated_storage               = var.db_storage_gb
-  name                            = "${var.environment}-${var.service}-${var.db_engine}"
+  name                            = var.service
   engine                          = var.db_engine
   engine_version                  = var.db_engine_version
   instance_class                  = var.db_instance_class
@@ -39,7 +39,7 @@ resource "aws_db_instance" "db" {
   parameter_group_name            = aws_db_parameter_group.db_parameter_group.name
   option_group_name               = aws_db_option_group.db_option_group.name
   storage_type                    = var.db_storage_type
-  port                            = local.db_port
+  port                            = var.db_port
   enabled_cloudwatch_logs_exports = var.rds_cloudwatch_logs_exports
   deletion_protection             = var.db_deletion_protection
   backup_retention_period         = var.db_backup_retention_period
@@ -47,6 +47,8 @@ resource "aws_db_instance" "db" {
   maintenance_window              = var.db_maintenance_window
   final_snapshot_identifier       = "${var.environment}-${var.service}-${var.db_engine}-final-deletion-snapshot"
   skip_final_snapshot             = false
+  identifier                      = "${var.environment}-${var.service}-${var.db_engine}"
+  vpc_security_group_ids          = [aws_security_group.db_security_group.id]
   tags                            = {
     Type = "rds"
   }
