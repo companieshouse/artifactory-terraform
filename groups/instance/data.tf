@@ -1,9 +1,8 @@
 data "aws_ec2_managed_prefix_list" "administration" {
-  name = "administration-cidr-ranges"
-  filter = {
-      name = "administration-cidr-ranges"
-      values = ["administration-cidr-ranges"]
-    }
+  filter {
+    name   = "prefix-list-name"
+    values = ["administration-cidr-ranges"]
+  }
 }
 
 data "vault_generic_secret" "account_ids" {
@@ -31,7 +30,6 @@ data "aws_vpc" "automation" {
 
 data "aws_subnet" "automation" {
   for_each = data.aws_subnet_ids.automation.ids
-
   id = each.value
 }
 

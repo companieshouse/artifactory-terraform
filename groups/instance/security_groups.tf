@@ -9,7 +9,8 @@ resource "aws_security_group" "instance_security_group" {
     to_port          = 8081
     protocol         = "tcp"
     cidr_blocks      = local.instance_cidrs
-
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id,
+    ]
   }
 
   ingress {
@@ -18,6 +19,8 @@ resource "aws_security_group" "instance_security_group" {
     to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = local.instance_cidrs
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id,
+    ]
   }
 
   egress {
@@ -30,7 +33,6 @@ resource "aws_security_group" "instance_security_group" {
 
   tags = {
     Name    = "${var.environment}-${var.service}-instance"
-    Service = var.service
     Type    = "security-group"
   }
 

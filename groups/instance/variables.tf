@@ -43,20 +43,10 @@ variable "team" {
   type        = string
 }
 
-variable "ami" {
-  description = "The AMI ID"
-  type        = string
-}
-
 variable "instance_count" {
   description = "Number of instances"
   type        = number
   default     = 1
-}
-
-variable "ssh_keyname" {
-  description = "The SSH keypair name to use for remote connectivity"
-  type        = string
 }
 
 variable "db_engine" {

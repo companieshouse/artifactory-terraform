@@ -37,10 +37,12 @@ locals {
   db_password                 = local.secrets.db_password
   db_port                     = local.secrets.db_port
 
+  ssh_keyname                 = local.secrets.ssh_keyname
+  ssh_public_key              = local.secrets.public_key
+
   instance_cidrs              = concat(
     local.placement_subnet_cidrs,
     local.automation_subnet_cidrs,
-    data.aws_ec2_managed_prefix_list.administration
   )
 
 
