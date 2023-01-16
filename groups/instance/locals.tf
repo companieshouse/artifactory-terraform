@@ -45,5 +45,7 @@ locals {
     local.automation_subnet_cidrs,
   )
 
+  ami_owner_id = tolist([local.secrets.ami_owner_id])
+
 
 }

@@ -55,5 +55,5 @@ data "aws_ami" "artifactory_ami" {
     name   = "name"
     values = ["artifactory-*"]
   }
-  owners = split(", ", local.artifactory_account_ids)
+  owners = local.ami_owner_id
 }
