@@ -13,7 +13,6 @@ data "vault_generic_secret" "secrets" {
   path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.repository_name}"
 }
 
-
 data "aws_vpc" "placement" {
   filter {
     name   = "tag:Name"
@@ -42,7 +41,6 @@ data "aws_subnet_ids" "automation" {
   }
 }
 
-
 data "aws_route53_zone" "selected" {
   name         = local.dns_zone_name
   private_zone = false
@@ -53,7 +51,7 @@ data "aws_ami" "artifactory_ami" {
 
   filter {
     name   = "name"
-    values = ["artifactory-*"]
+    values = [var.default_ami_version_pattern]
   }
   owners = local.ami_owner_id
 }

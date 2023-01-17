@@ -3,11 +3,6 @@ variable "account_name" {
   type        = string
 }
 
-variable "ami_owner_id" {
-  description = "The account ID of the AWS account that owns the AMI"
-  type        = list
-  default     = []
-}
 variable "environment" {
   description = "The environment name to be used when creating AWS resources"
   type        = string
@@ -16,6 +11,12 @@ variable "environment" {
 variable "default_instance_type" {
   description = "The default instance type to use for instances"
   default     = "t3.medium"
+  type        = string
+}
+
+variable "default_ami_version_pattern" {
+  description = "The default AMI version pattern to use when matching AMIs for instances"
+  default =   "\\d.\\d.\\d-\\d+"
   type        = string
 }
 
