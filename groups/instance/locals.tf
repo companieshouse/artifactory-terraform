@@ -27,7 +27,7 @@ locals {
   automation_vpc_pattern      = local.secrets.automation_vpc_pattern
 
 
-  certificate_arn             = lookup(local.secrets, "certificate_arn", null)
+  certificate_arn             = lookup(local.secrets                                , "certificate_arn", null)
   dns_zone_name               = local.secrets.dns_zone_name
   load_balancer_dns_zone_name = local.secrets.load_balancer_dns_zone_name
 
@@ -37,7 +37,7 @@ locals {
   db_password                 = local.secrets.db_password
   db_port                     = local.secrets.db_port
 
-  ssh_keyname                 = local.secrets.ssh_keyname
+  ssh_keyname                 = "${var.service}-${var.environment}"
   ssh_public_key              = local.secrets.public_key
 
   instance_cidrs              = concat(

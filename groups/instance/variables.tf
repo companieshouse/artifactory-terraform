@@ -16,7 +16,7 @@ variable "default_instance_type" {
 
 variable "default_ami_version_pattern" {
   description = "The default AMI version pattern to use when matching AMIs for instances"
-  default =   "\\d.\\d.\\d-\\d+"
+  default =   "\\d.\\d.\\d"
   type        = string
 }
 
