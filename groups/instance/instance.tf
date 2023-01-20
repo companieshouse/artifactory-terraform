@@ -11,5 +11,8 @@ resource "aws_instance" "artifactory" {
   vpc_security_group_ids = [aws_security_group.instance_security_group.id]
   key_name               = local.ssh_keyname
   user_data_base64       = data.cloudinit_config.artifactory.rendered
+  tags = {
+    Name = "${var.environment}-${var.service}"
+  }
 }
 
