@@ -11,10 +11,5 @@ write-files:
           username: ${db_username}
           password: ${db_password}
 runcmd:
-  - yum update -y
-  - amazon-linux-extras install epel -y
-  - yum install https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm
-  - mysql --version
-  - export JFROG_HOME="/opt/jfrog"
   - service artifactory enable
   - service artifactory start
