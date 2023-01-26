@@ -46,5 +46,20 @@ locals {
 
   ami_owner_id = tolist([local.secrets.ami_owner_id])
 
+  artifactory_config = <<-END
+    ${jsonencode({
+      write_files = [
+        {
+          path        = "/opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.xml"
+          permissions = "0644"
+          owner       = "root:root"
+          encoding    = "b64"
+          content     = filebase64("${path.module}/artifactory.config.xml")
+        },
+      ]
+    })}
+  END
+
+
 
 }

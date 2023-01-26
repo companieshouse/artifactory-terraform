@@ -9,6 +9,12 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
+    filename     = "artifactory.config.xml"
+    content      = local.artifactory_config
+  }
+
+  part {
+    content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/${var.service}.yml.tpl", {
       instance_fqdn = "${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"
       db_fqdn       = "${var.service}db.${data.aws_route53_zone.selected.name}"
