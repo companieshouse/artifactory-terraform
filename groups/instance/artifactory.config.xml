@@ -30,7 +30,7 @@
         <ldapGroupSettings/>
         <userLockPolicy>
             <enabled>false</enabled>
-            <loginAttempts>5</loginAttempts>
+            <loginAttempts>3</loginAttempts>
         </userLockPolicy>
         <accessClientSettings/>
         <buildGlobalBasicReadAllowed>false</buildGlobalBasicReadAllowed>
