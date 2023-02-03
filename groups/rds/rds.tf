@@ -8,7 +8,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 
 resource "aws_db_parameter_group" "db_parameter_group" {
   name        = "${var.environment}-${var.service}-${var.db_engine}-parameter-group"
-  family      = "${var.db_engine}${var.db_engine_version}"
+  family      = "${var.db_engine}${local.db_engine_version}"
   description = "Parameter group for ${var.environment}-${var.service}-${var.db_engine}"
   tags        = {
     Name = "${var.environment}-${var.service}-${var.db_engine}"
@@ -20,7 +20,7 @@ resource "aws_db_option_group" "db_option_group" {
   name                     = "${var.environment}-${var.service}-${var.db_engine}-option-group"
   option_group_description = "Option group for ${var.environment}-${var.service}-${var.db_engine}"
   engine_name              = var.db_engine
-  major_engine_version     = var.db_engine_version
+  major_engine_version     = var.db_engine_major_version
   tags                     = {
     Name = "${var.environment}-${var.service}-${var.db_engine}"
     Type = "option-group"
@@ -31,7 +31,7 @@ resource "aws_db_instance" "db" {
   allocated_storage               = var.db_storage_gb
   name                            = var.service
   engine                          = var.db_engine
-  engine_version                  = var.db_engine_version
+  engine_version                  = local.db_engine_version
   instance_class                  = var.db_instance_class
   username                        = local.db_username
   password                        = local.db_password
