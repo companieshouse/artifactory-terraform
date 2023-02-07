@@ -44,20 +44,26 @@ variable "team" {
 }
 
 variable "db_port" {
-  description = "The port that MySQL can be reached on"
-  default     = 3306
+  description = "The port that the database can be reached on"
+  default     = 5432
   type        = number
 
 }
 variable "db_engine" {
   description = "Database engine"
-  default     = "mysql"
+  default     = "postgres"
   type        = string
 }
 
-variable "db_engine_version" {
-  description = "Database engine version"
-  default     = "8.0"
+variable "db_engine_major_version" {
+  description = "Database engine major version"
+  default     = "13"
+  type        = string
+}
+
+variable "db_engine_minor_version" {
+  description = "Database engine minor version"
+  default     = "9"
   type        = string
 }
 
@@ -86,7 +92,7 @@ variable "rds_cloudwatch_export_logs_retention_period" {
 }
 
 variable "rds_cloudwatch_logs_exports" {
-  description = "List of chosen log exports for MySQL RDS Cloudwatch Logs"
+  description = "List of chosen log exports for database RDS Cloudwatch Logs"
   default     = ["audit", "error", "general", "slowquery"]
   type        = list(any)
 }
