@@ -1,0 +1,10 @@
+<!--
+  - /var/opt/jfrog/artifactory/tomcat/conf/Catalina/localhost/access.xml
+  -->
+<Context path="/access" docBase="${jf.product.home}/app/artifactory/tomcat/webapps/access.war" unloadDelay="5000" clearReferencesThreadLocals="false">
+    <Parameter name="jfrog.access.bundled" value="true" override="true"/>
+    <!-- enable annotations scanning of access jar files -->
+    <JarScanner scanClassPath="false">
+        <JarScanFilter defaultPluggabilityScan="false" pluggabilityScan="access*" defaultTldScan="false"/>
+    </JarScanner>
+</Context>
