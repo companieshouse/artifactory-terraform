@@ -99,7 +99,7 @@ variable "rds_cloudwatch_logs_exports" {
 
 variable "db_deletion_protection" {
   description = "Database deletion protection"
-  default     = true
+  default     = false  # TODO true
   type        = bool
 }
 
