@@ -93,7 +93,7 @@ variable "rds_cloudwatch_export_logs_retention_period" {
 
 variable "rds_cloudwatch_logs_exports" {
   description = "List of chosen log exports for database RDS Cloudwatch Logs"
-  default     = ["audit", "error", "general", "slowquery"]
+  default     = ["postgresql", "upgrade"]
   type        = list(any)
 }
 
