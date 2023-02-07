@@ -8,11 +8,14 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 
 resource "aws_db_parameter_group" "db_parameter_group" {
   name        = "${var.environment}-${var.service}-${var.db_engine}-parameter-group"
-  family      = "${var.db_engine}${local.db_engine_version}"
+  family      = "${var.db_engine}${var.db_engine_major_version}"
   description = "Parameter group for ${var.environment}-${var.service}-${var.db_engine}"
   tags        = {
     Name = "${var.environment}-${var.service}-${var.db_engine}"
     Type = "parameter-group"
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
