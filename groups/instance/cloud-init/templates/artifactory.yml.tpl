@@ -7,7 +7,7 @@ write_files:
         database:
           type: postgresql
           driver: org.postgresql.Driver
-          url: jdbc:postgresql://${db_fqdn}:${db_port}/artifactory
+          url: jdbc:postgresql://${db_fqdn}/artifactory
           username: ${db_username}
           password: ${db_password}
 runcmd:
