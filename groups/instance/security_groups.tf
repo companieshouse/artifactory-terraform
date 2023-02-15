@@ -6,7 +6,7 @@ resource "aws_security_group" "instance_security_group" {
   ingress {
     description      = "Artifactory Ingress from permitted CIDRs"
     from_port        = 8081
-    to_port          = 8081
+    to_port          = 8082
     protocol         = "tcp"
     cidr_blocks      = local.instance_cidrs
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id,
