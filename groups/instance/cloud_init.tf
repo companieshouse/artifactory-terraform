@@ -9,6 +9,11 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
+    content      = "fqdn: ${instance_fqdn}"
+  }
+
+  part {
+    content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/${var.service}.yml.tpl", {
       instance_fqdn = "${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"
       db_fqdn       = "${var.service}db.${data.aws_route53_zone.selected.name}"
@@ -20,6 +25,12 @@ data "cloudinit_config" "artifactory" {
       db_password   = local.db_password
 
     })
+  }
+
+
+  part {
+    content_type = "text/cloud-config"
+    content      = templatefile("${path.module}/cloud-init/templates/bootstrap-commands.yml.tpl")
   }
 
 }

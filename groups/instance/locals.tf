@@ -44,7 +44,7 @@ locals {
     local.placement_subnet_cidrs,
   )
 
-  ami_owner_id = tolist([local.secrets.ami_owner_id])
+  ami_owner_id = local.secrets.ami_owner_id
 
   artifactory_config = <<-END
     ${jsonencode({

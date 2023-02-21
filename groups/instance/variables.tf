@@ -51,6 +51,6 @@ variable "instance_count" {
 
 variable "db_engine" {
   description = "Database engine"
-  default     = "mysql"
+  default     = "postgres"
   type        = string
 }

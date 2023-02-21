@@ -1,5 +1,3 @@
-#cloud-config
-fqdn: ${instance_fqdn}
 write_files:
   - path: /opt/jfrog/artifactory/var/etc/system.yaml
     content: |
@@ -10,6 +8,3 @@ write_files:
           url: jdbc:postgresql://${db_fqdn}/artifactory
           username: ${db_username}
           password: ${db_password}
-runcmd:
-  - service artifactory enable
-  - service artifactory start
