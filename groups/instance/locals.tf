@@ -50,16 +50,34 @@ locals {
     ${jsonencode({
       write_files = [
         {
-          path        = "/opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.xml"
+          path        = "/opt/jfrog/artifactory/var/etc/system.yaml"
           permissions = "0644"
           owner       = "root:root"
           encoding    = "b64"
-          content     = filebase64("${path.module}/artifactory.config.xml")
+          content     = filebase64("${path.module}/system.yaml")
         },
       ]
     })}
   END
 
-
+  ldapSetting_id = "ldap_${var.service}_${var.environment}"
+  ldapSetting_emailAttribute = local.secrets.ldapSetting_emailAttribute
+  ldapSetting_ldapUrl = local.secrets.ldapSetting_ldapUrl
+  ldapSetting_managerDn = local.secrets.ldapSetting_managerDn
+  ldapSetting_managerPassword = local.secrets.ldapSetting_managerPassword
+  ldapSetting_searchBase = local.secrets.ldapSetting_searchBase
+  ldapSetting_searchFilter = local.secrets.ldapSetting_searchFilter
+  ldapSetting_searchSubTree = local.secrets.ldapSetting_searchSubTree
+  ldapSetting_userDnPattern = local.secrets.ldapSetting_userDnPattern
+  ldapGroupSettings_descriptionAttribute = local.secrets.ldapGroupSettings_descriptionAttribute
+  ldapGroupSettings_enabledLdap = local.ldapSetting_id
+  ldapGroupSettings_filter = local.secrets.ldapGroupSettings_filter
+  ldapGroupSettings_groupBaseDn = local.secrets.ldapGroupSettings_groupBaseDn
+  ldapGroupSettings_groupMemberAttribute = local.secrets.ldapGroupSettings_groupMemberAttribute
+  ldapGroupSettings_groupNameAttribute = local.secrets.ldapGroupSettings_groupNameAttribute
+  ldapGroupSettings_strategy = local.secrets.ldapGroupSettings_strategy
+  ldapGroupSettings_subTree = local.secrets.ldapGroupSettings_subTree
 
 }
+
+
