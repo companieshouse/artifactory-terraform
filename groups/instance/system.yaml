@@ -18,7 +18,7 @@ shared:
         autoCreateUser: true
         enabled: true
     ldapGroupSettings:
-      name1:
+      admin:
         descriptionAttribute: ${ldapGroupSettings_descriptionAttribute}
         enabledLdap: ${ldapSetting_id}
         filter: ${ldapGroupSettings_filter}
