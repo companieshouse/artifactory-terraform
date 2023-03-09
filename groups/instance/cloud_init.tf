@@ -35,7 +35,6 @@ data "cloudinit_config" "artifactory" {
       ldapGroupSettings_groupNameAttribute   = local.ldapGroupSettings_groupNameAttribute
       ldapGroupSettings_strategy             = local.ldapGroupSettings_strategy
       ldapGroupSettings_subTree              = local.ldapGroupSettings_subTree
-
     })
 
   }
