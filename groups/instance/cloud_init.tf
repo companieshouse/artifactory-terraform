@@ -9,7 +9,7 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile(local.artifactory_config, {
+    content = templatefile("${path.module}/cloud-init/templates/system.yml.tpl", {
       instance_fqdn                          = "${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"
       db_fqdn                                = "${var.service}db.${data.aws_route53_zone.selected.name}"
       service                                = var.service
@@ -27,6 +27,7 @@ data "cloudinit_config" "artifactory" {
       ldapSetting_searchFilter               = local.ldapSetting_searchFilter
       ldapSetting_searchSubTree              = local.ldapSetting_searchSubTree
       ldapSetting_userDnPattern              = local.ldapSetting_userDnPattern
+      ldapSetting_allowUserToAccessProfile   = local.ldapSetting_allowUserToAccessProfile
       ldapGroupSettings_descriptionAttribute = local.ldapGroupSettings_descriptionAttribute
       ldapGroupSettings_filter               = local.ldapGroupSettings_filter
       ldapGroupSettings_groupBaseDn          = local.ldapGroupSettings_groupBaseDn
@@ -42,7 +43,9 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/cloud-init/templates/bootstrap-commands.yml.tpl")
+    content      = templatefile("${path.module}/cloud-init/templates/bootstrap-commands.yml.tpl", {
+
+    })
   }
 
 }
