@@ -48,7 +48,7 @@ data "aws_route53_zone" "selected" {
 
 data "aws_ami" "artifactory_ami" {
   most_recent = true
-  owners      = local.ami_owner_id
+  owners      = [local.ami_owner_id]
   name_regex  = "${var.service}-${var.default_ami_version_pattern}"
 
   filter {
