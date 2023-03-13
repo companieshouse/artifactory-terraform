@@ -44,7 +44,7 @@ locals {
     local.placement_subnet_cidrs,
   )
 
-  ami_owner_id                                             = tolist([local.secrets.ami_owner_id])
+  ami_owner_id                                             = local.secrets.ami_owner_id
 
   ldapSetting_id                                           = "ldap_${var.service}_${var.environment}"
   ldapSetting_emailAttribute                               = local.secrets.ldapSetting_emailAttribute
@@ -66,5 +66,3 @@ locals {
   ldapGroupSettings_subTree                                = local.secrets.ldapGroupSettings_subTree
 
 }
-
-
