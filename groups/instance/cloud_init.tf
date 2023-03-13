@@ -9,7 +9,7 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/templates/system.yml.tpl", {
+    content = templatefile("${path.module}/cloud-init/templates/ldap.yml.tpl", {
       instance_fqdn                          = "${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"
       db_fqdn                                = "${var.service}db.${data.aws_route53_zone.selected.name}"
       service                                = var.service
@@ -35,6 +35,17 @@ data "cloudinit_config" "artifactory" {
       ldapGroupSettings_groupNameAttribute   = local.ldapGroupSettings_groupNameAttribute
       ldapGroupSettings_strategy             = local.ldapGroupSettings_strategy
       ldapGroupSettings_subTree              = local.ldapGroupSettings_subTree
+
+    })
+
+  }
+
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.module}/cloud-init/templates/database.yml.tpl", {
+      db_fqdn                                = local.db_fqdn
+      db_username                            = local.db_username
+      db_password                            = local.db_password
 
     })
 
