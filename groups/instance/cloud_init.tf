@@ -39,14 +39,17 @@ data "cloudinit_config" "artifactory" {
       db_password                            = local.db_password
 
     })
-
   }
 
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.module}/cloud-init/templates/access.yml.tpl", {
+    })
+  }
 
   part {
     content_type = "text/cloud-config"
     content      = templatefile("${path.module}/cloud-init/templates/bootstrap-commands.yml.tpl", {
-
     })
   }
 
