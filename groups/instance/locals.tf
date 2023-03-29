@@ -3,6 +3,7 @@ locals {
   artifactory_account_ids                                  = local.secrets.artifactory_account_ids
 
   secrets                                                  = data.vault_generic_secret.secrets.data
+  ldap_credentials = data.vault_generic_secret.ldap_secrets.data
 
   placement_subnet_cidrs                                   = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
@@ -49,8 +50,8 @@ locals {
   ldapSetting_id                                           = "ldap1"
   ldapSetting_emailAttribute                               = local.secrets.ldapSetting_emailAttribute
   ldapSetting_ldapUrl                                      = local.secrets.ldapSetting_ldapUrl
-  ldapSetting_managerDn                                    = local.secrets.ldapSetting_managerDn
-  ldapSetting_managerPassword                              = local.secrets.ldapSetting_managerPassword
+  ldapSetting_managerDn                                    = local.ldap_credentials.bind_dn
+  ldapSetting_managerPassword                              = local.ldap_credentials.bind_password
   ldapSetting_searchBase                                   = local.secrets.ldapSetting_searchBase
   ldapSetting_searchFilter                                 = local.secrets.ldapSetting_searchFilter
   ldapSetting_searchSubTree                                = local.secrets.ldapSetting_searchSubTree
