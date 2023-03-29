@@ -1,3 +1,3 @@
 runcmd:
-  - service artifactory enable
-  - service artifactory start
+  - systemctl enable artifactory
+  - systemctl start artifactory
