@@ -3,7 +3,7 @@ locals {
   artifactory_account_ids                                  = local.secrets.artifactory_account_ids
 
   secrets                                                  = data.vault_generic_secret.secrets.data
-  ldap_credentials = data.vault_generic_secret.ldap_secrets.data
+  ldap_credentials                                         = data.vault_generic_secret.ldap_secrets.data
 
   placement_subnet_cidrs                                   = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
