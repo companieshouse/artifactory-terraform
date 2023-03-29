@@ -46,7 +46,7 @@ locals {
 
   ami_owner_id                                             = local.secrets.ami_owner_id
 
-  ldapSetting_id                                           = "ldap_${var.service}_${var.environment}"
+  ldapSetting_id                                           = "ldap1"
   ldapSetting_emailAttribute                               = local.secrets.ldapSetting_emailAttribute
   ldapSetting_ldapUrl                                      = local.secrets.ldapSetting_ldapUrl
   ldapSetting_managerDn                                    = local.secrets.ldapSetting_managerDn
