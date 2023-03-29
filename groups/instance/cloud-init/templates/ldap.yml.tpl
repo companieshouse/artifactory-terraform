@@ -5,7 +5,7 @@ write_files:
       shared:
         security:
           ldapSettings:
-            ldap1:
+            ${ldapSetting_id}:
               emailAttribute: ${ldapSetting_emailAttribute}
               ldapPoisoningProtection: true
               ldapUrl: ${ldapSetting_ldapUrl}
