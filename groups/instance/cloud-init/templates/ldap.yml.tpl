@@ -1,5 +1,6 @@
 write_files:
   - path: /opt/jfrog/artifactory/var/etc/system.yaml
+    append: true
     content: |
       configVersion: 1
       shared:
