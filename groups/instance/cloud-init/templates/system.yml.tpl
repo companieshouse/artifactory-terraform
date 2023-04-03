@@ -1,7 +1,8 @@
 write_files:
   - path: /opt/jfrog/artifactory/var/etc/system.yaml
-    append: true
+    append: false
     content: |
+      configVersion: 1
       shared:
         security:
           ldapSettings:
