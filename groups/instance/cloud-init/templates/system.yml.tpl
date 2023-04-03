@@ -2,7 +2,6 @@ write_files:
   - path: /opt/jfrog/artifactory/var/etc/system.yaml
     append: true
     content: |
-      configVersion: 1
       shared:
         security:
           ldapSettings:
@@ -31,3 +30,12 @@ write_files:
               strategy: ${ldapGroupSettings_strategy}
               subTree: ${ldapGroupSettings_subTree}
           exposeApplicationHeaders: false
+        database:
+          type: postgresql
+          driver: org.postgresql.Driver
+          url: jdbc:postgresql://${db_fqdn}/artifactory
+          username: ${db_username}
+          password: ${db_password}
+      access:
+        ## Skip creating default admin user on startup
+        startUpSkipDefaultAdmin: true
