@@ -66,4 +66,6 @@ locals {
   ldapGroupSettings_strategy                               = local.secrets.ldapGroupSettings_strategy
   ldapGroupSettings_subTree                                = local.secrets.ldapGroupSettings_subTree
 
+  artifactory_access_token                                 = local.secrets.artifactory_access_token
+
 }
