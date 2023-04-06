@@ -1,5 +1,4 @@
 resource "artifactory_ldap_setting" "ldap" {
-  depends_on                   = [aws_instance.artifactory]
   key                          = local.ldapSetting_id
   enabled                      = true
   ldap_url                     = local.ldapSetting_ldapUrl
@@ -17,7 +16,6 @@ resource "artifactory_ldap_setting" "ldap" {
 }
 
 resource "artifactory_ldap_group_setting" "ldap_group" {
-  depends_on                   = [aws_instance.artifactory]
   name                         = local.ldapGroupSettings_enabledLdap
   group_base_dn                = local.ldapGroupSettings_groupBaseDn
   group_name_attribute         = local.ldapGroupSettings_groupNameAttribute
