@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 3.0, < 4.0"
     }
+    artifactory = {
+      source = "jfrog/artifactory"
+      version = "7.4.3"
+    }
   }
 
   backend "s3" {}

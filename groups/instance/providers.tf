@@ -8,3 +8,6 @@ provider "aws" {
     }
   }
 }
+
+provider "artifactory" {
+}
