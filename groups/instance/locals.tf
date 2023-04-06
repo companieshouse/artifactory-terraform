@@ -56,6 +56,7 @@ locals {
   ldapSetting_searchSubTree                                = local.secrets.ldapSetting_searchSubTree
   ldapSetting_userDnPattern                                = local.secrets.ldapSetting_userDnPattern
   ldapSetting_allowUserToAccessProfile                     = local.secrets.ldapSetting_allowUserToAccessProfile
+  ldapSetting_descriptionAttribute                         = local.secrets.ldapSetting_descriptionAttribute
   ldapGroupSettings_descriptionAttribute                   = local.secrets.ldapGroupSettings_descriptionAttribute
   ldapGroupSettings_enabledLdap                            = local.ldapSetting_id
   ldapGroupSettings_filter                                 = local.secrets.ldapGroupSettings_filter
