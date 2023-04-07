@@ -21,7 +21,7 @@ write_files:
               <searchFilter>${ldapSetting_searchFilter}</searchFilter>
               <searchBase>${ldapSetting_searchBase}</searchBase>
               <managerDn>${ldapSetting_managerDn}</managerDn>
-              <managerPassword>${ldapSetting_managerPassword}</managerPassword>
+              <managerPassword>"${ldapSetting_managerPassword}"</managerPassword>
               <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
               <allowUserToAccessProfile>${ldapSetting_allowUserToAccessProfile}</allowUserToAccessProfile>
               <descriptionAttribute>${ldapSetting_descriptionAttribute}</descriptionAttribute>
