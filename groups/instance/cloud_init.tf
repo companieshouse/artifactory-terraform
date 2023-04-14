@@ -9,7 +9,7 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/templates/artifactory.config.xml.tpl", {
+    content = templatefile("${path.module}/cloud-init/templates/artifactory.config.import.xml.tpl", {
       db_fqdn                                = local.db_fqdn
       db_port                                = local.db_port
       db_name                                = var.service

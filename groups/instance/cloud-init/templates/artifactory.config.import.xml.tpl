@@ -1,27 +1,26 @@
 #cloud-config
 write_files:
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.xml
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
+    owner: artifactory:artifactory
+    permissions: '0644'
     content: |
       <?xml version="1.0" encoding="UTF-8"?>
       <config xmlns="http://artifactory.jfrog.org/xsd/3.1.32">
         <security>
+      <!-- LDAP configuration setting -->
           <ldapSettings>
             <ldapSetting>
               <key>${ldapSetting_id}</key>
               <enabled>true</enabled>
               <ldapUrl>${ldapSetting_ldapUrl}</ldapUrl>
               <userDnPattern>${ldapSetting_userDnPattern}</userDnPattern>
-              <search>
-                <searchFilter>${ldapSetting_searchFilter}</searchFilter>
-                <searchBase>${ldapSetting_searchBase}</searchBase>
-              </search>
+              <searchFilter>${ldapSetting_searchFilter}</searchFilter>
+              <searchBase>${ldapSetting_searchBase}</searchBase>
               <managerDn>${ldapSetting_managerDn}</managerDn>
               <managerPassword>${ldapSetting_managerPassword}</managerPassword>
               <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
-              <allowUserToAccessProfile>${ldapSetting_allowUserToAccessProfile}</allowUserToAccessProfile>
-              <descriptionAttribute>${ldapSetting_descriptionAttribute}</descriptionAttribute>
-
-              <!-- LDAP group settings -->
+              <pagingSupportEnabled>true</pagingSupportEnabled>
+      <!-- LDAP group settings -->
               <groupSettings>
                 <enabled>true</enabled>
                 <groupBaseDn>${ldapGroupSettings_groupBaseDn}</groupBaseDn>
@@ -35,6 +34,7 @@ write_files:
             </ldapSetting>
           </ldapSettings>
         </security>
+      <!-- Database settings -->
         <storage>
           <database>
             <type>postgresql</type>
@@ -45,3 +45,5 @@ write_files:
           </database>
         </storage>
       </config>
+runcmd:
+  - systemctl restart artifactory
