@@ -14,12 +14,12 @@ write_files:
               <enabled>true</enabled>
               <ldapUrl>${ldapSetting_ldapUrl}</ldapUrl>
               <userDnPattern>${ldapSetting_userDnPattern}</userDnPattern>
+              <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
+              <pagingSupportEnabled>true</pagingSupportEnabled>
               <searchFilter>${ldapSetting_searchFilter}</searchFilter>
               <searchBase>${ldapSetting_searchBase}</searchBase>
               <managerDn>${ldapSetting_managerDn}</managerDn>
               <managerPassword>${ldapSetting_managerPassword}</managerPassword>
-              <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
-              <pagingSupportEnabled>true</pagingSupportEnabled>
       <!-- LDAP group settings -->
               <groupSettings>
                 <enabled>true</enabled>
@@ -47,3 +47,4 @@ write_files:
       </config>
 runcmd:
   - systemctl restart artifactory
+  - systemctl enable artifactory
