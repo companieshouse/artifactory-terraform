@@ -35,7 +35,7 @@ data "cloudinit_config" "artifactory" {
       ldapGroupSettings_subTree              = local.ldapGroupSettings_subTree
       http_proxy_host                        = ""
       http_proxy_port                        = ""
-
+      artifactory_access_token               = local.artifactory_access_token
     })
   }
 
