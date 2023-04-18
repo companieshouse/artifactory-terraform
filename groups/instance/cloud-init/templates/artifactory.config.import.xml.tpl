@@ -22,7 +22,7 @@ write_files:
                 <encryptionPolicy>supported</encryptionPolicy>
                 <expirationPolicy>
                     <enabled>false</enabled>
-                    <passwordMaxAge>60000</passwordMaxAge>
+                    <passwordMaxAge>56417</passwordMaxAge>
                     <notifyByEmail>true</notifyByEmail>
                 </expirationPolicy>
                 <resetPolicy>
