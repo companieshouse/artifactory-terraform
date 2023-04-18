@@ -22,13 +22,13 @@ write_files:
                 <encryptionPolicy>supported</encryptionPolicy>
                 <expirationPolicy>
                     <enabled>false</enabled>
-                    <passwordMaxAge>60</passwordMaxAge>
+                    <passwordMaxAge>60000</passwordMaxAge>
                     <notifyByEmail>true</notifyByEmail>
                 </expirationPolicy>
                 <resetPolicy>
                     <enabled>true</enabled>
                     <maxAttemptsPerAddress>3</maxAttemptsPerAddress>
-                    <timeToBlockInMinutes>60</timeToBlockInMinutes>
+                    <timeToBlockInMinutes>600</timeToBlockInMinutes>
                 </resetPolicy>
             </passwordSettings>
             <ldapSettings>
