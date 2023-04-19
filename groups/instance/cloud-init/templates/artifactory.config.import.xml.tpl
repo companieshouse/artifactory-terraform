@@ -36,6 +36,7 @@ write_files:
                       <key>${ldapSetting_id}</key>
                       <enabled>true</enabled>
                       <ldapUrl>${ldapSetting_ldapUrl}</ldapUrl>
+                      <userDnPattern></userDnPattern>
                       <search>
                           <searchFilter>${ldapSetting_searchFilter}</searchFilter>
                           <searchBase>${ldapSetting_searchBase}</searchBase>
