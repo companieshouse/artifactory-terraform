@@ -4,19 +4,19 @@ write_files:
     permissions: '0644'
     content: |
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-      <config xmlns="http://artifactory.jfrog.org/xsd/2.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jfrog.org/xsd/artifactory-v2_1_5.xsd">
+      <config xmlns="http://artifactory.jfrog.org/xsd/3.1.32" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jfrog.org/xsd/artifactory-v3_1_32.xsd">
           <offlineMode>false</offlineMode>
+          <archiveIndexEnabled>false</archiveIndexEnabled>
           <helpLinksEnabled>true</helpLinksEnabled>
           <fileUploadMaxSizeMb>100</fileUploadMaxSizeMb>
           <revision>2</revision>
           <dateFormat>dd-MM-yy HH:mm:ss z</dateFormat>
           <addons>
               <showAddonsInfo>true</showAddonsInfo>
-              <showAddonsInfoCookie>1530683484114</showAddonsInfoCookie>
+              <showAddonsInfoCookie>1681908647859</showAddonsInfoCookie>
           </addons>
           <security>
-              <anonAccessEnabled>true</anonAccessEnabled>
-              <anonAccessToBuildInfosDisabled>false</anonAccessToBuildInfosDisabled>
+              <anonAccessEnabled>false</anonAccessEnabled>
               <hideUnauthorizedResources>false</hideUnauthorizedResources>
               <passwordSettings>
                   <encryptionPolicy>supported</encryptionPolicy>
@@ -28,7 +28,7 @@ write_files:
                   <resetPolicy>
                       <enabled>true</enabled>
                       <maxAttemptsPerAddress>3</maxAttemptsPerAddress>
-                      <timeToBlockInMinutes>600</timeToBlockInMinutes>
+                      <timeToBlockInMinutes>60</timeToBlockInMinutes>
                   </resetPolicy>
               </passwordSettings>
               <ldapSettings>
@@ -36,7 +36,6 @@ write_files:
                       <key>${ldapSetting_id}</key>
                       <enabled>true</enabled>
                       <ldapUrl>${ldapSetting_ldapUrl}</ldapUrl>
-                      <userDnPattern></userDnPattern>
                       <search>
                           <searchFilter>${ldapSetting_searchFilter}</searchFilter>
                           <searchBase>${ldapSetting_searchBase}</searchBase>
@@ -44,10 +43,10 @@ write_files:
                           <managerDn>${ldapSetting_managerDn}</managerDn>
                           <managerPassword>${ldapSetting_managerPassword}</managerPassword>
                       </search>
-                      <autoCreateUser>true</autoCreateUser>
-                      <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
-                      <ldapPoisoningProtection>true</ldapPoisoningProtection>
-                      <allowUserToAccessProfile>false</allowUserToAccessProfile>
+                          <autoCreateUser>true</autoCreateUser>
+                          <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
+                          <ldapPoisoningProtection>true</ldapPoisoningProtection>
+                          <allowUserToAccessProfile>false</allowUserToAccessProfile>
                   </ldapSetting>
               </ldapSettings>
               <ldapGroupSettings>
@@ -71,6 +70,9 @@ write_files:
                   <adminToken>${artifactory_access_token}</adminToken>
                   <userTokenMaxExpiresInMinutes>60</userTokenMaxExpiresInMinutes>
               </accessClientSettings>
+              <buildGlobalBasicReadAllowed>false</buildGlobalBasicReadAllowed>
+              <buildGlobalBasicReadForAnonymous>false</buildGlobalBasicReadForAnonymous>
+              <basicAuthEnabled>true</basicAuthEnabled>
           </security>
           <backups>
               <backup>
@@ -81,9 +83,9 @@ write_files:
                   <createArchive>false</createArchive>
                   <excludedRepositories/>
                   <sendMailOnError>true</sendMailOnError>
-                  <excludeBuilds>false</excludeBuilds>
                   <excludeNewRepositories>false</excludeNewRepositories>
                   <precalculate>false</precalculate>
+                  <exportMissionControl>false</exportMissionControl>
               </backup>
               <backup>
                   <key>backup-weekly</key>
@@ -93,9 +95,9 @@ write_files:
                   <createArchive>false</createArchive>
                   <excludedRepositories/>
                   <sendMailOnError>true</sendMailOnError>
-                  <excludeBuilds>false</excludeBuilds>
                   <excludeNewRepositories>false</excludeNewRepositories>
                   <precalculate>false</precalculate>
+                  <exportMissionControl>false</exportMissionControl>
               </backup>
           </backups>
           <indexer>
@@ -104,6 +106,39 @@ write_files:
           </indexer>
           <localRepositories>
               <localRepository>
+                  <key>artifactory-build-info</key>
+                  <type>buildinfo</type>
+                  <description>Build Info repository</description>
+                  <includesPattern>**/*</includesPattern>
+                  <repoLayoutRef>simple-default</repoLayoutRef>
+                  <dockerApiVersion>V2</dockerApiVersion>
+                  <forceNugetAuthentication>false</forceNugetAuthentication>
+                  <forceConanAuthentication>false</forceConanAuthentication>
+                  <ddebSupported>false</ddebSupported>
+                  <signedUrlTtl>90</signedUrlTtl>
+                  <blackedOut>false</blackedOut>
+                  <handleReleases>true</handleReleases>
+                  <handleSnapshots>true</handleSnapshots>
+                  <maxUniqueSnapshots>0</maxUniqueSnapshots>
+                  <maxUniqueTags>0</maxUniqueTags>
+                  <blockPushingSchema1>true</blockPushingSchema1>
+                  <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
+                  <propertySets>
+                      <propertySetRef>artifactory</propertySetRef>
+                  </propertySets>
+                  <archiveBrowsingEnabled>false</archiveBrowsingEnabled>
+                  <priorityResolution>false</priorityResolution>
+                  <snapshotVersionBehavior>unique</snapshotVersionBehavior>
+                  <localRepoChecksumPolicyType>client-checksums</localRepoChecksumPolicyType>
+                  <calculateYumMetadata>false</calculateYumMetadata>
+                  <yumRootDepth>0</yumRootDepth>
+                  <debianTrivialLayout>false</debianTrivialLayout>
+                  <enableFileListsIndexing>false</enableFileListsIndexing>
+                  <dockerTagRetention>1</dockerTagRetention>
+                  <enableComposerV1Indexing>false</enableComposerV1Indexing>
+                  <terraformType>MODULE</terraformType>
+              </localRepository>
+              <localRepository>
                   <key>example-repo-local</key>
                   <type>generic</type>
                   <description>Example artifactory repository</description>
@@ -111,39 +146,37 @@ write_files:
                   <repoLayoutRef>simple-default</repoLayoutRef>
                   <dockerApiVersion>V2</dockerApiVersion>
                   <forceNugetAuthentication>false</forceNugetAuthentication>
+                  <forceConanAuthentication>false</forceConanAuthentication>
+                  <ddebSupported>false</ddebSupported>
+                  <signedUrlTtl>90</signedUrlTtl>
                   <blackedOut>false</blackedOut>
                   <handleReleases>true</handleReleases>
                   <handleSnapshots>true</handleSnapshots>
                   <maxUniqueSnapshots>0</maxUniqueSnapshots>
                   <maxUniqueTags>0</maxUniqueTags>
+                  <blockPushingSchema1>true</blockPushingSchema1>
                   <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
                   <propertySets>
                       <propertySetRef>artifactory</propertySetRef>
                   </propertySets>
                   <archiveBrowsingEnabled>false</archiveBrowsingEnabled>
+                  <priorityResolution>false</priorityResolution>
                   <snapshotVersionBehavior>unique</snapshotVersionBehavior>
                   <localRepoChecksumPolicyType>client-checksums</localRepoChecksumPolicyType>
                   <calculateYumMetadata>false</calculateYumMetadata>
                   <yumRootDepth>0</yumRootDepth>
                   <debianTrivialLayout>false</debianTrivialLayout>
                   <enableFileListsIndexing>false</enableFileListsIndexing>
+                  <dockerTagRetention>1</dockerTagRetention>
+                  <enableComposerV1Indexing>false</enableComposerV1Indexing>
+                  <terraformType>MODULE</terraformType>
               </localRepository>
           </localRepositories>
           <remoteRepositories/>
           <virtualRepositories/>
-          <distributionRepositories/>
-          {% if (http_proxy_host is defined) and (http_proxy_port is defined) %}
-          <proxies>
-              <proxy>
-                  <key>${http_proxy_host}</key>
-                  <host>${http_proxy_host}</host>
-                  <port>${http_proxy_port}</port>
-                  <defaultProxy>true</defaultProxy>
-              </proxy>
-          </proxies>
-          {% else %}
+          <federatedRepositories/>
+          <releaseBundlesRepositories/>
           <proxies/>
-          {% endif %}
           <reverseProxies/>
           <propertySets>
               <propertySet>
@@ -520,6 +553,7 @@ write_files:
                   </properties>
               </propertySet>
           </propertySets>
+          <systemProperties/>
           <repoLayouts>
               <repoLayout>
                   <name>maven-2-default</name>
@@ -534,14 +568,6 @@ write_files:
                   <artifactPathPattern>[org]/[module]/[baseRev](-[folderItegRev])/[type]s/[module](-[classifier])-[baseRev](-[fileItegRev]).[ext]</artifactPathPattern>
                   <distinctiveDescriptorPathPattern>true</distinctiveDescriptorPathPattern>
                   <descriptorPathPattern>[org]/[module]/[baseRev](-[folderItegRev])/[type]s/ivy-[baseRev](-[fileItegRev]).xml</descriptorPathPattern>
-                  <folderIntegrationRevisionRegExp>\d{14}</folderIntegrationRevisionRegExp>
-                  <fileIntegrationRevisionRegExp>\d{14}</fileIntegrationRevisionRegExp>
-              </repoLayout>
-              <repoLayout>
-                  <name>gradle-default</name>
-                  <artifactPathPattern>[org]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]</artifactPathPattern>
-                  <distinctiveDescriptorPathPattern>true</distinctiveDescriptorPathPattern>
-                  <descriptorPathPattern>[org]/[module]/ivy-[baseRev](-[fileItegRev]).xml</descriptorPathPattern>
                   <folderIntegrationRevisionRegExp>\d{14}</folderIntegrationRevisionRegExp>
                   <fileIntegrationRevisionRegExp>\d{14}</fileIntegrationRevisionRegExp>
               </repoLayout>
@@ -562,7 +588,7 @@ write_files:
               </repoLayout>
               <repoLayout>
                   <name>npm-default</name>
-                  <artifactPathPattern>[orgPath]/[module]/[module]-[baseRev](-[fileItegRev]).tgz</artifactPathPattern>
+                  <artifactPathPattern>[orgPath]/-/[module]-[baseRev](-[fileItegRev]).tgz</artifactPathPattern>
                   <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
                   <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
                   <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
@@ -597,6 +623,13 @@ write_files:
                   <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
               </repoLayout>
               <repoLayout>
+                  <name>cargo-default</name>
+                  <artifactPathPattern>crates/[module]/[module]-[baseRev].[ext]</artifactPathPattern>
+                  <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+                  <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+                  <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+              </repoLayout>
+              <repoLayout>
                   <name>composer-default</name>
                   <artifactPathPattern>[orgPath]/[module]/[module]-[baseRev](-[fileItegRev]).[ext]</artifactPathPattern>
                   <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
@@ -605,10 +638,10 @@ write_files:
               </repoLayout>
               <repoLayout>
                   <name>conan-default</name>
-                  <artifactPathPattern>[org]/[module]/[baseRev]/[channel&lt;[^/]+&gt;][remainder&lt;(?:.*)&gt;].[ext]</artifactPathPattern>
+                  <artifactPathPattern>[org]/[module]/[baseRev]/[channel&lt;[^/]+&gt;]/[folderItegRev]/(package/[package_id&lt;[^/]+&gt;]/[fileItegRev]/)[remainder&lt;(?:.+)&gt;]</artifactPathPattern>
                   <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
-                  <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
-                  <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+                  <folderIntegrationRevisionRegExp>[^/]+</folderIntegrationRevisionRegExp>
+                  <fileIntegrationRevisionRegExp>[^/]+</fileIntegrationRevisionRegExp>
               </repoLayout>
               <repoLayout>
                   <name>puppet-default</name>
@@ -619,7 +652,37 @@ write_files:
               </repoLayout>
               <repoLayout>
                   <name>go-default</name>
-                  <artifactPathPattern>[orgPath]/[module]/@v/v[refs].zip</artifactPathPattern>
+                  <artifactPathPattern>[orgPath]/[module]/@v/v[baseRev](-[fileItegRev]).[ext]</artifactPathPattern>
+                  <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+                  <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+                  <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+              </repoLayout>
+              <repoLayout>
+                  <name>build-default</name>
+                  <artifactPathPattern>[orgPath]/[module](-[fileItegRev]).[ext]</artifactPathPattern>
+                  <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+                  <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+                  <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+              </repoLayout>
+              <repoLayout>
+                  <name>terraform-module-default</name>
+                  <artifactPathPattern>[namespace]/[module-name]/[provider]/[version].[ext]</artifactPathPattern>
+                  <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+                  <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+                  <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+              </repoLayout>
+              <repoLayout>
+                  <name>terraform-provider-default</name>
+                  <artifactPathPattern>
+                      [namespace]/[provider-name]/[version]/terraform-provider-[provider-name]_[version]_[os]_[arch].[ext]
+                  </artifactPathPattern>
+                  <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
+                  <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
+                  <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
+              </repoLayout>
+              <repoLayout>
+                  <name>swift-default</name>
+                  <artifactPathPattern>[scope]/[name]/[name]-[version].zip</artifactPathPattern>
                   <distinctiveDescriptorPathPattern>false</distinctiveDescriptorPathPattern>
                   <folderIntegrationRevisionRegExp>.*</folderIntegrationRevisionRegExp>
                   <fileIntegrationRevisionRegExp>.*</fileIntegrationRevisionRegExp>
@@ -642,6 +705,7 @@ write_files:
               <maxDownloadSizeMb>1024</maxDownloadSizeMb>
               <maxFiles>5000</maxFiles>
               <maxConcurrentRequests>10</maxConcurrentRequests>
+              <enabledEmptyDirectories>false</enabledEmptyDirectories>
           </folderDownloadConfig>
           <trashcanConfig>
               <enabled>true</enabled>
@@ -652,11 +716,23 @@ write_files:
               <blockPushReplications>false</blockPushReplications>
               <blockPullReplications>false</blockPullReplications>
           </replicationsConfig>
-          <bintrayApplications/>
           <sumoLogicConfig>
               <enabled>false</enabled>
           </sumoLogicConfig>
           <releaseBundlesConfig>
               <incompleteCleanupPeriodHours>720</incompleteCleanupPeriodHours>
           </releaseBundlesConfig>
+          <signedUrlConfig>
+              <maxValidForSeconds>31536000</maxValidForSeconds>
+          </signedUrlConfig>
+          <downloadRedirectConfig>
+              <fileMinimumSize>1</fileMinimumSize>
+          </downloadRedirectConfig>
+          <keyPairs/>
+          <retentionSettings>
+              <retentionPolicies/>
+          </retentionSettings>
+          <authentication>
+              <tokens/>
+          </authentication>
       </config>
