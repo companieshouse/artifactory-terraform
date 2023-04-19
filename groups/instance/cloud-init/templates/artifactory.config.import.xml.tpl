@@ -1,5 +1,5 @@
 write_files:
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.xml
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/test.xml
     owner: artifactory:artifactory
     permissions: '0644'
     content: |
