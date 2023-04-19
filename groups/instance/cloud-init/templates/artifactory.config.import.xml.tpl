@@ -1,6 +1,5 @@
 write_files:
   - path: /home/ec2-user/test.txt
-    owner: artifactory:artifactory
     permissions: '0644'
     content: |
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
