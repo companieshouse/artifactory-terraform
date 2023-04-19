@@ -10,7 +10,7 @@ variable "environment" {
 
 variable "default_instance_type" {
   description = "The default instance type to use for instances"
-  default     = "t3.medium"
+  default     = "t2.medium"
   type        = string
 }
 
