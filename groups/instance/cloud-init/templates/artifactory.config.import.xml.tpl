@@ -48,6 +48,7 @@ write_files:
                           <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
                           <ldapPoisoningProtection>true</ldapPoisoningProtection>
                           <allowUserToAccessProfile>false</allowUserToAccessProfile>
+                          <pagingSupportEnabled>true</pagingSupportEnabled>
                   </ldapSetting>
               </ldapSettings>
               <ldapGroupSettings>
@@ -61,6 +62,7 @@ write_files:
                       <descriptionAttribute>${ldapGroupSettings_descriptionAttribute}</descriptionAttribute>
                       <strategy>${ldapGroupSettings_strategy}</strategy>
                       <enabledLdap>${ldapSetting_id}</enabledLdap>
+                      <forceAttributeSearch>false</forceAttributeSearch>
                   </ldapGroupSetting>
               </ldapGroupSettings>
               <userLockPolicy>
