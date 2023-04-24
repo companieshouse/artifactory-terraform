@@ -145,7 +145,7 @@ write_files:
         ## Parameters for the application startup scripts
         script:
           ## The max time to wait for Tomcat to come up (START_TMO)
-          #serviceStartTimeout: 60
+          serviceStartTimeout: 600
       
         ## Add any custom environment variables to be passed to all the services
         ## Environment variables starting with JF_ are not allowed, will be ignored with a warning if it is added
