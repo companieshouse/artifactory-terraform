@@ -1,3 +1,4 @@
+#cloud-config
 write_files:
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
     owner: artifactory:artifactory
