@@ -1,5 +1,5 @@
 write_files:
-  - path: /opt/jfrog/artifactory/var/etc/temp.txt
+  - path: /opt/jfrog/artifactory/var/etc/system.yaml
     owner: artifactory:artifactory
     permissions: '0644'
     content: |
