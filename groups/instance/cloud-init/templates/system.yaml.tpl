@@ -53,9 +53,9 @@ write_files:
         #haEnabled: true
 
         ## Database Configuration
-        database:
-          type: postgresql
-          driver: org.postgresql.Driver
-          url: "jdbc:postgresql://${db_fqdn}/artifactory"
-          username: ${db_username}
-          password: ${db_password}    
+        #database:
+          #type: postgresql
+          #driver: org.postgresql.Driver
+          #url: "jdbc:postgresql://${db_fqdn}/artifactory"
+          #username: ${db_username}
+          #password: ${db_password}    
