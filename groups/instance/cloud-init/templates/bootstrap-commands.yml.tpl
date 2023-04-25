@@ -1,6 +1,5 @@
 runcmd:
   - systemctl enable artifactory
-  - systemctl restart artifactory
   - wait
-  - mv /opt/jfrog/artifactory/var/etc/artifactory.config.import.xml /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
+  - cp /opt/jfrog/artifactory/var/etc/system.yaml /opt/jfrog/artifactory/var/etc/artifactory/system.yaml.old
   - systemctl restart artifactory

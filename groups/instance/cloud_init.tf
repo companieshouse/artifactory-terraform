@@ -43,7 +43,7 @@ data "cloudinit_config" "artifactory" {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/system.yaml.tpl", {
       db_fqdn                                = local.db_fqdn
-      #db_name                                = var.service
+      db_name                                = var.service
       db_username                            = local.db_username
       db_password                            = local.db_password
     })
