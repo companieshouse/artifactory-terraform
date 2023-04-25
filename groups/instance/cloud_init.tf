@@ -9,7 +9,7 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/templates/test.tpl", {
+    content = templatefile("${path.module}/cloud-init/templates/enable_config.tpl", {
       db_fqdn                                = local.db_fqdn
       db_port                                = local.db_port
       db_name                                = var.service
@@ -37,7 +37,7 @@ data "cloudinit_config" "artifactory" {
       http_proxy_port                        = ""
       artifactory_access_token               = local.artifactory_access_token
       db_fqdn                                = local.db_fqdn
-      db_name                                = var.service
+      #db_name                                = var.service
       db_username                            = local.db_username
       db_password                            = local.db_password
     })
