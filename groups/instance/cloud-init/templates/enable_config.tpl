@@ -1,4 +1,10 @@
 write_files:
+  - path: /opt/jfrog/artifactory/var/etc/test.txt
+    owner: artifactory:artifactory
+    permissions: '0644'
+    content: |
+      ## TEST_FILE ##
+
   - path: /opt/jfrog/artifactory/var/etc/system.yaml
     owner: artifactory:artifactory
     permissions: '0644'
