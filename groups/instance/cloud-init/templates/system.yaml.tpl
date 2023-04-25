@@ -1,5 +1,5 @@
 write_files:
-  - path: /opt/jfrog/artifactory/var/etc/system.yaml
+  - path: /opt/jfrog/artifactory/var/etc/system.yaml.new
     owner: artifactory:artifactory
     permissions: '0644'
     content: |
