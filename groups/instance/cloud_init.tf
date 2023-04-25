@@ -37,7 +37,7 @@ data "cloudinit_config" "artifactory" {
       http_proxy_port                        = ""
       artifactory_access_token               = local.artifactory_access_token
       db_fqdn                                = local.db_fqdn
-      #db_name                                = var.service
+      db_name                                = var.service
       db_username                            = local.db_username
       db_password                            = local.db_password
     })
