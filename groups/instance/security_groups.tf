@@ -5,7 +5,7 @@ resource "aws_security_group" "instance_security_group" {
 
   ingress {
     description      = "Artifactory"
-    from_port        = 8081
+    from_port        = 8040
     to_port          = 8082
     protocol         = "tcp"
     cidr_blocks      = local.instance_cidrs
