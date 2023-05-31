@@ -94,7 +94,7 @@ write_files:
               </passwordSettings>
               <ldapSettings>
                   <ldapSetting>
-                      <key>${ldap_setting_id}</key>
+                      <key>${ldap_setting_key}</key>
                       <enabled>true</enabled>
                       <ldapUrl>${ldap_setting_ldap_url}</ldapUrl>
                       <userDnPattern></userDnPattern>
@@ -114,7 +114,7 @@ write_files:
               </ldapSettings>
               <ldapGroupSettings>
                   <ldapGroupSetting>
-                      <name>${ldap_setting_id}</name>
+                      <name>${ldap_setting_key}</name>
                       <groupBaseDn>${ldap_group_settings_group_basedn}</groupBaseDn>
                       <groupNameAttribute>${ldap_group_settings_group_name_attribute}</groupNameAttribute>
                       <groupMemberAttribute>${ldap_group_settings_group_member_attribute}</groupMemberAttribute>
@@ -122,7 +122,7 @@ write_files:
                       <filter>${ldap_group_settings_filter}</filter>
                       <descriptionAttribute>${ldap_group_settings_description_attribute}</descriptionAttribute>
                       <strategy>${ldap_group_settings_strategy}</strategy>
-                      <enabledLdap>${ldap_setting_id}</enabledLdap>
+                      <enabledLdap>${ldap_setting_key}</enabledLdap>
                       <forceAttributeSearch>false</forceAttributeSearch>
                   </ldapGroupSetting>
               </ldapGroupSettings>

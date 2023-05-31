@@ -15,7 +15,7 @@ data "cloudinit_config" "artifactory" {
       db_name                                     = var.service
       db_username                                 = local.db_username
       db_password                                 = local.db_password
-      ldap_setting_id                             = local.ldap_setting_id
+      ldap_setting_key                            = local.ldap_setting_key
       ldap_setting_email_attribute                = local.ldap_setting_email_attribute
       ldap_setting_ldap_url                       = local.ldap_setting_ldap_url
       ldap_setting_search_base                    = local.ldap_setting_search_base

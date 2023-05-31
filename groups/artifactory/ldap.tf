@@ -1,5 +1,5 @@
 resource "artifactory_ldap_setting" "ldap" {
-  key                           = local.ldap_setting_id
+  key                           = local.ldap_setting_key
   enabled                       = true
   ldap_url                      = local.ldap_setting_ldap_url
   user_dn_pattern               = local.ldap_setting_user_dn_pattern
