@@ -94,35 +94,35 @@ write_files:
               </passwordSettings>
               <ldapSettings>
                   <ldapSetting>
-                      <key>${ldapSetting_id}</key>
+                      <key>${ldap_setting_id}</key>
                       <enabled>true</enabled>
-                      <ldapUrl>${ldapSetting_ldapUrl}</ldapUrl>
+                      <ldapUrl>${ldap_setting_ldap_url}</ldapUrl>
                       <userDnPattern></userDnPattern>
                       <search>
-                          <searchFilter>${ldapSetting_searchFilter}</searchFilter>
-                          <searchBase>${ldapSetting_searchBase}</searchBase>
-                          <searchSubTree>true</searchSubTree>
-                          <managerDn>${ldapSetting_managerDn}</managerDn>
-                          <managerPassword>${ldapSetting_managerPassword}</managerPassword>
+                          <searchFilter>${ldap_setting_search_filter}</searchFilter>
+                          <searchBase>${ldap_setting_search_base}</searchBase>
+                          <searchSubTree>${ldap_setting_search_subtree}</searchSubTree>
+                          <managerDn>${ldap_setting_managerdn}</managerDn>
+                          <managerPassword>${ldap_setting_manager_password}</managerPassword>
                       </search>
                           <autoCreateUser>true</autoCreateUser>
-                          <emailAttribute>${ldapSetting_emailAttribute}</emailAttribute>
+                          <emailAttribute>${ldap_setting_email_attribute}</emailAttribute>
                           <ldapPoisoningProtection>true</ldapPoisoningProtection>
-                          <allowUserToAccessProfile>false</allowUserToAccessProfile>
+                          <allowUserToAccessProfile>${ldap_setting_allow_user_to_access_profile}</allowUserToAccessProfile>
                           <pagingSupportEnabled>true</pagingSupportEnabled>
                   </ldapSetting>
               </ldapSettings>
               <ldapGroupSettings>
                   <ldapGroupSetting>
-                      <name>${ldapSetting_id}</name>
-                      <groupBaseDn>${ldapGroupSettings_groupBaseDn}</groupBaseDn>
-                      <groupNameAttribute>${ldapGroupSettings_groupNameAttribute}</groupNameAttribute>
-                      <groupMemberAttribute>${ldapGroupSettings_groupMemberAttribute}</groupMemberAttribute>
-                      <subTree>${ldapGroupSettings_subTree}</subTree>
-                      <filter>${ldapGroupSettings_filter}</filter>
-                      <descriptionAttribute>${ldapGroupSettings_descriptionAttribute}</descriptionAttribute>
-                      <strategy>${ldapGroupSettings_strategy}</strategy>
-                      <enabledLdap>${ldapSetting_id}</enabledLdap>
+                      <name>${ldap_setting_id}</name>
+                      <groupBaseDn>${ldap_group_settings_group_basedn}</groupBaseDn>
+                      <groupNameAttribute>${ldap_group_settings_group_name_attribute}</groupNameAttribute>
+                      <groupMemberAttribute>${ldap_group_settings_group_member_attribute}</groupMemberAttribute>
+                      <subTree>${ldap_group_settings_subtree}</subTree>
+                      <filter>${ldap_group_settings_filter}</filter>
+                      <descriptionAttribute>${ldap_group_settings_description_attribute}</descriptionAttribute>
+                      <strategy>${ldap_group_settings_strategy}</strategy>
+                      <enabledLdap>${ldap_setting_id}</enabledLdap>
                       <forceAttributeSearch>false</forceAttributeSearch>
                   </ldapGroupSetting>
               </ldapGroupSettings>
