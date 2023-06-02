@@ -1,15 +1,21 @@
+# ------------------------------------------------------------------------------
+# AWS Variables
+# ------------------------------------------------------------------------------
 variable "account_name" {
   description = "The name of the AWS account we're using"
+  default     = "development"
   type        = string
 }
 
 variable "environment" {
   description = "The environment name to be used when creating AWS resources"
+  default     = "devops1"
   type        = string
 }
 
 variable "region" {
   description = "The AWS region in which resources will be created"
+  default     = "eu-west-2"
   type        = string
 }
 
