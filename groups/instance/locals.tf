@@ -47,7 +47,7 @@ locals {
   ami_owner_id                                             = local.secrets.ami_owner_id
   artifactory_access_token                                 = local.secrets.artifactory_access_token
 
-  ldap_setting_key                             = "ldap1"
+  ldap_setting_key                            = "ldap1"
   ldap_setting_email_attribute                = local.secrets.ldap_setting_email_attribute
   ldap_setting_ldap_url                       = local.secrets.ldap_setting_ldap_url
   ldap_setting_managerdn                      = local.secrets.ldap_setting_managerdn
