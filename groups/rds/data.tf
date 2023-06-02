@@ -1,7 +1,3 @@
-data "aws_ec2_managed_prefix_list" "administration" {
-  name = "administration-cidr-ranges"
-}
-
 data "vault_generic_secret" "account_ids" {
   path = "aws-accounts/account-ids"
 }
