@@ -1,5 +1,5 @@
-terraform {
-  required_version = ">= 0.13.0, < 0.14"
+#terraform {
+#  required_version = ">= 0.13.0, < 0.14"
 
   #required_providers {
     #artifactory = {
@@ -8,5 +8,5 @@ terraform {
     #}
   #}
 
-  backend "s3" {}
-}
+#  backend "s3" {}
+#}
