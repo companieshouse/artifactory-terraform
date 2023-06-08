@@ -7,9 +7,9 @@ terraform {
       version = ">= 3.0, < 4.0"
     }
     artifactory = {
-      #source  = "registry.terraform.io/jfrog/artifactory"
-      source = "jfrog/artifactory"
-    #  version = "7.4.3"
+      #source = "jfrog/artifactory"
+      source  = "registry.terraform.io/jfrog/artifactory"
+      version = "7.4.3"
     }
   }
 
