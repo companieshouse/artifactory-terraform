@@ -57,7 +57,3 @@ data "aws_ami" "artifactory_ami" {
   }
 }
 
-data "aws_route53_zone" "selected" {
-  name         = local.dns_zone_name
-  private_zone = false
-}
