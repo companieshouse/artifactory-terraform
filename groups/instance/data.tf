@@ -29,7 +29,7 @@ data "aws_vpc" "automation" {
 
 data "aws_subnet" "automation" {
   for_each = data.aws_subnet_ids.automation.ids
-  id = each.value
+  id       = each.value
 }
 
 data "aws_subnet_ids" "automation" {
@@ -50,6 +50,8 @@ data "aws_ami" "artifactory_ami" {
   most_recent = true
   owners      = [local.ami_owner_id]
   name_regex  = "${var.service}-${var.default_ami_version_pattern}"
+
+  # TODO implment at a later stage filter pattern for AMI Id generation, potential replace with AMI ID in concourse
 
   filter {
     name   = "name"

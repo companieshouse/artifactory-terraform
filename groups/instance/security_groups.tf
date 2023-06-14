@@ -4,23 +4,21 @@ resource "aws_security_group" "instance_security_group" {
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {
-    description      = "Artifactory"
-    from_port        = 8040
-    to_port          = 8082
-    protocol         = "tcp"
-    cidr_blocks      = local.instance_cidrs
-    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id,
-    ]
+    description = "Artifactory"
+    from_port   = 8081
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = local.placement_subnet_cidrs
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
   ingress {
-    description      = "SSH"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = local.instance_cidrs
-    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id,
-    ]
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = local.placement_subnet_cidrs
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
   egress {
@@ -32,8 +30,8 @@ resource "aws_security_group" "instance_security_group" {
   }
 
   tags = {
-    Name    = "${var.environment}-${var.service}-instance"
-    Type    = "security-group"
+    Name = "${var.environment}-${var.service}-instance"
+    Type = "security-group"
   }
 
 }

@@ -10,7 +10,7 @@ terraform {
       source = "jfrog/artifactory"
       #source  = "registry.terraform.io/jfrog/artifactory"
       version = "7.4.3"
-     }
+    }
   }
 
   backend "s3" {}

@@ -1,8 +1,8 @@
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = local.db_subnet
   subnet_ids = local.placement_subnet_ids
-  tags       = {
-    Name        = local.db_subnet
+  tags = {
+    Name = local.db_subnet
   }
 }
 
@@ -10,7 +10,7 @@ resource "aws_db_parameter_group" "db_parameter_group" {
   name        = "${var.environment}-${var.service}-${var.db_engine}-parameter-group"
   family      = "${var.db_engine}${var.db_engine_major_version}"
   description = "Parameter group for ${var.environment}-${var.service}-${var.db_engine}"
-  tags        = {
+  tags = {
     Name = "${var.environment}-${var.service}-${var.db_engine}"
     Type = "parameter-group"
   }
@@ -24,7 +24,7 @@ resource "aws_db_option_group" "db_option_group" {
   option_group_description = "Option group for ${var.environment}-${var.service}-${var.db_engine}"
   engine_name              = var.db_engine
   major_engine_version     = var.db_engine_major_version
-  tags                     = {
+  tags = {
     Name = "${var.environment}-${var.service}-${var.db_engine}"
     Type = "option-group"
   }
@@ -52,7 +52,7 @@ resource "aws_db_instance" "db" {
   skip_final_snapshot             = false
   identifier                      = "${var.environment}-${var.service}-${var.db_engine}"
   vpc_security_group_ids          = [aws_security_group.db_security_group.id]
-  tags                            = {
+  tags = {
     Type = "rds"
   }
 }

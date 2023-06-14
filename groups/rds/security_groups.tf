@@ -4,11 +4,11 @@ resource "aws_security_group" "db_security_group" {
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {
-    description      = "Database ingress from permitted CIDRs"
-    from_port        = var.db_port
-    to_port          = var.db_port
-    protocol         = "tcp"
-    cidr_blocks      = local.placement_subnet_cidrs
+    description = "Database ingress from permitted CIDRs"
+    from_port   = var.db_port
+    to_port     = var.db_port
+    protocol    = "tcp"
+    cidr_blocks = local.placement_subnet_cidrs
   }
 
   egress {
