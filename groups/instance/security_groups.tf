@@ -8,7 +8,7 @@ resource "aws_security_group" "instance_security_group" {
     from_port   = 8081
     to_port     = 8082
     protocol    = "tcp"
-    cidr_blocks = local.placement_subnet_cidrs
+    cidr_blocks = [local.concourse_access_cidrs]
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
@@ -17,7 +17,7 @@ resource "aws_security_group" "instance_security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = local.placement_subnet_cidrs
+    cidr_blocks = [local.concourse_access_cidrs]
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 

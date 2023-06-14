@@ -25,6 +25,7 @@ locals {
   ))
   automation_subnet_pattern = local.secrets.automation_subnet_pattern
   automation_vpc_pattern    = local.secrets.automation_vpc_pattern
+  concourse_access_cidrs    = local.secrets.concourse_access_cidrs
 
   certificate_arn             = lookup(local.secrets, "certificate_arn", null)
   dns_zone_name               = local.secrets.dns_zone_name
