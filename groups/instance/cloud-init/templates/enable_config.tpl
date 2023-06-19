@@ -805,5 +805,4 @@ write_files:
     owner: artifactory:artifactory
     permissions: '0644'
     content: |
-      test 
-      ${artifactory_access_token}
+      ${artifactory_license}
