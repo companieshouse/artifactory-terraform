@@ -38,14 +38,7 @@ data "cloudinit_config" "artifactory" {
       db_fqdn                                    = local.db_fqdn
       db_username                                = local.db_username
       db_password                                = local.db_password
-    })
-  }
-
-  part {
-    content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/templates/enable_license.tpl", {
       artifactory_license                        = local.artifactory_license
-      artifactory_access_token                   = local.artifactory_access_token
     })
   }
 
