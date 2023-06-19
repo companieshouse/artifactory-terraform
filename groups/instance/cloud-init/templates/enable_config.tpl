@@ -801,8 +801,8 @@ write_files:
           </authentication>
       </config>
 
-path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
     owner: artifactory:artifactory
     permissions: '0644'
     content: |
-    ${artifactory_license}
+      ${artifactory_license}
