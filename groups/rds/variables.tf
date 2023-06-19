@@ -10,7 +10,7 @@ variable "environment" {
 
 variable "default_ami_version_pattern" {
   description = "The default AMI version pattern to use when matching AMIs for instances"
-  default =   "\\d.\\d.\\d-\\d+"
+  default     = "\\d.\\d.\\d-\\d+"
   type        = string
 }
 
@@ -93,30 +93,30 @@ variable "rds_cloudwatch_export_logs_retention_period" {
 
 variable "rds_cloudwatch_logs_exports" {
   description = "List of chosen log exports for database RDS Cloudwatch Logs"
-  default     = ["audit", "error", "general", "slowquery"]
+  default     = ["postgresql", "upgrade"]
   type        = list(any)
 }
 
 variable "db_deletion_protection" {
   description = "Database deletion protection"
-  default = true
-  type = bool
+  default     = true
+  type        = bool
 }
 
 variable "db_backup_retention_period" {
   description = "Database backup retention period"
-  default = 7
-  type = number
+  default     = 7
+  type        = number
 }
 
 variable "db_backup_window" {
   description = "Database backup window"
-  default = "03:00-06:00"
-  type = string
+  default     = "03:00-06:00"
+  type        = string
 }
 
 variable "db_maintenance_window" {
   description = "Database maintenance window"
-  default = "Sat:00:00-Sat:03:00"
-  type = string
+  default     = "Sat:00:00-Sat:03:00"
+  type        = string
 }

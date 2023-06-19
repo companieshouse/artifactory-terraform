@@ -21,15 +21,15 @@ locals {
     values(data.aws_subnet.automation).*.availability_zone,
     values(data.aws_subnet.automation).*.id
   ))
-  automation_subnet_pattern   = local.secrets.automation_subnet_pattern
-  automation_vpc_pattern      = local.secrets.automation_vpc_pattern
+  automation_subnet_pattern = local.secrets.automation_subnet_pattern
+  automation_vpc_pattern    = local.secrets.automation_vpc_pattern
 
   certificate_arn             = lookup(local.secrets, "certificate_arn", null)
   dns_zone_name               = local.secrets.dns_zone_name
   load_balancer_dns_zone_name = local.secrets.load_balancer_dns_zone_name
 
-  db_subnet                   = local.secrets.db_subnet
-  db_username                 = local.secrets.db_username
-  db_password                 = local.secrets.db_password
-  db_engine_version           = "${var.db_engine_major_version}.${var.db_engine_minor_version}"
+  db_subnet         = local.secrets.db_subnet
+  db_username       = local.secrets.db_username
+  db_password       = local.secrets.db_password
+  db_engine_version = "${var.db_engine_major_version}.${var.db_engine_minor_version}"
 }
