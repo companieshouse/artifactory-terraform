@@ -42,19 +42,11 @@ resource "aws_security_group" "alb_security_group" {
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {
-    description      = "lb ingress from admin CIDRs"
+    description      = "lb ingress from admin and concourse CIDRs"
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = local.placement_subnet_cidrs
-
-  }
-  ingress {
-    description      = "lb ingress from concourse CIDRs"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = [local.concourse_access_cidrs]
+    cidr_blocks      = local.artifactory_web_access
   }
 
   egress {
