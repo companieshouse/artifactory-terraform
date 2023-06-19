@@ -45,6 +45,7 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/bootstrap-commands.yml.tpl", {
+      artifactory_license                        = local.artifactory_license
     })
   }
 }
