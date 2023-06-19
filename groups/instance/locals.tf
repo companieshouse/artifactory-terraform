@@ -4,6 +4,7 @@ locals {
 
   secrets    = data.vault_generic_secret.secrets.data
   server_url = "http://${var.service}.${var.environment}.${local.secrets.dns_zone_name}:8081/artifactory"
+
   placement_subnet_cidrs = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
     values(data.aws_subnet.placement).*.cidr_block
