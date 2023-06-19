@@ -38,6 +38,7 @@ data "cloudinit_config" "artifactory" {
       db_fqdn                                    = local.db_fqdn
       db_username                                = local.db_username
       db_password                                = local.db_password
+      artifactory_license                        = local.artifactory_license
     })
   }
 
