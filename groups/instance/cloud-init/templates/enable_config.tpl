@@ -806,3 +806,4 @@ write_files:
     permissions: '0644'
     content: |
       test 
+      ${artifactory_access_token}
