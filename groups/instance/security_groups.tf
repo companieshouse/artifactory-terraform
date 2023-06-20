@@ -42,19 +42,21 @@ resource "aws_security_group" "alb_security_group" {
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {
-    description      = "lb HTTP ingress from admin and concourse CIDRs"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = local.artifactory_web_access
+    description     = "lb HTTP ingress from admin and concourse CIDRs"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    cidr_blocks     = local.artifactory_web_access
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
   ingress {
-    description      = "lb HTTPS ingress from admin and concourse CIDRs"
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = local.artifactory_web_access
+    description     = "lb HTTPS ingress from admin and concourse CIDRs"
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    cidr_blocks     = local.artifactory_web_access
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
   egress {
