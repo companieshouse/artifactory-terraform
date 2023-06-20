@@ -38,13 +38,6 @@ data "cloudinit_config" "artifactory" {
       db_username                                = local.db_username
       db_password                                = local.db_password
       artifactory_license                        = local.artifactory_license
-      artifactory_access_token                   = local.artifactory_access_token
     })
   }
-
-  #part {
-  #  content_type = "text/cloud-config"
-  #  content = templatefile("${path.module}/cloud-init/templates/bootstrap-commands.yml.tpl", {
-  #  })
-  #}
 }

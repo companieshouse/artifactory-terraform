@@ -806,5 +806,4 @@ write_files:
 
 runcmd:
   - systemctl enable artifactory 
-  - wait
   - systemctl restart artifactory
