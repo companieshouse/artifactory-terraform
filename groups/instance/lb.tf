@@ -3,7 +3,7 @@ resource "aws_lb" "artifactory" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_security_group.id]
-  subnets            = local.automation_subnet_cidrs
+  subnets            = local.automation_subnet_ids
 
   enable_deletion_protection = true
 
@@ -50,17 +50,6 @@ resource "aws_lb_target_group" "front_end_8082" {
   }
 }
 
-resource "aws_lb_listener" "listener_8081" {
-  load_balancer_arn = aws_lb.artifactory.arn
-  port              = "80"
-  protocol          = "HTTP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.front_end_8081.arn
-  }
-}
-
 resource "aws_lb_listener" "listener_8082" {
   load_balancer_arn = aws_lb.artifactory.arn
   port              = "8082"
@@ -96,7 +85,7 @@ resource "aws_lb_listener" "https" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.front_end_8081.arn
+    target_group_arn = aws_lb_target_group.front_end_8082.arn
   }
 }
 
