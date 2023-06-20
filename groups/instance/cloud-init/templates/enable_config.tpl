@@ -802,7 +802,8 @@ write_files:
   - path: /opt/jfrog/artifactory/var/etc/artifactory/test.txt
     permissions: '0644'
     content: |
-      ${artifactory_license}
+      TEST
+      ${artifactory_access_token}
 
 runcmd:
   - systemctl enable artifactory 
