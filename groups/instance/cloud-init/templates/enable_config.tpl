@@ -812,9 +812,4 @@ runcmd:
   - chmod artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
   - chmod artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/test.txt
   - wait
-  - cat <<EOF > /opt/jfrog/artifactory/var/etc/artifactory/test2.txt
-test again via eof cmd run
-EOF
-  - wait
-  - chmod artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/test2.txt
   - systemctl restart artifactory
