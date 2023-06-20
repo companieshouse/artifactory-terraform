@@ -799,7 +799,7 @@ write_files:
           </authentication>
       </config>
 
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/test.txt
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
     permissions: '0644'
     content: |
       ${artifactory_license}
