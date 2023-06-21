@@ -33,17 +33,12 @@ data "cloudinit_config" "artifactory" {
       ldap_group_settings_strategy               = local.ldap_group_settings_strategy
       ldap_group_settings_subtree                = local.ldap_group_settings_subtree
       http_proxy_host                            = ""
-      http_proxy_port                            = ""
-      artifactory_access_token                   = local.artifactory_access_token
+      http_proxy_port                            = "" 
       db_fqdn                                    = local.db_fqdn
       db_username                                = local.db_username
       db_password                                = local.db_password
-    })
-  }
-
-  part {
-    content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/templates/bootstrap-commands.yml.tpl", {
+      artifactory_license                        = local.artifactory_license
+      artifactory_access_token                   = local.artifactory_access_token
     })
   }
 }
