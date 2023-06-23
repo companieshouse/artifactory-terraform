@@ -66,4 +66,6 @@ locals {
   ldap_group_settings_group_name_attribute   = local.secrets.ldap_group_settings_group_name_attribute
   ldap_group_settings_strategy               = local.secrets.ldap_group_settings_strategy
   ldap_group_settings_subtree                = local.secrets.ldap_group_settings_subtree
+
+  artifactory_license                        = local.secrets.artifactory_license
 }

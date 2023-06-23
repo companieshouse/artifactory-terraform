@@ -1,6 +1,5 @@
 write_files:
   - path: /opt/jfrog/artifactory/var/etc/system.yaml
-    owner: artifactory:artifactory
     permissions: '0644'
     content: |
       ## @formatter:off
@@ -61,7 +60,6 @@ write_files:
       password: ${db_password}    
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
-    owner: artifactory:artifactory
     permissions: '0644'
     content: |
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -800,3 +798,12 @@ write_files:
               <tokens/>
           </authentication>
       </config>
+
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
+    permissions: '0644'
+    content: |
+      ${artifactory_license}
+
+runcmd:
+  - systemctl enable artifactory 
+  - systemctl restart artifactory
