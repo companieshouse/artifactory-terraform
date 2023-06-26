@@ -65,7 +65,7 @@ write_files:
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <config xmlns="http://artifactory.jfrog.org/xsd/3.1.32" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jfrog.org/xsd/artifactory-v3_1_32.xsd">
           <offlineMode>false</offlineMode>
-          <archiveIndexEnabled>false</archiveIndexEnabled>
+          <archiveIndexEnabled>true</archiveIndexEnabled>
           <helpLinksEnabled>true</helpLinksEnabled>
           <fileUploadMaxSizeMb>100</fileUploadMaxSizeMb>
           <revision>2</revision>
