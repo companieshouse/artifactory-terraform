@@ -4,6 +4,7 @@ locals {
 
   secrets    = data.vault_generic_secret.secrets.data
   server_url = "http://${var.service}.${var.environment}.${local.secrets.dns_zone_name}:8081/artifactory"
+
   placement_subnet_cidrs = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
     values(data.aws_subnet.placement).*.cidr_block
@@ -27,9 +28,13 @@ locals {
   automation_vpc_pattern    = local.secrets.automation_vpc_pattern
   concourse_access_cidrs    = local.secrets.concourse_access_cidrs
 
-  certificate_arn             = lookup(local.secrets, "certificate_arn", null)
+  artifactory_web_access = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
+
   dns_zone_name               = local.secrets.dns_zone_name
+  dns_zone_isprivate          = local.secrets.dns_zone_isprivate
   load_balancer_dns_zone_name = local.secrets.load_balancer_dns_zone_name
+  create_ssl_certificate      = var.ssl_certificate_name == "" ? true : false
+  ssl_certificate_arn         = var.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
 
   db_name     = "${var.environment}-${var.service}-${var.db_engine}"
   db_subnet   = local.secrets.db_subnet
