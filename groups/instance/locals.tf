@@ -30,9 +30,11 @@ locals {
 
   artifactory_web_access = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
 
-  certificate_arn             = lookup(local.secrets, "certificate_arn", null)
   dns_zone_name               = local.secrets.dns_zone_name
+  dns_zone_isprivate          = local.secrets.dns_zone_isprivate
   load_balancer_dns_zone_name = local.secrets.load_balancer_dns_zone_name
+  create_ssl_certificate      = var.ssl_certificate_name == "" ? true : false
+  ssl_certificate_arn         = var.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
 
   db_name     = "${var.environment}-${var.service}-${var.db_engine}"
   db_subnet   = local.secrets.db_subnet

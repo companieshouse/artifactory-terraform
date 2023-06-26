@@ -10,6 +10,7 @@ resource "aws_security_group" "instance_security_group" {
     protocol    = "tcp"
     cidr_blocks = [local.concourse_access_cidrs]
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
+    security_groups = [aws_security_group.alb_security_group.id]
   }
 
   ingress {
