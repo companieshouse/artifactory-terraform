@@ -1,6 +1,11 @@
 # ------------------------------------------------------------------------------
 # AWS Variables
 # ------------------------------------------------------------------------------
+variable "aws_account_id" {
+  type = string
+  description = "The AWS Account ID"
+}
+
 variable "account_name" {
   description = "The name of the AWS account we are using"
   default     = "development"
@@ -65,4 +70,10 @@ variable "ssl_certificate_name" {
   type        = string
   description = "The name of an existing ACM certificate to use for the ELB SSL listener. Setting this disables certificate creation"
   default     = ""
+}
+
+variable "enable_ssm_access" {
+  default     = true
+  description = "Defines whether AWS SSM access and functions are enabled (true) or not (false) on the deployed EC2 instances"
+  type        = bool
 }

@@ -5,13 +5,20 @@ data "aws_ec2_managed_prefix_list" "administration" {
   }
 }
 
-data "vault_generic_secret" "account_ids" {
-  path = "aws-accounts/account-ids"
-}
+# data "vault_generic_secret" "account_ids" {
+#   path = "aws-accounts/account-ids"
+# }
 
 data "vault_generic_secret" "secrets" {
   path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.service}"
 }
+
+data "vault_generic_secret" "security_kms_keys" {
+  count = var.enable_ssm_access ? 1 : 0
+  path  = "aws-accounts/security/kms"
+}
+
+data "aws_caller_identity" "current" {}
 
 data "aws_vpc" "placement" {
   filter {
@@ -51,8 +58,6 @@ data "aws_ami" "artifactory_ami" {
   owners      = [local.ami_owner_id]
   name_regex  = "${var.service}-${var.default_ami_version_pattern}"
 
-  # TODO implment at a later stage filter pattern for AMI Id generation, potential replace with AMI ID in concourse
-
   filter {
     name   = "name"
     values = ["${var.service}-*"]
@@ -60,8 +65,7 @@ data "aws_ami" "artifactory_ami" {
 }
 
 data "aws_acm_certificate" "certificate" {
-  count = local.create_ssl_certificate ? 0 : 1
-
+  count       = local.create_ssl_certificate ? 0 : 1
   domain      = var.ssl_certificate_name
   statuses    = ["ISSUED"]
   most_recent = true

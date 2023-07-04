@@ -1,9 +1,12 @@
 locals {
-  account_ids             = data.vault_generic_secret.account_ids.data
-  artifactory_account_ids = local.secrets.artifactory_account_ids
+  #account_ids             = data.vault_generic_secret.account_ids.data
+  #artifactory_account_ids = local.secrets.artifactory_account_ids
 
-  secrets    = data.vault_generic_secret.secrets.data
-  server_url = "http://${var.service}.${var.environment}.${local.secrets.dns_zone_name}:8081/artifactory"
+  secrets                  = data.vault_generic_secret.secrets.data
+  aws_account_id           = data.aws_caller_identity.current.account_id
+  security_kms_keys_data   = var.enable_ssm_access ? data.vault_generic_secret.security_kms_keys[0].data : {}
+  security_s3_buckets_data = var.enable_ssm_access ? data.vault_generic_secret.security_s3_buckets[0].data : {}
+  #server_url = "http://${var.service}.${var.environment}.${local.secrets.dns_zone_name}:8081/artifactory"
 
   placement_subnet_cidrs = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
