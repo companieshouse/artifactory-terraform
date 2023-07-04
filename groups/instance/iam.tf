@@ -116,5 +116,5 @@ resource "aws_iam_role_policy" "artifactory_instance_policy" {
 resource "aws_iam_role_policy_attachment" "ssm_service_policy_attachment" {
   count      = var.enable_ssm_access ? 1 : 0
   role       = aws_iam_role.artifactory_instance_role.name
-  policy_arn = data.aws_iam_policy.ssm_service_core.arn
+  policy_arn = data.aws_iam_policy.ssm_service_core[0].arn
 }

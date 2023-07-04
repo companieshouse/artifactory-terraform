@@ -18,6 +18,11 @@ data "vault_generic_secret" "security_kms_keys" {
   path  = "aws-accounts/security/kms"
 }
 
+data "vault_generic_secret" "security_s3_buckets" {
+  count = var.enable_ssm_access ? 1 : 0
+  path = "aws-accounts/security/s3"
+}
+
 data "aws_caller_identity" "current" {}
 
 data "aws_vpc" "placement" {
