@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # AWS Variables
 # ------------------------------------------------------------------------------
-variable "aws_account_id" {
+variable "account_id" {
   type = string
   description = "The AWS Account ID"
 }
