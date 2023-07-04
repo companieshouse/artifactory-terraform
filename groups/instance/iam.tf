@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "ssm_service" {
     ]
 
     resources = [
-      "arn:aws:kms:${var.region}:${var.account_id}:key/${aws_kms_key.artifactory_kms_key.key_id}"
+      "arn:aws:kms:${var.region}:${var.aws_account_id}:key/${aws_kms_key.artifactory_kms_key.key_id}"
     ]
   }
 

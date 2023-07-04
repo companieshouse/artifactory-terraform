@@ -1,9 +1,10 @@
 # ------------------------------------------------------------------------------
 # AWS Variables
 # ------------------------------------------------------------------------------
-variable "account_id" {
-  type = string
+variable "aws_account_id" {
   description = "The AWS Account ID"
+  default     = ""
+  type        = string
 }
 
 variable "account_name" {
@@ -73,7 +74,7 @@ variable "ssl_certificate_name" {
 }
 
 variable "enable_ssm_access" {
-  default     = true
   description = "Defines whether AWS SSM access and functions are enabled (true) or not (false) on the deployed EC2 instances"
+  default     = true
   type        = bool
 }
