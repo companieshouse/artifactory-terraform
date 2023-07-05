@@ -6,11 +6,17 @@ resource "aws_kms_key" "artifactory_kms_key" {
   enable_key_rotation = false
 }
 
+# ------------------------------------------------------------------------------
+# KMS Alias
+# ------------------------------------------------------------------------------
 resource "aws_kms_alias" "artifactory_kms_alias" {
   name          = "alias/artifactory-${var.environment}-kms"
   target_key_id = aws_kms_key.artifactory_kms_key.key_id
 }
 
+# ------------------------------------------------------------------------------
+# KMS IAM Policy Document
+# ------------------------------------------------------------------------------
 data "aws_iam_policy_document" "artifactory_kms_policy_document" {
   statement {
     sid = "AllowUseOfTheKey"
@@ -25,6 +31,9 @@ data "aws_iam_policy_document" "artifactory_kms_policy_document" {
   }
 }
 
+# ------------------------------------------------------------------------------
+# KMS IAM User Policy
+# ------------------------------------------------------------------------------
 resource "aws_iam_user_policy" "artifactory_kms_policy" {
   name   = "artifactory-${var.environment}-kms-policy"
   user   = "concourse-server-${var.environment}"
