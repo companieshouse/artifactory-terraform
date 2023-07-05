@@ -1,4 +1,12 @@
 // ---------------------------------------------------------------------------
+// Instance IAM Profile
+// ---------------------------------------------------------------------------
+resource "aws_iam_instance_profile" "artifactory_instance_profile" {
+  name = "${var.service}-${var.environment}-iam-profile"
+  role = aws_iam_role.artifactory_instance_role.name
+} 
+
+// ---------------------------------------------------------------------------
 // IAM Policy Documents
 // ---------------------------------------------------------------------------
 data "aws_iam_policy_document" "iam_instance_policy" {
@@ -86,18 +94,10 @@ data "aws_iam_policy" "ssm_service_core" {
 }
 
 // ---------------------------------------------------------------------------
-// Instance IAM Profile
-// ---------------------------------------------------------------------------
-resource "aws_iam_instance_profile" "artifactory_instance_profile" {
-  name = "${var.service}-${var.environment}-iam-profile"
-  role = aws_iam_role.artifactory_instance_role.name
-} 
-
-// ---------------------------------------------------------------------------
 // Instance IAM Role
 // ---------------------------------------------------------------------------
 resource "aws_iam_role" "artifactory_instance_role" {
-  name               = "${var.service}-${var.environment}-iam-role"
+  name               = "${var.service}-${var.environment}-ssm-iam-role"
   assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
 }
 
