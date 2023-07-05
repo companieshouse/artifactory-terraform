@@ -45,7 +45,6 @@ locals {
   ssh_keyname    = "${var.service}-${var.environment}"
   ssh_public_key = local.secrets.public_key
 
-
   ami_owner_id             = local.secrets.ami_owner_id
   artifactory_access_token = local.secrets.artifactory_access_token
 

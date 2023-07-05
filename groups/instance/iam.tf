@@ -24,7 +24,6 @@ data "aws_iam_policy_document" "iam_instance_policy" {
 
 data "aws_iam_policy_document" "ssm_service" {
 
-
   statement {
     sid       = "SSMKMSOperations"
     effect    = "Allow"
