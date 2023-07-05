@@ -73,8 +73,3 @@ variable "ssl_certificate_name" {
   default     = ""
 }
 
-variable "enable_ssm_access" {
-  description = "Defines whether AWS SSM access and functions are enabled (true) or not (false) on the deployed EC2 instances"
-  default     = true
-  type        = bool
-}

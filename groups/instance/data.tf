@@ -5,21 +5,15 @@ data "aws_ec2_managed_prefix_list" "administration" {
   }
 }
 
-# data "vault_generic_secret" "account_ids" {
-#   path = "aws-accounts/account-ids"
-# }
-
 data "vault_generic_secret" "secrets" {
   path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.service}"
 }
 
 data "vault_generic_secret" "security_kms_keys" {
-  count = var.enable_ssm_access ? 1 : 0
   path  = "aws-accounts/security/kms"
 }
 
 data "vault_generic_secret" "security_s3_buckets" {
-  count = var.enable_ssm_access ? 1 : 0
   path = "aws-accounts/security/s3"
 }
 

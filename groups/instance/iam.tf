@@ -23,33 +23,7 @@ data "aws_iam_policy_document" "iam_instance_policy" {
 }
 
 data "aws_iam_policy_document" "ssm_service" {
-  # statement {
-  #   effect = "Allow"
 
-  #   sid = "AllowListKeys"
-
-  #   actions = [
-  #     "kms:ListAliases",
-  #     "kms:ListKeys"
-  #   ]
-
-  #   resources = ["*"]
-  # }
-  
-  # statement {
-  #   effect = "Allow"
-
-  #   sid = "AllowAccessToDecryptSsmParameters"
-
-  #   actions = [
-  #     "kms:Decrypt",
-  #     "kms:DescribeKey"
-  #   ]
-
-  #   resources = [
-  #     aws_kms_key.aws_kms_key.artifactory_kms_key.arn
-  #   ]
-  # }
 
   statement {
     sid       = "SSMKMSOperations"
