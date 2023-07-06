@@ -9,6 +9,7 @@ resource "aws_instance" "artifactory" {
   vpc_security_group_ids = [aws_security_group.instance_security_group.id]
   key_name               = local.ssh_keyname
   user_data_base64       = data.cloudinit_config.artifactory.rendered
+  iam_instance_profile   = aws_iam_instance_profile.artifactory_instance_profile.name
   tags = {
     Name = "${var.environment}-${var.service}"
   }

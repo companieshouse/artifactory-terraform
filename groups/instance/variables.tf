@@ -1,6 +1,12 @@
 # ------------------------------------------------------------------------------
 # AWS Variables
 # ------------------------------------------------------------------------------
+variable "aws_account_id" {
+  description = "The AWS Account ID"
+  default     = ""
+  type        = string
+}
+
 variable "account_name" {
   description = "The name of the AWS account we are using"
   default     = "development"
@@ -66,3 +72,4 @@ variable "ssl_certificate_name" {
   description = "The name of an existing ACM certificate to use for the ELB SSL listener. Setting this disables certificate creation"
   default     = ""
 }
+

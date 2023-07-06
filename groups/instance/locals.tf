@@ -1,9 +1,8 @@
 locals {
-  account_ids             = data.vault_generic_secret.account_ids.data
-  artifactory_account_ids = local.secrets.artifactory_account_ids
-
-  secrets    = data.vault_generic_secret.secrets.data
-  server_url = "http://${var.service}.${var.environment}.${local.secrets.dns_zone_name}:8081/artifactory"
+  secrets                  = data.vault_generic_secret.secrets.data
+  aws_account_id           = data.aws_caller_identity.current.account_id
+  security_kms_keys_data   = data.vault_generic_secret.security_kms_keys.data
+  security_s3_buckets_data = data.vault_generic_secret.security_s3_buckets.data
 
   placement_subnet_cidrs = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
@@ -45,7 +44,6 @@ locals {
 
   ssh_keyname    = "${var.service}-${var.environment}"
   ssh_public_key = local.secrets.public_key
-
 
   ami_owner_id             = local.secrets.ami_owner_id
   artifactory_access_token = local.secrets.artifactory_access_token
