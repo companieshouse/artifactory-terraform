@@ -3,7 +3,8 @@ resource "aws_key_pair" "artifactory" {
   public_key = local.ssh_public_key
 }
 resource "aws_instance" "artifactory" {
-  ami                    = data.aws_ami.artifactory_ami.id
+  ami                    = "ami-0d2c8488a7bb1be34"
+  #ami                    = data.aws_ami.artifactory_ami.id
   instance_type          = var.default_instance_type
   subnet_id              = tolist(data.aws_subnet_ids.placement.ids)[0]
   vpc_security_group_ids = [aws_security_group.instance_security_group.id]
