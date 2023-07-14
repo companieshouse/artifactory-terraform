@@ -11,8 +11,6 @@ data "cloudinit_config" "artifactory" {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/enable_config.tpl", {
       db_fqdn                                    = local.db_fqdn
-      db_port                                    = local.db_port
-      db_name                                    = var.service
       db_username                                = local.db_username
       db_password                                = local.db_password
       ldap_setting_key                           = local.ldap_setting_key
@@ -23,7 +21,6 @@ data "cloudinit_config" "artifactory" {
       ldap_setting_manager_password              = local.ldap_setting_manager_password
       ldap_setting_search_filter                 = local.ldap_setting_search_filter
       ldap_setting_search_subtree                = local.ldap_setting_search_subtree
-      ldap_setting_user_dn_pattern               = local.ldap_setting_user_dn_pattern
       ldap_setting_allow_user_to_access_profile  = local.ldap_setting_allow_user_to_access_profile
       ldap_group_settings_description_attribute  = local.ldap_group_settings_description_attribute
       ldap_group_settings_filter                 = local.ldap_group_settings_filter
@@ -32,11 +29,6 @@ data "cloudinit_config" "artifactory" {
       ldap_group_settings_group_name_attribute   = local.ldap_group_settings_group_name_attribute
       ldap_group_settings_strategy               = local.ldap_group_settings_strategy
       ldap_group_settings_subtree                = local.ldap_group_settings_subtree
-      http_proxy_host                            = ""
-      http_proxy_port                            = "" 
-      db_fqdn                                    = local.db_fqdn
-      db_username                                = local.db_username
-      db_password                                = local.db_password
       artifactory_license                        = local.artifactory_license
       artifactory_access_token                   = local.artifactory_access_token
     })
