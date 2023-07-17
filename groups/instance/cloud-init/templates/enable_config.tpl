@@ -126,7 +126,7 @@ write_files:
               </ldapGroupSettings>
               <userLockPolicy>
                   <enabled>false</enabled>
-                  <loginAttempts>6</loginAttempts>
+                  <loginAttempts>5</loginAttempts>
               </userLockPolicy>
               <accessClientSettings>
                   <adminToken>${artifactory_access_token}</adminToken>
