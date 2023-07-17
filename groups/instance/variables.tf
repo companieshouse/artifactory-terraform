@@ -1,11 +1,6 @@
 # ------------------------------------------------------------------------------
 # AWS Variables
 # ------------------------------------------------------------------------------
-variable "aws_account_id" {
-  description = "The AWS Account ID"
-  default     = ""
-  type        = string
-}
 
 variable "account_name" {
   description = "The name of the AWS account we are using"
@@ -53,12 +48,6 @@ variable "team" {
   description = "The name of the team"
   default     = "platform"
   type        = string
-}
-
-variable "instance_count" {
-  description = "Number of instances"
-  type        = number
-  default     = 1
 }
 
 variable "db_engine" {
