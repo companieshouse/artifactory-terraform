@@ -35,11 +35,11 @@ locals {
   create_ssl_certificate      = var.ssl_certificate_name == "" ? true : false
   ssl_certificate_arn         = var.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
 
-  db_name     = "${var.environment}-${var.service}-${var.db_engine}"
+  #db_name     = "${var.environment}-${var.service}-${var.db_engine}"
   #db_subnet   = local.secrets.db_subnet
   db_username = local.secrets.db_username
   db_password = local.secrets.db_password
-  db_port     = local.secrets.db_port
+  #db_port     = local.secrets.db_port
   db_fqdn     = "${var.service}db.${data.aws_route53_zone.selected.name}"
 
   ssh_keyname    = "${var.service}-${var.environment}"
@@ -56,7 +56,7 @@ locals {
   ldap_setting_search_base                   = local.secrets.ldap_setting_search_base
   ldap_setting_search_filter                 = local.secrets.ldap_setting_search_filter
   ldap_setting_search_subtree                = local.secrets.ldap_setting_search_subtree
-  ldap_setting_user_dn_pattern               = local.secrets.ldap_setting_user_dn_pattern
+  #ldap_setting_user_dn_pattern               = local.secrets.ldap_setting_user_dn_pattern
   ldap_setting_allow_user_to_access_profile  = local.secrets.ldap_setting_allow_user_to_access_profile
   ldap_group_settings_description_attribute  = local.secrets.ldap_group_settings_description_attribute
   #ldap_group_settings_enabled_ldap           = local.ldap_setting_key
