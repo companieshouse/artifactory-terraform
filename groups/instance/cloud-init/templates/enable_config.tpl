@@ -50,7 +50,10 @@ write_files:
 
           ## Sets this node as part of HA installation
           #haEnabled: true
-
+          
+          script:
+              ## The max time to wait for Tomcat to come up (START_TMO)
+              serviceStartTimeout: 120
           ## Database Configuration
           database:
       type: postgresql

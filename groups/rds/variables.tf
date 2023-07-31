@@ -16,7 +16,7 @@ variable "default_ami_version_pattern" {
 
 variable "default_instance_type" {
   description = "The default instance type to use for instances"
-  default     = "t3.medium"
+  default     = "t3.large"
   type        = string
 }
 
