@@ -53,7 +53,7 @@ write_files:
           
           script:
           ## The max time to wait for Tomcat to come up (START_TMO)
-             serviceStartTimeout: 100
+             serviceStartTimeout: 120
           ## Database Configuration
           database:
       type: postgresql
