@@ -53,14 +53,14 @@ write_files:
           
           script:
           ## The max time to wait for Tomcat to come up (START_TMO)
-             serviceStartTimeout: 120
+             serviceStartTimeout: 100
           ## Database Configuration
           database:
-             type: postgresql
-             driver: org.postgresql.Driver
-             url: "jdbc:postgresql://${db_fqdn}/artifactory"
-             username: ${db_username}
-             password: ${db_password}    
+      type: postgresql
+      driver: org.postgresql.Driver
+      url: "jdbc:postgresql://${db_fqdn}/artifactory"
+      username: ${db_username}
+      password: ${db_password}    
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
     permissions: '0644'
