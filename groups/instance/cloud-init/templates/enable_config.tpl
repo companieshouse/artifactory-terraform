@@ -808,7 +808,5 @@ write_files:
       ${artifactory_license}
 
 runcmd:
-  - sudo yum -y update
-  - wait
   - systemctl enable artifactory 
   - systemctl restart artifactory
