@@ -14,12 +14,6 @@ variable "default_ami_version_pattern" {
   type        = string
 }
 
-variable "default_instance_type" {
-  description = "The default instance type to use for instances"
-  default     = "t3.medium"
-  type        = string
-}
-
 variable "region" {
   description = "The AWS region in which resources will be created"
   type        = string
