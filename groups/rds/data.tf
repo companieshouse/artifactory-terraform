@@ -6,6 +6,7 @@ data "vault_generic_secret" "secrets" {
   path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.repository_name}"
 }
 
+data "aws_region" "current" {}
 
 data "aws_vpc" "placement" {
   filter {
@@ -23,8 +24,12 @@ data "aws_vpc" "automation" {
 
 data "aws_subnet" "automation" {
   for_each = data.aws_subnet_ids.automation.ids
-
   id = each.value
+}
+
+data "aws_subnet" "placement" {
+  for_each = data.aws_subnet_ids.placement.ids
+  id       = each.value
 }
 
 data "aws_subnet_ids" "automation" {
@@ -36,6 +41,14 @@ data "aws_subnet_ids" "automation" {
   }
 }
 
+data "aws_subnet_ids" "placement" {
+  vpc_id = data.aws_vpc.placement.id
+
+  filter {
+    name   = "tag:Name"
+    values = [local.placement_subnet_pattern]
+  }
+}
 
 data "aws_route53_zone" "selected" {
   name         = local.dns_zone_name

@@ -8,12 +8,6 @@ variable "environment" {
   type        = string
 }
 
-variable "default_ami_version_pattern" {
-  description = "The default AMI version pattern to use when matching AMIs for instances"
-  default     = "\\d.\\d.\\d-\\d+"
-  type        = string
-}
-
 variable "region" {
   description = "The AWS region in which resources will be created"
   type        = string
@@ -76,12 +70,6 @@ variable "db_storage_type" {
 variable "db_storage_gb" {
   description = "Database storage gigabytes"
   default     = 20
-  type        = number
-}
-
-variable "rds_cloudwatch_export_logs_retention_period" {
-  description = "The set value for retention period of rds export cloudwatch logs, setting the period in days value"
-  default     = 180
   type        = number
 }
 
