@@ -6,8 +6,6 @@ data "vault_generic_secret" "secrets" {
   path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.repository_name}"
 }
 
-data "aws_region" "current" {}
-
 data "aws_vpc" "placement" {
   filter {
     name   = "tag:Name"
@@ -15,30 +13,9 @@ data "aws_vpc" "placement" {
   }
 }
 
-data "aws_vpc" "automation" {
-  filter {
-    name   = "tag:Name"
-    values = [local.automation_vpc_pattern]
-  }
-}
-
-data "aws_subnet" "automation" {
-  for_each = data.aws_subnet_ids.automation.ids
-  id = each.value
-}
-
 data "aws_subnet" "placement" {
   for_each = data.aws_subnet_ids.placement.ids
   id       = each.value
-}
-
-data "aws_subnet_ids" "automation" {
-  vpc_id = data.aws_vpc.automation.id
-
-  filter {
-    name   = "tag:Name"
-    values = [local.automation_subnet_pattern]
-  }
 }
 
 data "aws_subnet_ids" "placement" {
