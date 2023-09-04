@@ -84,5 +84,4 @@ data "aws_acm_certificate" "certificate" {
   most_recent = true
 }
 
-data "aws_region" "current" {}
 
