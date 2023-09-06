@@ -1,2 +1,2 @@
-account_name = "development"
-environment = "devops1"
+account_name = "shared-services"
+environment = "devops"
