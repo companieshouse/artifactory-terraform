@@ -4,13 +4,13 @@
 
 variable "account_name" {
   description = "The name of the AWS account we are using"
-  default     = "development"
+  default     = "shared-services"
   type        = string
 }
 
 variable "environment" {
   description = "The environment name to be used when creating AWS resources"
-  default     = "devops1"
+  default     = "devops"
   type        = string
 }
 
