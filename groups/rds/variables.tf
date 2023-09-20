@@ -3,8 +3,20 @@ variable "account_name" {
   type        = string
 }
 
+variable "secrets_account_name" {
+  description = "The name of the AWS account to be used when targeting the existing vault"
+  default     = "development"
+  type        = string
+}
+
 variable "environment" {
   description = "The environment name to be used when creating AWS resources"
+  type        = string
+}
+
+variable "secrets_environment" {
+  description = "The secrets environment name to be used when targeting the existing vault"
+  default     = "devops1"
   type        = string
 }
 
