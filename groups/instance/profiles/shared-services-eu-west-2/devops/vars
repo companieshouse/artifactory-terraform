@@ -1,2 +1,5 @@
-account_name = "shared-services"
-environment = "devops"
+account_name         = "shared-services"
+environment          = "devops"
+region               = "eu-west-2"
+secrets_account_name = "development"
+secrets_environment  = "devops1"

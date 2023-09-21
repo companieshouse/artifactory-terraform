@@ -6,7 +6,7 @@ data "aws_ec2_managed_prefix_list" "administration" {
 }
 
 data "vault_generic_secret" "secrets" {
-  path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.service}"
+  path = "team-${var.team}/${var.secrets_account_name}/${var.region}/${var.secrets_environment}/${var.service}"
 }
 
 data "vault_generic_secret" "security_kms_keys" {
