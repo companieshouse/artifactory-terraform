@@ -30,8 +30,4 @@ data "aws_subnet_ids" "placement" {
 data "aws_route53_zone" "selected" {
   name         = local.dns_zone_name
   private_zone = true
-
-  #vpc {
-    #vpc_id = data.aws_vpc.placement.id
-  #}
 }
