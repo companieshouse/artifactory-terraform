@@ -40,16 +40,13 @@ resource "aws_acm_certificate" "certificate" {
 }
 
 resource "aws_route53_record" "certificate_validation" {
-  dynamic "alias" {
-    for_each = local.create_ssl_certificate ? {
-      for dvo in aws_acm_certificate.certificate[0].domain_validation_options : dvo.domain_name => {
-        name    = dvo.resource_record_name
-        type    = dvo.resource_record_type
-        record  = dvo.resource_record_value
-      }
-    } : {}
-  }
-  
+  for_each = local.create_ssl_certificate ? {
+    for dvo in aws_acm_certificate.certificate[0].domain_validation_options : dvo.domain_name => {
+      name    = dvo.resource_record_name
+      type    = dvo.resource_record_type
+      record  = dvo.resource_record_value
+    }
+  } : {}
 
   allow_overwrite = true
   name            = each.value.name
