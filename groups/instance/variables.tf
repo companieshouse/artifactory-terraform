@@ -54,9 +54,4 @@ variable "db_engine" {
   type        = string
 }
 
-variable "ssl_certificate_name" {
-  type        = string
-  description = "The name of an existing ACM certificate to use for the ELB SSL listener. Setting this disables certificate creation"
-  default     = ""
-}
 

@@ -26,8 +26,11 @@ locals {
 
   dns_zone_name               = local.secrets.dns_zone_name
   dns_zone_isprivate          = local.secrets.dns_zone_isprivate
-  create_ssl_certificate      = var.ssl_certificate_name == "" ? true : false
-  ssl_certificate_arn         = var.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
+  
+  ssl_certificate_name        = local.secrets.ssl_certificate_name
+  
+  create_ssl_certificate      = local.ssl_certificate_name == "" ? true : false
+  ssl_certificate_arn         = local.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
 
   db_username = local.secrets.db_username
   db_password = local.secrets.db_password
