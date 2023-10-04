@@ -3,7 +3,7 @@ data "vault_generic_secret" "account_ids" {
 }
 
 data "vault_generic_secret" "secrets" {
-  path = "team-${var.team}/${var.secrets_account_name}/${var.region}/${var.secrets_environment}/${var.repository_name}"
+  path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.repository_name}"
 }
 
 data "aws_vpc" "placement" {
@@ -29,5 +29,5 @@ data "aws_subnet_ids" "placement" {
 
 data "aws_route53_zone" "selected" {
   name         = local.dns_zone_name
-  private_zone = true
+  private_zone = local.dns_zone_isprivate
 }

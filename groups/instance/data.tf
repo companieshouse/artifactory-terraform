@@ -6,7 +6,7 @@ data "aws_ec2_managed_prefix_list" "administration" {
 }
 
 data "vault_generic_secret" "secrets" {
-  path = "team-${var.team}/${var.secrets_account_name}/${var.region}/${var.secrets_environment}/${var.service}"
+  path = "team-${var.team}/${var.account_name}/${var.region}/${var.environment}/${var.service}"
 }
 
 data "vault_generic_secret" "security_kms_keys" {
@@ -70,7 +70,6 @@ data "aws_ami" "artifactory_ami" {
   most_recent = true
   owners      = [local.ami_owner_id]
   name_regex  = "${var.service}-${var.default_ami_version_pattern}"
-  #name_regex  = "artifactory-feature" 
   
   filter {
     name   = "name"
