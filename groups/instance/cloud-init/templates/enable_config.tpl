@@ -12,7 +12,7 @@ write_files:
       ## NOTE: Sensitive information such as passwords and join key are encrypted on first read.
       ## NOTE: The provided commented key and value is the default.
 
-      ## SHARED CONFIGURATIONS test change by LJ
+      ## SHARED CONFIGURATIONS
       ## A shared section for keys across all services in this config
       shared:
           ## Java 11 distribution to use
