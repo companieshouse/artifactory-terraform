@@ -25,8 +25,10 @@ locals {
   artifactory_web_access = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
 
   dns_zone_name               = local.secrets.dns_zone_name
-  dns_zone_isprivate          = local.secrets.dns_zone_isprivate
+  dns_zone_is_private         = local.secrets.dns_zone_is_private
   
+  aws_route53_record_name     = "${var.service}-${var.environment}.${data.aws_route53_zone.selected.name}"
+
   ssl_certificate_name        = local.secrets.ssl_certificate_name
   
   create_ssl_certificate      = local.ssl_certificate_name == "" ? true : false

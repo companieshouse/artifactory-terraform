@@ -14,7 +14,7 @@ locals {
   placement_vpc_pattern    = local.secrets.placement_vpc_pattern
 
   dns_zone_name            = local.secrets.dns_zone_name
-  dns_zone_isprivate       = local.secrets.dns_zone_isprivate
+  dns_zone_is_private      = local.secrets.dns_zone_is_private
 
   db_subnet                = local.secrets.db_subnet
   db_username              = local.secrets.db_username

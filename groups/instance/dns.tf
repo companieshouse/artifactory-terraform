@@ -1,6 +1,6 @@
 resource "aws_route53_record" "instance" {
   zone_id = data.aws_route53_zone.selected.zone_id
-  name    = "${var.service}-${var.environment}.${data.aws_route53_zone.selected.name}"
+  name    = local.aws_route53_record_name
   type    = "A"
   alias {
     name                   = aws_lb.artifactory.dns_name
@@ -8,4 +8,3 @@ resource "aws_route53_record" "instance" {
     evaluate_target_health = false
   }
 }
-
