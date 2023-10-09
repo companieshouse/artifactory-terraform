@@ -56,5 +56,6 @@ variable "db_engine" {
 
 variable "aws_route53_record_name" {
   description = "aws_route53_record_name"
+  default     = ""
   type        = string
 }
