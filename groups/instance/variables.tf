@@ -53,9 +53,3 @@ variable "db_engine" {
   default     = "postgres"
   type        = string
 }
-
-variable "aws_route53_record_name" {
-  description = "aws_route53_record_name"
-  default     = ""
-  type        = string
-}
