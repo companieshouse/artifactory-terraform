@@ -33,4 +33,12 @@ data "cloudinit_config" "artifactory" {
       artifactory_access_token                   = local.artifactory_access_token
     })
   }
+
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.module}/cloud-init/templates/mount.tpl", {
+      mount_ip_address = aws_efs_mount_target.efs_mount_target.ip_address
+      efs_dns_name     = aws_efs_file_system.efs_file_system.dns_name
+    })
+  }
 }

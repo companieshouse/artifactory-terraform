@@ -52,6 +52,25 @@ data "aws_iam_policy_document" "ssm_service" {
   }
 }
 
+data "aws_iam_policy_document" "efs_service" {
+
+  statement {
+    sid       = "Statement"
+    effect    = "Allow"
+    resources = [ "${aws_efs_file_system.efs_file_system.arn}" ]
+    actions   = [
+      "elasticfilesystem:ClientMount",
+      "elasticfilesystem:ClientRootAccess",
+      "elasticfilesystem:ClientWrite"
+    ]
+
+    principals {
+      type        = "aws"
+      identifiers = ["*"]
+    }
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Instance IAM Policy
 // ---------------------------------------------------------------------------
@@ -82,4 +101,28 @@ resource "aws_iam_role_policy" "artifactory_instance_policy" {
 resource "aws_iam_role_policy_attachment" "ssm_service_policy_attachment" {
   role       = aws_iam_role.artifactory_instance_role.name
   policy_arn = data.aws_iam_policy.ssm_service_core.arn
+}
+
+// ---------------------------------------------------------------------------
+// Instance IAM Policy EFS CORE
+// ---------------------------------------------------------------------------
+data "aws_iam_policy" "efs_service_core" {
+  arn   = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
+}
+
+// ---------------------------------------------------------------------------
+// Instance IAM Role Policies EFS
+// ---------------------------------------------------------------------------
+resource "aws_iam_role_policy" "artifactory_instance_efs_policy" {
+  name        = "${var.service}-${var.environment}-efs-iam-policy"
+  role        = aws_iam_role.artifactory_instance_role.id
+  policy      = data.aws_iam_policy_document.efs_service.json
+}
+
+// ---------------------------------------------------------------------------
+// Instance IAM Role Policy Attachments EFS
+// ---------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "efs_policy_attachment" {
+  role       = aws_iam_role.artifactory_instance_role.name
+  policy_arn = data.aws_iam_policy.efs_service_core.arn
 }
