@@ -51,7 +51,7 @@ variable "db_engine_major_version" {
 
 variable "db_engine_minor_version" {
   description = "Database engine minor version"
-  default     = "9"
+  default     = "10"
   type        = string
 }
 
