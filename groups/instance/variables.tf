@@ -4,13 +4,11 @@
 
 variable "account_name" {
   description = "The name of the AWS account we are using"
-  default     = "development"
   type        = string
 }
 
 variable "environment" {
   description = "The environment name to be used when creating AWS resources"
-  default     = "devops1"
   type        = string
 }
 
@@ -54,10 +52,4 @@ variable "db_engine" {
   description = "Database engine"
   default     = "postgres"
   type        = string
-}
-
-variable "ssl_certificate_name" {
-  type        = string
-  description = "The name of an existing ACM certificate to use for the ELB SSL listener. Setting this disables certificate creation"
-  default     = ""
 }
