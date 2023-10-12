@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "efs_service" {
   statement {
     sid       = "Statement"
     effect    = "Allow"
-    resources = [ "${aws_efs_file_system.efs_file_system.arn}" ]
+    resources = [ aws_efs_file_system.efs_file_system.arn ]
     actions   = [
       "elasticfilesystem:ClientMount",
       "elasticfilesystem:ClientRootAccess",
