@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------
 
 resource "aws_efs_file_system" "efs_file_system" {
-  name             = "${var.environment}-${var.service}-efs"
+  #name             = "${var.environment}-${var.service}-efs"
   creation_token   = "${var.environment}-${var.service}-efs-token"
   performance_mode = "generalpurpose"
   throughput_mode  = "elastic"
