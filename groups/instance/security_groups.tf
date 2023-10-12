@@ -118,4 +118,5 @@ resource "aws_security_group" "efs_security_group" {
     Type    = "security-group"
   }  
   
+  depends_on = [ aws_security_group.instance_security_group, ]
 }
