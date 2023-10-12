@@ -101,7 +101,8 @@ resource "aws_security_group" "efs_security_group" {
     to_port         = 2049
     protocol        = "tcp"
     cidr_blocks     = local.artifactory_web_access
-    security_groups = [aws_security_group.instance_security_group.id]
+    #security_groups = [aws_security_group.instance_security_group.id]
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
   egress {
@@ -110,13 +111,11 @@ resource "aws_security_group" "efs_security_group" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    security_groups = [aws_security_group.instance_security_group.id]
   }
 
   tags = {
     Name    = "${var.environment}-${var.service}-efs-sg"
     Type    = "security-group"
   }  
-  
-  depends_on = [ aws_security_group.instance_security_group, ]
+  #depends_on = [ aws_security_group.instance_security_group, ]
 }
