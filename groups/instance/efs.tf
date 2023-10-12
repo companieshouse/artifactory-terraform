@@ -5,7 +5,7 @@
 resource "aws_efs_file_system" "efs_file_system" {
   #name             = "${var.environment}-${var.service}-efs"
   creation_token   = "${var.environment}-${var.service}-efs-token"
-  performance_mode = "generalpurpose"
+  performance_mode = "generalPurpose"
   throughput_mode  = "elastic"
   
   lifecycle_policy {
