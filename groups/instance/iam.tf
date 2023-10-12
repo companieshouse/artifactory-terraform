@@ -52,25 +52,25 @@ data "aws_iam_policy_document" "ssm_service" {
   }
 }
 
-data "aws_iam_policy_document" "efs_service" {
-  statement {
-    sid       = "Statement"
-    effect    = "Allow"
-    
-    resources = [aws_efs_file_system.efs_file_system.arn]
-
-    actions = [
-      "elasticfilesystem:ClientMount",
-      "elasticfilesystem:ClientRootAccess",
-      "elasticfilesystem:ClientWrite"
-    ]
-
-    principals {
-      type        = "aws"
-      identifiers = ["*"]
-    }
-  }
-}
+#data "aws_iam_policy_document" "efs_service" {
+#  statement {
+#    sid       = "Statement"
+#    effect    = "Allow"
+#    
+#    resources = [aws_efs_file_system.efs_file_system.arn]
+#
+#    actions = [
+#      "elasticfilesystem:ClientMount",
+#      "elasticfilesystem:ClientRootAccess",
+#      "elasticfilesystem:ClientWrite"
+#    ]
+#
+#    principals {
+#      type        = "aws"
+#      identifiers = ["*"]
+#    }
+#  }
+#}
 
 // ---------------------------------------------------------------------------
 // Instance IAM Policy
@@ -114,11 +114,11 @@ data "aws_iam_policy" "efs_service_core" {
 // ---------------------------------------------------------------------------
 // Instance IAM Role Policies EFS
 // ---------------------------------------------------------------------------
-resource "aws_iam_role_policy" "artifactory_instance_efs_policy" {
-  name        = "${var.service}-${var.environment}-efs-iam-policy"
-  role        = aws_iam_role.artifactory_instance_role.id
-  policy      = data.aws_iam_policy_document.efs_service.json
-}
+#resource "aws_iam_role_policy" "artifactory_instance_efs_policy" {
+#  name        = "${var.service}-${var.environment}-efs-iam-policy"
+#  role        = aws_iam_role.artifactory_instance_role.id
+#  policy      = data.aws_iam_policy_document.efs_service.json
+#}
 
 // ---------------------------------------------------------------------------
 // Instance IAM Role Policy Attachments EFS
