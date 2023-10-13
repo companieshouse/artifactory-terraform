@@ -17,7 +17,7 @@ resource "aws_efs_file_system" "efs_file_system" {
 }
 
 // -----------------------------------------------------------------
-// Creating EFS mount target
+// Creating EFS access point
 // -----------------------------------------------------------------
 
 resource "aws_efs_access_point" "efs_access_point" {
