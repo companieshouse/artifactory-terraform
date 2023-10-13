@@ -2,6 +2,7 @@ resource "aws_key_pair" "artifactory" {
   key_name   = local.ssh_keyname
   public_key = local.ssh_public_key
 }
+
 resource "aws_instance" "artifactory" {
   ami                    = data.aws_ami.artifactory_ami.id
   instance_type          = var.default_instance_type

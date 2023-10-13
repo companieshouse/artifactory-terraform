@@ -18,11 +18,11 @@ resource "aws_security_group" "instance_security_group" {
   }
 
   ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [local.concourse_access_cidrs]
+    description     = "SSH"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    cidr_blocks     = [local.concourse_access_cidrs]
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
@@ -31,8 +31,6 @@ resource "aws_security_group" "instance_security_group" {
     from_port       = 2049
     to_port         = 2049
     protocol        = "tcp"
-    #cidr_blocks     = [local.concourse_access_cidrs]
-    #prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
     security_groups = [aws_security_group.alb_security_group.id]
   }
 
@@ -48,7 +46,6 @@ resource "aws_security_group" "instance_security_group" {
     Name = "${var.environment}-${var.service}-instance"
     Type = "security-group"
   }
-
 }
 
 // -------------------------------------------------------------------------------------------
@@ -90,7 +87,6 @@ resource "aws_security_group" "alb_security_group" {
     Name    = "${var.environment}-${var.service}-lb"
     Type    = "security-group"
   }
-
 }
 
 // -------------------------------------------------------------------------------------------
@@ -107,9 +103,7 @@ resource "aws_security_group" "efs_security_group" {
     from_port       = 2049
     to_port         = 2049
     protocol        = "tcp"
-    #cidr_blocks     = local.artifactory_web_access
     security_groups = [aws_security_group.instance_security_group.id]
-    #prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
   egress {
@@ -124,5 +118,4 @@ resource "aws_security_group" "efs_security_group" {
     Name    = "${var.environment}-${var.service}-efs-sg"
     Type    = "security-group"
   }  
-  #depends_on = [ aws_security_group.instance_security_group, ]
 }

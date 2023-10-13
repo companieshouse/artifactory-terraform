@@ -35,12 +35,4 @@ data "cloudinit_config" "artifactory" {
       efs_dns_name                               = aws_efs_file_system.efs_file_system.dns_name
     })
   }
-
- # part {
- #   content_type = "text/cloud-config"
- #   content = templatefile("${path.module}/cloud-init/templates/mount.tpl", {
- #     efs_mount_ip_address = aws_efs_mount_target.efs_mount_target.ip_address
- #     efs_dns_name     = aws_efs_file_system.efs_file_system.dns_name
- #   })
- # }
 }

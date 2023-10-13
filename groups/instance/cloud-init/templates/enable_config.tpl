@@ -4,7 +4,7 @@ write_files:
     content: |
       ## @formatter:off
       ## JFROG ARTIFACTORY SYSTEM CONFIGURATION FILE
-      ## HOW TO USE: comment-out any field and keep the correct yaml indentation by deleting only the leading '#' character.
+      ## HOW TO USE: comment out any field and keep the correct yaml indentation by deleting only the leading '#' character.
       configVersion: 1
       ## NOTE: JFROG_HOME is a place holder for the JFrog root directory containing the deployed product, the home directory for all JFrog products.
       ## Replace JFROG_HOME with the real path! For example, in RPM install, JFROG_HOME=/opt/jfrog
