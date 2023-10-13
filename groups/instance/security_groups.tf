@@ -100,9 +100,9 @@ resource "aws_security_group" "efs_security_group" {
     from_port       = 2049
     to_port         = 2049
     protocol        = "tcp"
-    cidr_blocks     = local.artifactory_web_access
-    #security_groups = [aws_security_group.instance_security_group.id]
-    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
+    #cidr_blocks     = local.artifactory_web_access
+    security_groups = [aws_security_group.instance_security_group.id]
+    #prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   }
 
   egress {
