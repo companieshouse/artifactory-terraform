@@ -1,7 +1,3 @@
-// -----------------------------------------------------------------
-// Creating the EFs file system
-// -----------------------------------------------------------------
-
 resource "aws_efs_file_system" "efs_file_system" {
   creation_token   = "${var.environment}-${var.service}-efs-token"
   performance_mode = "generalPurpose"
@@ -16,17 +12,9 @@ resource "aws_efs_file_system" "efs_file_system" {
   }
 }
 
-// -----------------------------------------------------------------
-// Creating EFS access point
-// -----------------------------------------------------------------
-
 resource "aws_efs_access_point" "efs_access_point" {
   file_system_id = aws_efs_file_system.efs_file_system.id
 }
-
-// -----------------------------------------------------------------
-// Creating EFS mount target
-// -----------------------------------------------------------------
 
 resource "aws_efs_mount_target" "efs_mount_target" {
   file_system_id  = aws_efs_file_system.efs_file_system.id
@@ -36,9 +24,6 @@ resource "aws_efs_mount_target" "efs_mount_target" {
   depends_on      = [ aws_efs_file_system.efs_file_system, ]
 }
 
-// -----------------------------------------------------------------
-// Creating EFS file system policy
-// -----------------------------------------------------------------
 resource "aws_efs_file_system_policy" "efs_policy" {
   file_system_id = aws_efs_file_system.efs_file_system.id
   policy = <<POLICY

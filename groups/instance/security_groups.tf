@@ -1,7 +1,3 @@
-// -------------------------------------------------------------------------------------------
-// instance_security_group
-// -------------------------------------------------------------------------------------------
-
 resource "aws_security_group" "instance_security_group" {
   name        = "${var.environment}-${var.service}-instance"
   description = "Allow TLS inbound traffic"
@@ -48,10 +44,6 @@ resource "aws_security_group" "instance_security_group" {
   }
 }
 
-// -------------------------------------------------------------------------------------------
-// alb_security_group
-// -------------------------------------------------------------------------------------------
-
 resource "aws_security_group" "alb_security_group" {
   name        = "${var.environment}-${var.service}-lb"
   description = "Restricts access for ${var.service}-${var.environment} lb artifactory nodes"
@@ -88,10 +80,6 @@ resource "aws_security_group" "alb_security_group" {
     Type    = "security-group"
   }
 }
-
-// -------------------------------------------------------------------------------------------
-// efs_security_group
-// -------------------------------------------------------------------------------------------
 
 resource "aws_security_group" "efs_security_group" {
   name        = "${var.environment}-${var.service}-efs"

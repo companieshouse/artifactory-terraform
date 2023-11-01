@@ -15,4 +15,3 @@ resource "aws_instance" "artifactory" {
     Name = "${var.environment}-${var.service}"
   }
 }
-
