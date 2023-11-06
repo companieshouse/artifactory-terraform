@@ -766,6 +766,6 @@ write_files:
 runcmd:
   - systemctl enable artifactory
   - sudo mkdir /var/lib/artifactory
-  - sudo mount -t efs ${efs_dns_name}:/ /var/lib/artifactory
-  - sudo echo "${efs_dns_name}:/ /var/lib/artifactory efs defaults,_netdev 0 0" >> /etc/fstab
+  - sudo mount -t efs -o tls ${efs_dns_name}:/ /var/lib/artifactory
+  - sudo echo "${efs_dns_name}:/ /var/lib/artifactory efs defaults,_netdev,noresvport,tls 0 0" >> /etc/fstab
   - systemctl restart artifactory
