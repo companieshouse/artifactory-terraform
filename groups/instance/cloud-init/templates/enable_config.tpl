@@ -3,7 +3,7 @@ write_files:
     permissions: '0644'
     content: |
       ## @formatter:off
-      ## JFROG ARTIFACTORY SYSTEM CONFIGURATION FILE
+      ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
       shared:
           security:
           node:          

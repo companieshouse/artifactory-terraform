@@ -45,7 +45,7 @@ resource "aws_efs_file_system_policy" "efs_policy" {
             ],
             "Condition": {
                 "Bool": {
-                    "aws:SecureTransport": "false"
+                    "aws:SecureTransport": "true"
                 }
             }
         }
