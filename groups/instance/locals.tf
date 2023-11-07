@@ -62,4 +62,6 @@ locals {
   ldap_group_settings_subtree                = local.secrets.ldap_group_settings_subtree
 
   artifactory_license                        = local.secrets.artifactory_license
+
+  admin_password                             = local.secrets.admin_password
 }
