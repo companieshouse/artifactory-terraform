@@ -1,14 +1,14 @@
 resource "aws_lb" "artifactory" {
-  name               = "${var.environment}-${var.service}-lb"
-  internal           = true
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_security_group.id]
-  subnets            = local.automation_subnet_ids
+  name                       = "${var.environment}-${var.service}-lb"
+  internal                   = true
+  load_balancer_type         = "application"
+  security_groups            = [aws_security_group.alb_security_group.id]
+  subnets                    = local.automation_subnet_ids
 
   enable_deletion_protection = true
 
   tags = {
-    Name        = "${var.environment}-${var.service}-lb"
+    Name = "${var.environment}-${var.service}-lb"
   }
 }
 
@@ -32,8 +32,7 @@ resource "aws_lb_target_group" "front_end_8082" {
 }
 
 resource "aws_acm_certificate" "certificate" {
-  count = local.create_ssl_certificate ? 1 : 0
-
+  count                     = local.create_ssl_certificate ? 1 : 0
   domain_name               = "${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"
   subject_alternative_names = ["*.${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"]
   validation_method         = "DNS"

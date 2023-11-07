@@ -1,18 +1,11 @@
-// ---------------------------------------------------------------------------
-// Instance IAM Profile
-// ---------------------------------------------------------------------------
 resource "aws_iam_instance_profile" "artifactory_instance_profile" {
   name = "${var.service}-${var.environment}-iam-profile"
   role = aws_iam_role.artifactory_instance_role.name
 } 
 
-// ---------------------------------------------------------------------------
-// IAM Policy Documents
-// ---------------------------------------------------------------------------
 data "aws_iam_policy_document" "iam_instance_policy" {
   statement {
-    effect = "Allow"
-
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
     principals {
@@ -23,7 +16,6 @@ data "aws_iam_policy_document" "iam_instance_policy" {
 }
 
 data "aws_iam_policy_document" "ssm_service" {
-
   statement {
     sid       = "SSMKMSOperations"
     effect    = "Allow"
@@ -52,34 +44,31 @@ data "aws_iam_policy_document" "ssm_service" {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Instance IAM Policy
-// ---------------------------------------------------------------------------
 data "aws_iam_policy" "ssm_service_core" {
-  arn   = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
-// ---------------------------------------------------------------------------
-// Instance IAM Role
-// ---------------------------------------------------------------------------
 resource "aws_iam_role" "artifactory_instance_role" {
   name               = "${var.service}-${var.environment}-ssm-iam-role"
   assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
 }
 
-// ---------------------------------------------------------------------------
-// Instance IAM Role Policies
-// ---------------------------------------------------------------------------
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
-  name        = "${var.service}-${var.environment}-ssm-iam-policy"
-  role        = aws_iam_role.artifactory_instance_role.id
-  policy      = data.aws_iam_policy_document.ssm_service.json
+  name   = "${var.service}-${var.environment}-ssm-iam-policy"
+  role   = aws_iam_role.artifactory_instance_role.id
+  policy = data.aws_iam_policy_document.ssm_service.json
 }
 
-// ---------------------------------------------------------------------------
-// Instance IAM Role Policy Attachments
-// ---------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "ssm_service_policy_attachment" {
   role       = aws_iam_role.artifactory_instance_role.name
   policy_arn = data.aws_iam_policy.ssm_service_core.arn
+}
+
+data "aws_iam_policy" "efs_service_core" {
+  arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "efs_policy_attachment" {
+  role       = aws_iam_role.artifactory_instance_role.name
+  policy_arn = data.aws_iam_policy.efs_service_core.arn
 }
