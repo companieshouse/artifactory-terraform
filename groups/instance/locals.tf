@@ -2,7 +2,7 @@ locals {
   secrets                    = data.vault_generic_secret.secrets.data
   security_kms_keys_data     = data.vault_generic_secret.security_kms_keys.data
   security_s3_buckets_data   = data.vault_generic_secret.security_s3_buckets.data
-  security_efs_kms_keys_data = data.vault_generic_secret.security_efs_kms_keys_data
+  security_efs_kms_keys_data = data.vault_generic_secret.security_efs_kms_keys_data.data
 
   placement_subnet_cidrs = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
