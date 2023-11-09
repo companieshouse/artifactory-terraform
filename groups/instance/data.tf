@@ -18,7 +18,7 @@ data "vault_generic_secret" "security_s3_buckets" {
 }
 
 data "vault_generic_secret" "security_efs_kms_keys_data" {
-  path = "aws-accounts/shared-services/kms"
+  path = "aws-accounts/${var.account_name}/kms"
 }
 
 data "aws_caller_identity" "current" {}
