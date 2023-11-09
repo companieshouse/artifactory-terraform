@@ -2,7 +2,9 @@ resource "aws_efs_file_system" "efs_file_system" {
   creation_token   = "${var.environment}-${var.service}-efs-token"
   performance_mode = "generalPurpose"
   throughput_mode  = "elastic"
-  
+  encrypted        = true
+  kms_key_id       = local.efs_kms_key_id
+
   lifecycle_policy {
     transition_to_ia = "AFTER_30_DAYS"
   }
