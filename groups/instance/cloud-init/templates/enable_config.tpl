@@ -3,7 +3,7 @@ write_files:
     permissions: '0644'
     content: |
       ## @formatter:off
-      ## JFROG ARTIFACTORY SYSTEM CONFIGURATION FILE 
+      ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
       shared:
           security:
           node:          
@@ -130,39 +130,6 @@ write_files:
                   <key>artifactory-build-info</key>
                   <type>buildinfo</type>
                   <description>Build Info repository</description>
-                  <includesPattern>**/*</includesPattern>
-                  <repoLayoutRef>simple-default</repoLayoutRef>
-                  <dockerApiVersion>V2</dockerApiVersion>
-                  <forceNugetAuthentication>false</forceNugetAuthentication>
-                  <forceConanAuthentication>false</forceConanAuthentication>
-                  <ddebSupported>false</ddebSupported>
-                  <signedUrlTtl>90</signedUrlTtl>
-                  <blackedOut>false</blackedOut>
-                  <handleReleases>true</handleReleases>
-                  <handleSnapshots>true</handleSnapshots>
-                  <maxUniqueSnapshots>0</maxUniqueSnapshots>
-                  <maxUniqueTags>0</maxUniqueTags>
-                  <blockPushingSchema1>true</blockPushingSchema1>
-                  <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
-                  <propertySets>
-                      <propertySetRef>artifactory</propertySetRef>
-                  </propertySets>
-                  <archiveBrowsingEnabled>false</archiveBrowsingEnabled>
-                  <priorityResolution>false</priorityResolution>
-                  <snapshotVersionBehavior>unique</snapshotVersionBehavior>
-                  <localRepoChecksumPolicyType>client-checksums</localRepoChecksumPolicyType>
-                  <calculateYumMetadata>false</calculateYumMetadata>
-                  <yumRootDepth>0</yumRootDepth>
-                  <debianTrivialLayout>false</debianTrivialLayout>
-                  <enableFileListsIndexing>false</enableFileListsIndexing>
-                  <dockerTagRetention>1</dockerTagRetention>
-                  <enableComposerV1Indexing>false</enableComposerV1Indexing>
-                  <terraformType>MODULE</terraformType>
-              </localRepository>
-              <localRepository>
-                  <key>example-repo-local</key>
-                  <type>generic</type>
-                  <description>Example artifactory repository</description>
                   <includesPattern>**/*</includesPattern>
                   <repoLayoutRef>simple-default</repoLayoutRef>
                   <dockerApiVersion>V2</dockerApiVersion>
