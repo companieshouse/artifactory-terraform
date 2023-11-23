@@ -735,6 +735,18 @@ write_files:
     content: |
       admin@*=${admin_password}
 
+  - path: /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
+    permissions: '0644'
+    content: |
+      <config version="v1">
+          <chain template="file-system"/>
+          <provider id="file-system" type="file-system">
+              <baseDataDir>/var/opt/jfrog/artifactory/data/artifactory</baseDataDir>
+              <fileStoreDir>/var/opt/jfrog/artifactory/data/artifactory/filestore</fileStoreDir>
+              <tempDir>/var/opt/jfrog/artifactory/data/artifactory/tmp</tempDir>
+          </provider>
+      </config>
+
 runcmd:
   - systemctl enable artifactory
   - sudo mkdir /var/lib/artifactory/
