@@ -753,6 +753,6 @@ runcmd:
   - sudo mount -t efs -o tls ${efs_dns_name}:/ /var/lib/artifactory
   - sudo echo "${efs_dns_name}:/ /var/lib/artifactory efs defaults,_netdev,noresvport,tls 0 0" >> /etc/fstab
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-  - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xm
+  - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
   - sudo chown -R artifactory:artifactory /var/lib/artifactory
   - systemctl restart artifactory
