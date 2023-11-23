@@ -735,9 +735,19 @@ write_files:
     content: |
       admin@*=${admin_password}
 
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/binarystore.xml
+    <config version="v1">
+        <chain template="file-system"/>
+        <provider id="file-system" type="file-system">
+                <baseDataDir>/var/opt/jfrog/artifactory/data</baseDataDir>
+                <fileStoreDir>/var/lib/artifactory/data/</fileStoreDir>   
+                <tempDir>/var/lib/artifactory/data/</tempDir>
+        </provider>
+    </config>
+
 runcmd:
   - systemctl enable artifactory
-  - sudo mkdir /var/lib/artifactory
+  - sudo mkdir /var/lib/artifactory/data
   - sudo mount -t efs -o tls ${efs_dns_name}:/ /var/lib/artifactory
   - sudo echo "${efs_dns_name}:/ /var/lib/artifactory efs defaults,_netdev,noresvport,tls 0 0" >> /etc/fstab
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
