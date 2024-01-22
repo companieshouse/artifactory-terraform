@@ -11,6 +11,25 @@ resource "aws_instance" "artifactory" {
   key_name               = local.ssh_keyname
   user_data_base64       = data.cloudinit_config.artifactory.rendered
   iam_instance_profile   = aws_iam_instance_profile.artifactory_instance_profile.name
+  
+  ebs_block_device {
+    delete_on_termination = var.ebs_delete_on_termination
+    device_name           = "/dev/xvdb"
+    encrypted             = var.ebs_encrypted
+    kms_key_id            = local.ebs_kms_key_id
+    iops                  = var.ebs_iops
+    volume_size           = var.ebs_volume_size
+    volume_type           = var.ebs_volume_type
+
+    tags = {
+      Name        = "${var.service}-${var.environment}-data-ebs-volume-xvdb"
+      Service     = "${var.service}"
+      Environment = "${var.environment}"
+      Snapshot    = "Daily"
+      RootDevice  = "False" 
+    }
+  }
+
   tags = {
     Name = "${var.environment}-${var.service}"
   }

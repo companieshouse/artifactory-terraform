@@ -49,3 +49,39 @@ variable "db_engine" {
   default     = "postgres"
   type        = string
 }
+
+variable "ebs_delete_on_termination" {
+  description = "Whether the volume should be destroyed on instance termination. Defaulted to false"
+  default     = "false"
+  type        = string
+}
+
+variable "ebs_encrypted" {
+  description = "Enables EBS encryption on the volume."
+  default     = "true"
+  type        = string
+}
+
+variable "ebs_iops" {
+  description = "Amount of provisioned IOPS."
+  default     = 300
+  type        = number
+}
+
+variable "ebs_volume_size" {
+  description = "Size of the volume in gibibytes (GiB)"
+  default     = 100
+  type        = number
+}
+
+variable "ebs_volume_type" {
+  description = "Type of volume"
+  default     = "gp3"
+  type        = string
+}
+
+variable "efs_module_test_service" {
+  description = "The service name to be used when creating AWS resources"
+  default     = "artifactory_efs_module_test"
+  type        = string
+}

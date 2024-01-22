@@ -55,3 +55,29 @@ resource "aws_efs_file_system_policy" "efs_policy" {
 }
 POLICY
 }
+
+# ------------------------------------------------------------------------------
+# Terraform modules EFS TEST
+# ------------------------------------------------------------------------------
+module "efs_file_system" {
+
+  source           = "git@github.com:companieshouse/terraform-modules//aws/efs?ref=<version>"
+  environment      = var.environment
+  service          = var.efs_module_test_service
+
+  vpc_id           = data.aws_vpc.placement.id
+  subnet_ids       = tolist(data.aws_subnet_ids.placement.ids)[0]
+
+  kms_key_arn      = local.efs_kms_key_id
+  throughput_mode  = "elastic"
+  performance_mode = "generalPurpose"
+
+  access_points = {
+    artifacts = {
+      permissions    = "0755"
+      posix_user_gid = 991
+      posix_user_uid = 991
+      root_directory = "/efs_module_artifacts_test"   
+    }
+  }
+}
