@@ -61,7 +61,7 @@ POLICY
 # ------------------------------------------------------------------------------
 module "efs_file_system" {
 
-  source           = "git@github.com:companieshouse/terraform-modules//aws/efs?ref=tags/1.0.243"
+  source           = "git@github.com:companieshouse/terraform-modules//aws/efs?ref=1.0.243"
   environment      = var.environment
   service          = var.efs_module_test_service
 
