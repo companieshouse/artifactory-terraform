@@ -20,7 +20,7 @@ resource "aws_efs_access_point" "efs_access_point" {
 
 resource "aws_efs_mount_target" "efs_mount_target" {
   file_system_id  = aws_efs_file_system.efs_file_system.id
-  subnet_id       = tolist(data.aws_subnet_ids.placement.ids)[0]  
+  subnet_id       = tolist(data.aws_subnets.placement.ids)[1]  
   security_groups = [ aws_security_group.efs_security_group.id ]
 
   depends_on      = [ aws_efs_file_system.efs_file_system, ]
@@ -66,7 +66,7 @@ module "efs_file_system" {
   service          = var.efs_module_test_service
 
   vpc_id           = data.aws_vpc.placement.id
-  subnet_ids       = tolist(data.aws_subnet_ids.placement.ids)[0]
+  subnet_ids       = data.aws_subnets.placement.ids
 
   kms_key_arn      = local.efs_kms_key_id
   throughput_mode  = "elastic"

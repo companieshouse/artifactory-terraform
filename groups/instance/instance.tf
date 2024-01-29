@@ -6,27 +6,27 @@ resource "aws_key_pair" "artifactory" {
 resource "aws_instance" "artifactory" {
   ami                    = data.aws_ami.artifactory_ami.id
   instance_type          = var.default_instance_type
-  subnet_id              = tolist(data.aws_subnet_ids.placement.ids)[0]
+  subnet_id              = tolist(data.aws_subnets.placement.ids)[1]
   vpc_security_group_ids = [aws_security_group.instance_security_group.id]
   key_name               = local.ssh_keyname
   user_data_base64       = data.cloudinit_config.artifactory.rendered
   iam_instance_profile   = aws_iam_instance_profile.artifactory_instance_profile.name
   
-  ebs_block_device {
-    delete_on_termination = var.ebs_delete_on_termination
-    device_name           = "/dev/xvdb"
-    encrypted             = var.ebs_encrypted
-    kms_key_id            = local.ebs_kms_key_id
-    iops                  = var.ebs_iops
-    volume_size           = var.ebs_volume_size
-    volume_type           = var.ebs_volume_type
+  root_block_device {
+    delete_on_termination = var.ebs_root_delete_on_termination
+    iops                  = var.ebs_root_iops    
+    encrypted             = var.ebs_root_encrypted
+    kms_key_id            = local.ebs_root_kms_key_id
+    volume_size           = var.ebs_root_volume_size
+    throughput            = var.ebs_root_throughput
+    volume_type           = var.ebs_root_volume_type
 
     tags = {
-      Name        = "${var.service}-${var.environment}-data-ebs-volume-xvdb"
-      Service     = "${var.service}"
-      Environment = "${var.environment}"
+      Name        = "${var.service}-${var.environment}-root-volume"
+      Service     = var.service
+      Environment = var.environment
       Snapshot    = "Daily"
-      RootDevice  = "False" 
+      RootDevice  = "True" 
     }
   }
 

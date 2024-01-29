@@ -50,31 +50,37 @@ variable "db_engine" {
   type        = string
 }
 
-variable "ebs_delete_on_termination" {
+variable "ebs_root_delete_on_termination" {
   description = "Whether the volume should be destroyed on instance termination. Defaulted to false"
   default     = "false"
   type        = string
 }
 
-variable "ebs_encrypted" {
+variable "ebs_root_encrypted" {
   description = "Enables EBS encryption on the volume."
   default     = "true"
   type        = string
 }
 
-variable "ebs_iops" {
+variable "ebs_root_iops" {
   description = "Amount of provisioned IOPS."
-  default     = 300
+  default     = 3000
   type        = number
 }
 
-variable "ebs_volume_size" {
+variable "ebs_root_throughput" {
+  description = "Throughput to provision for a volume in mebibytes per second (MiB/s)"
+  default     = 125
+  type        = number
+}
+
+variable "ebs_root_volume_size" {
   description = "Size of the volume in gibibytes (GiB)"
-  default     = 100
+  default     = 20
   type        = number
 }
 
-variable "ebs_volume_type" {
+variable "ebs_root_volume_type" {
   description = "Type of volume"
   default     = "gp3"
   type        = string
@@ -82,6 +88,6 @@ variable "ebs_volume_type" {
 
 variable "efs_module_test_service" {
   description = "The service name to be used when creating AWS resources"
-  default     = "artifactory_efs_module_test"
+  default     = "artifactory-efs-module-test"
   type        = string
 }
