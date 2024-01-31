@@ -86,6 +86,12 @@ variable "ebs_root_volume_type" {
   type        = string
 }
 
+variable "efs_permit_client_root_access" {
+  description = "Enable clients to perform root operations on the filesystem"
+  default     = "true"
+  type        = string
+}
+
 variable "efs_module_test_service" {
   description = "The service name to be used when creating AWS resources"
   default     = "artifactory-efs-module-test"
