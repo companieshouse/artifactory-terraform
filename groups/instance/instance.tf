@@ -15,8 +15,8 @@ resource "aws_instance" "artifactory" {
   root_block_device {
     delete_on_termination = var.ebs_root_delete_on_termination
     iops                  = var.ebs_root_iops    
-    encrypted             = var.ebs_root_encrypted
-    kms_key_id            = local.ebs_root_kms_key_id
+    #encrypted             = var.ebs_root_encrypted
+    #kms_key_id            = local.ebs_root_kms_key_id
     volume_size           = var.ebs_root_volume_size
     throughput            = var.ebs_root_throughput
     volume_type           = var.ebs_root_volume_type
