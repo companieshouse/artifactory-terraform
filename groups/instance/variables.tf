@@ -97,3 +97,27 @@ variable "efs_module_test_service" {
   default     = "artifactory-efs-module-test"
   type        = string
 }
+
+variable "kms_key_usage" {
+  description = "Specifies the intended use of the key"
+  default     = "ENCRYPT_DECRYPT"
+  type        = string
+}
+
+variable "kms_customer_master_key_spec" {
+  description = "Specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports"
+  default     = "SYMMETRIC_DEFAULT"
+  type        = string
+}
+
+variable "kms_is_enabled" {
+  description = "Specifies whether the key is enabled"
+  default     = "true"
+  type        = string
+}
+
+variable "kms_enable_key_rotation" {
+  description = "Specifies whether key rotation is enabled"
+  default     = "false"
+  type        = string
+}

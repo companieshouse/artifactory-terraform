@@ -44,8 +44,29 @@ data "aws_iam_policy_document" "ssm_service" {
   }
 }
 
+data "aws_iam_policy_document" "kms_key" {
+  statement {
+    sid       = "AllowKMSOperations"
+    effect    = "Allow"
+    resources = [
+      aws_kms_key.artifactory_kms_key.arn
+    ]
+    actions   = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+  }
+}
+
 data "aws_iam_policy" "ssm_service_core" {
   arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+data "aws_iam_policy" "efs_service_core" {
+  arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
 }
 
 resource "aws_iam_role" "artifactory_instance_role" {
@@ -64,11 +85,18 @@ resource "aws_iam_role_policy_attachment" "ssm_service_policy_attachment" {
   policy_arn = data.aws_iam_policy.ssm_service_core.arn
 }
 
-data "aws_iam_policy" "efs_service_core" {
-  arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
-}
-
 resource "aws_iam_role_policy_attachment" "efs_policy_attachment" {
   role       = aws_iam_role.artifactory_instance_role.name
   policy_arn = data.aws_iam_policy.efs_service_core.arn
+}
+
+resource  "aws_iam_policy" "kms_policy"{
+  name        = "${var.service}-kms-policy"
+  description = "${var.service} dedicated kms key"
+  policy      = data.aws_iam_policy_document.kms_key.json
+}
+
+resource "aws_iam_role_policy_attachment" "kms_policy_attachment" {
+  role       = aws_iam_role.artifactory_instance_role.name
+  policy_arn = aws_iam_policy.kms_policy.arn
 }
