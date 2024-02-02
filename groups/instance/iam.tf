@@ -61,6 +61,11 @@ data "aws_iam_policy_document" "kms_key" {
   }
 }
 
+resource "aws_iam_role" "artifactory_instance_role" {
+  name               = "${var.service}-${var.environment}-ssm-iam-role"
+  assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
+}
+
 data "aws_iam_policy" "ssm_service_core" {
   arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
@@ -69,9 +74,10 @@ data "aws_iam_policy" "efs_service_core" {
   arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
 }
 
-resource "aws_iam_role" "artifactory_instance_role" {
-  name               = "${var.service}-${var.environment}-ssm-iam-role"
-  assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
+resource  "aws_iam_policy" "kms_policy" {
+  name        = "${var.service}-${var.environment}-kms-policy"
+  description = "${var.service}-${var.environment}-dedicated-kms-key"
+  policy      = data.aws_iam_policy_document.kms_key.json
 }
 
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
@@ -88,12 +94,6 @@ resource "aws_iam_role_policy_attachment" "ssm_service_policy_attachment" {
 resource "aws_iam_role_policy_attachment" "efs_policy_attachment" {
   role       = aws_iam_role.artifactory_instance_role.name
   policy_arn = data.aws_iam_policy.efs_service_core.arn
-}
-
-resource  "aws_iam_policy" "kms_policy"{
-  name        = "${var.service}-kms-policy"
-  description = "${var.service} dedicated kms key"
-  policy      = data.aws_iam_policy_document.kms_key.json
 }
 
 resource "aws_iam_role_policy_attachment" "kms_policy_attachment" {
