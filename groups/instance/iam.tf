@@ -69,10 +69,10 @@ data "aws_iam_policy_document" "kms_key" {
       "aws_kms_key.artifactory_kms_key.arn"
     ]
 
-    condition = {
-      test    = "Bool"
-      Bool    = "kms:GrantIsForAWSResource"
-      values  = ["true"]
+    condition {
+      test     = "Bool"
+      variable = "kms:GrantIsForAWSResource"
+      values   = ["true"]
     }
   }
 }
