@@ -48,6 +48,12 @@ data "aws_iam_policy_document" "kms_key" {
   statement {
     sid       = "AllowKMSOperations"
     effect    = "Allow"
+    
+    principals {
+      type        = "AWS"
+      identifiers = aws_iam_role.artifactory_instance_role.arn
+    }
+    
     actions   = [
       "kms:CreateGrant",
       "kms:Encrypt",
@@ -56,6 +62,7 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:GenerateDataKey*",
       "kms:DescribeKey"
     ]
+    
     resources = aws_kms_key.artifactory_kms_key.arn
     Condition = {
       Bool    = {
