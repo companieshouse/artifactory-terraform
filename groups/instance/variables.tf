@@ -58,7 +58,7 @@ variable "ebs_root_delete_on_termination" {
 
 variable "ebs_root_encrypted" {
   description = "Enables EBS encryption on the volume."
-  default     = "false"
+  default     = "true"
   type        = string
 }
 
