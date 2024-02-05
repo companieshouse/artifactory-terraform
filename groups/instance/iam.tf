@@ -51,7 +51,9 @@ data "aws_iam_policy_document" "kms_key" {
     
     principals {
       type        = "AWS"
-      identifiers = aws_iam_role.artifactory_instance_role.arn
+      identifiers = [ 
+        aws_iam_role.artifactory_instance_role.arn
+      ]  
     }
     
     actions   = [
@@ -63,11 +65,14 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:DescribeKey"
     ]
     
-    resources = aws_kms_key.artifactory_kms_key.arn
-    Condition = {
-      Bool    = {
-        "kms:GrantIsForAWSResource": true
-      }
+    resources = [ 
+      "aws_kms_key.artifactory_kms_key.arn"
+    ]
+
+    condition = {
+      test    = "Bool"
+      Bool    = "kms:GrantIsForAWSResource"
+      values  = ["true"]
     }
   }
 }
