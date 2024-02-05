@@ -48,16 +48,20 @@ data "aws_iam_policy_document" "kms_key" {
   statement {
     sid       = "AllowKMSOperations"
     effect    = "Allow"
-    resources = [
-      aws_kms_key.artifactory_kms_key.arn
-    ]
     actions   = [
+      "kms:CreateGrant",
       "kms:Encrypt",
       "kms:Decrypt",
       "kms:ReEncrypt*",
       "kms:GenerateDataKey*",
       "kms:DescribeKey"
     ]
+    resources = aws_kms_key.artifactory_kms_key.arn
+    Condition = {
+      Bool    = {
+        "kms:GrantIsForAWSResource": true
+      }
+    }
   }
 }
 
