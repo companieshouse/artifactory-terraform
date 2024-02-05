@@ -49,12 +49,12 @@ data "aws_iam_policy_document" "kms_key" {
     sid       = "AllowKMSOperations"
     effect    = "Allow"
     
-    principals {
-      type        = "AWS"
-      identifiers = [ 
-        aws_iam_role.artifactory_instance_role.arn
-      ]  
-    }
+    # principals {
+    #   type        = "AWS"
+    #   identifiers = [ 
+    #     aws_iam_role.artifactory_instance_role.arn
+    #   ]  
+    # }
     
     actions   = [
       "kms:CreateGrant",
