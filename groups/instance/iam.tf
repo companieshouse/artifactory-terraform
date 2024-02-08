@@ -59,13 +59,13 @@ data "aws_iam_policy_document" "kms_key" {
     
     resources = [aws_iam_role.artifactory_instance_role.arn]
 
-    condition {
-      test     = "Bool"
-      variable = "kms:GrantIsForAWSResource"
-      values   = ["true"]
-    }
+    # condition {
+    #   test     = "Bool"
+    #   variable = "kms:GrantIsForAWSResource"
+    #   values   = ["true"]
+    # }
   }
-    statement {
+  statement {
     sid       = "AllowAttachmentOfPersistentResources"
     effect    = "Allow"
  
@@ -77,11 +77,11 @@ data "aws_iam_policy_document" "kms_key" {
     
     resources = [aws_iam_role.artifactory_instance_role.arn]
 
-    condition {
-      test     = "Bool"
-      variable = "kms:GrantIsForAWSResource"
-      values   = ["true"]
-    }
+    # condition {
+    #   test     = "Bool"
+    #   variable = "kms:GrantIsForAWSResource"
+    #   values   = ["true"]
+    # }
   }
 }
 
