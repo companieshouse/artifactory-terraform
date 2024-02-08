@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:DescribeKey"
     ]
     
-    resources = ["*"]
+    resources = [aws_iam_role.artifactory_instance_role.arn]
 
     condition {
       test     = "Bool"
@@ -75,7 +75,7 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:RevokeGrant"
     ]
     
-    resources = ["*"]
+    resources = [aws_iam_role.artifactory_instance_role.arn]
 
     condition {
       test     = "Bool"
