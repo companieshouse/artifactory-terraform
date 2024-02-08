@@ -112,7 +112,12 @@ resource  "aws_iam_policy" "kms_policy" {
               "Action": [
                   "kms:Encrypt",
                   "kms:Decrypt",
-                  "kms:DescribeKey"
+                  "kms:DescribeKey",
+                  "kms:ReEncryptTo",
+                  "kms:ReEncryptFrom",
+                  "kms:GenerateDataKeyPair",
+                  "kms:GenerateDataKeyPairWithoutPlaintext",
+                  "kms:GenerateDataKeyWithoutPlaintext"
               ],
               "Resource": "*"
           }
