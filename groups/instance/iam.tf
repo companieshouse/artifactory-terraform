@@ -119,7 +119,19 @@ resource  "aws_iam_policy" "kms_policy" {
                   "kms:GenerateDataKeyPairWithoutPlaintext",
                   "kms:GenerateDataKeyWithoutPlaintext"
               ],
-              "Resource": [aws_iam_role.artifactory_instance_role.arn]
+              "Resource": "*"
+          }
+      ],
+      "Statement": [
+          {
+              "Sid": "AllowAttachmentOfPersistentResources",
+              "Effect": "Allow",
+              "Action": [
+                  "kms:CreateGrant",
+                  "kms:ListGrants",
+                  "kms:RevokeGrant"
+              ],
+              "Resource": "*"
           }
       ]
   })
