@@ -44,60 +44,60 @@ data "aws_iam_policy_document" "ssm_service" {
   }
 }
 
-data "aws_iam_policy_document" "kms_key" {
-  statement {
-    sid       = "AllowKMSOperations"
-    effect    = "Deny"
+# data "aws_iam_policy_document" "kms_key" {
+#   statement {
+#     sid       = "AllowKMSOperations"
+#     effect    = "Deny"
     
-    not_principals {
-      type        = "AWS"
-      identifiers = [ 
-        aws_iam_role.artifactory_instance_role.arn
-      ]  
-    }
+#     not_principals {
+#       type        = "AWS"
+#       identifiers = [ 
+#         aws_iam_role.artifactory_instance_role.arn
+#       ]  
+#     }
     
-    actions   = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey"
-    ]
+#     actions   = [
+#       "kms:Encrypt",
+#       "kms:Decrypt",
+#       "kms:ReEncrypt*",
+#       "kms:GenerateDataKey*",
+#       "kms:DescribeKey"
+#     ]
     
-    resources = ["*"]
+#     resources = ["*"]
 
-    condition {
-      test     = "Bool"
-      variable = "kms:GrantIsForAWSResource"
-      values   = ["true"]
-    }
-  }
-    statement {
-    sid       = "AllowAttachmentOfPersistentResources"
-    effect    = "Deny"
+#     condition {
+#       test     = "Bool"
+#       variable = "kms:GrantIsForAWSResource"
+#       values   = ["true"]
+#     }
+#   }
+#     statement {
+#     sid       = "AllowAttachmentOfPersistentResources"
+#     effect    = "Deny"
     
-    not_principals {
-      type        = "AWS"
-      identifiers = [ 
-        aws_iam_role.artifactory_instance_role.arn
-      ]  
-    }
+#     not_principals {
+#       type        = "AWS"
+#       identifiers = [ 
+#         aws_iam_role.artifactory_instance_role.arn
+#       ]  
+#     }
     
-    actions   = [
-      "kms:CreateGrant",
-      "kms:ListGrants",
-      "RevokeGrant"
-    ]
+#     actions   = [
+#       "kms:CreateGrant",
+#       "kms:ListGrants",
+#       "RevokeGrant"
+#     ]
     
-    resources = ["*"]
+#     resources = ["*"]
 
-    condition {
-      test     = "Bool"
-      variable = "kms:GrantIsForAWSResource"
-      values   = ["true"]
-    }
-  }
-}
+#     condition {
+#       test     = "Bool"
+#       variable = "kms:GrantIsForAWSResource"
+#       values   = ["true"]
+#     }
+#   }
+# }
 
 resource "aws_iam_role" "artifactory_instance_role" {
   name               = "${var.service}-${var.environment}-ssm-iam-role"
@@ -115,7 +115,51 @@ data "aws_iam_policy" "efs_service_core" {
 resource  "aws_iam_policy" "kms_policy" {
   name        = "${var.service}-${var.environment}-kms-policy"
   description = "${var.service}-${var.environment}-dedicated-kms-key"
-  policy      = data.aws_iam_policy_document.kms_key.json
+  #policy      = data.aws_iam_policy_document.kms_key.json
+  policy      = jsonencode({
+   Version: "2012-10-17"
+   Statement: [
+     {
+       "Sid": "AllowKMSOperations",
+       "Effect": "Allow",
+       "Principal": {
+         "AWS": "aws_iam_role.artifactory_instance_role.arn"
+       },
+       "Action": [
+           "kms:Encrypt",
+           "kms:Decrypt",
+           "kms:ReEncrypt*",
+           "kms:GenerateDataKey*",
+           "kms:DescribeKey"
+       ],
+       "Resource": "*",
+       "Condition": {
+           "Bool": {
+               "kms:GrantIsForAWSResource": "true"
+           }
+       }
+     },
+     {
+       "Sid": "AllowAttachmentOfPersistentResources",
+       "Effect": "Allow",
+       "Principal": {
+         "AWS": "aws_iam_role.artifactory_instance_role.arn"
+       },
+       "Action": [
+           "kms:CreateGrant",
+           "kms:ListGrants",
+           "RevokeGrant"
+       ],
+       "Resource": "*",
+       "Condition": {
+           "Bool": {
+               "kms:GrantIsForAWSResource": "true"
+           }
+       }
+     }    
+   ]
+  }
+ )
 }
 
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
