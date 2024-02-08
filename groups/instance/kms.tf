@@ -26,10 +26,12 @@ resource "aws_kms_grant" "artifactory_kms_grant" {
   operations        = [
     "Encrypt",
     "Decrypt",
-    "ReEncryptFrom",
-    "GenerateDataKey",
-    "GenerateDataKeyWithoutPlaintext",
     "DescribeKey",
+    "ReEncryptTo",
+    "ReEncryptFrom",
+    "GenerateDataKeyPair",
+    "GenerateDataKeyPairWithoutPlaintext",
+    "GenerateDataKeyWithoutPlaintext",
     "CreateGrant"
   ]
 }
