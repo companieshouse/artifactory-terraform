@@ -19,7 +19,10 @@ data "aws_iam_policy_document" "ssm_service" {
   statement {
     sid       = "SSMKMSOperations"
     effect    = "Allow"
-    resources = [local.security_kms_keys_data["session-manager-kms-key-arn"]]
+    resources = [
+      local.security_kms_keys_data["session-manager-kms-key-arn"],
+      aws_kms_key.artifactory_kms_key.arn
+    ]
     actions   = [
       "kms:Decrypt",
       "kms:DescribeKey",
