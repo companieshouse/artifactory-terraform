@@ -47,9 +47,9 @@ data "aws_iam_policy_document" "ssm_service" {
 data "aws_iam_policy_document" "kms_key" {
   statement {
     sid       = "AllowKMSOperations"
-    effect    = "Allow"
+    effect    = "Deny"
     
-    principals {
+    not_principals {
       type        = "AWS"
       identifiers = [ 
         aws_iam_role.artifactory_instance_role.arn
@@ -64,9 +64,7 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:DescribeKey"
     ]
     
-    resources = [ 
-      aws_kms_key.artifactory_kms_key.arn
-    ]
+    resources = ["*"]
 
     condition {
       test     = "Bool"
@@ -76,12 +74,12 @@ data "aws_iam_policy_document" "kms_key" {
   }
     statement {
     sid       = "AllowAttachmentOfPersistentResources"
-    effect    = "Allow"
+    effect    = "Deny"
     
-    principals {
+    not_principals {
       type        = "AWS"
       identifiers = [ 
-        aws_iam_role.artifactory_instance_role.arn,
+        aws_iam_role.artifactory_instance_role.arn
       ]  
     }
     
@@ -91,9 +89,7 @@ data "aws_iam_policy_document" "kms_key" {
       "RevokeGrant"
     ]
     
-    resources = [ 
-      aws_kms_key.artifactory_kms_key.arn
-    ]
+    resources = ["*"]
 
     condition {
       test     = "Bool"
