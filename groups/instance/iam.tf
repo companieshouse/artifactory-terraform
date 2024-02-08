@@ -117,16 +117,7 @@ resource  "aws_iam_policy" "kms_policy" {
                   "kms:ReEncryptFrom",
                   "kms:GenerateDataKeyPair",
                   "kms:GenerateDataKeyPairWithoutPlaintext",
-                  "kms:GenerateDataKeyWithoutPlaintext"
-              ],
-              "Resource": "*"
-          }
-      ],
-      "Statement": [
-          {
-              "Sid": "AllowAttachmentOfPersistentResources",
-              "Effect": "Allow",
-              "Action": [
+                  "kms:GenerateDataKeyWithoutPlaintext",
                   "kms:CreateGrant",
                   "kms:ListGrants",
                   "kms:RevokeGrant"
