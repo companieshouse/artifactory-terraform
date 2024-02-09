@@ -44,46 +44,23 @@ data "aws_iam_policy_document" "ssm_service" {
   }
 }
 
-# data "aws_iam_policy_document" "kms_key" {
-#   statement {
-#     sid       = "AllowKMSOperations"
-#     effect    = "Allow"
-
-#     actions   = [
-#       "kms:Encrypt",
-#       "kms:Decrypt",
-#       "kms:ReEncrypt*",
-#       "kms:GenerateDataKey*",
-#       "kms:DescribeKey"
-#     ]
-    
-#     resources = [aws_iam_role.artifactory_instance_role.arn]
-
-#     # condition {
-#     #   test     = "Bool"
-#     #   variable = "kms:GrantIsForAWSResource"
-#     #   values   = ["true"]
-#     # }
-#   }
-#   statement {
-#     sid       = "AllowAttachmentOfPersistentResources"
-#     effect    = "Allow"
- 
-#     actions   = [
-#       "kms:CreateGrant",
-#       "kms:ListGrants",
-#       "kms:RevokeGrant"
-#     ]
-    
-#     resources = [aws_iam_role.artifactory_instance_role.arn]
-
-#     # condition {
-#     #   test     = "Bool"
-#     #   variable = "kms:GrantIsForAWSResource"
-#     #   values   = ["true"]
-#     # }
-#   }
-# }
+data "aws_iam_policy_document" "kms_key" {
+  statement {
+    sid       = "AllowKmsOperations"
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:DescribeKey",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:CreateGrant",
+      "kms:ListGrants",
+      "kms:RevokeGrant"
+    ]   
+  }
+}
 
 resource "aws_iam_role" "artifactory_instance_role" {
   name               = "${var.service}-${var.environment}-ssm-iam-role"
@@ -101,77 +78,32 @@ data "aws_iam_policy" "efs_service_core" {
 resource  "aws_iam_policy" "kms_policy" {
   name        = "${var.service}-${var.environment}-kms-policy"
   description = "${var.service}-${var.environment}-dedicated-kms-key"
-  #policy      = data.aws_iam_policy_document.kms_key.json
-  policy      = jsonencode(
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Sid": "AllowKmsOperations",
-              "Effect": "Allow",
-              "Action": [
-                  "kms:Encrypt",
-                  "kms:Decrypt",
-                  "kms:DescribeKey",
-                  "kms:ReEncryptTo",
-                  "kms:ReEncryptFrom",
-                  "kms:GenerateDataKeyPair",
-                  "kms:GenerateDataKeyPairWithoutPlaintext",
-                  "kms:GenerateDataKeyWithoutPlaintext",
-                  "kms:CreateGrant",
-                  "kms:ListGrants",
-                  "kms:RevokeGrant"
-              ],
-              "Resource": "*"
-          }
-      ]
-  })
+  policy      = data.aws_iam_policy_document.kms_key.json
+  # policy      = jsonencode(
+  # {
+  #     "Version": "2012-10-17",
+  #     "Statement": [
+  #         {
+  #             "Sid": "AllowKmsOperations",
+  #             "Effect": "Allow",
+  #             "Action": [
+  #                 "kms:Encrypt",
+  #                 "kms:Decrypt",
+  #                 "kms:DescribeKey",
+  #                 "kms:ReEncryptTo",
+  #                 "kms:ReEncryptFrom",
+  #                 "kms:GenerateDataKeyPair",
+  #                 "kms:GenerateDataKeyPairWithoutPlaintext",
+  #                 "kms:GenerateDataKeyWithoutPlaintext",
+  #                 "kms:CreateGrant",
+  #                 "kms:ListGrants",
+  #                 "kms:RevokeGrant"
+  #             ],
+  #             "Resource": "*"
+  #         }
+  #     ]
+  # })
 }
-
-#    Version: "2012-10-17"
-#    Statement: [
-#      {
-#        "Sid": "AllowKMSOperations",
-#        "Effect": "Allow",
-#        "Principal": {
-#          "AWS": "aws_iam_role.artifactory_instance_role.arn"
-#        },
-#        "Action": [
-#            "kms:Encrypt",
-#            "kms:Decrypt",
-#            "kms:ReEncrypt*",
-#            "kms:GenerateDataKey*",
-#            "kms:DescribeKey"
-#        ],
-#        "Resource": "*",
-#        "Condition": {
-#            "Bool": {
-#                "kms:GrantIsForAWSResource": "true"
-#            }
-#        }
-#      },
-#      {
-#        "Sid": "AllowAttachmentOfPersistentResources",
-#        "Effect": "Allow",
-#        "Principal": {
-#          "AWS": "aws_iam_role.artifactory_instance_role.arn"
-#        },
-#        "Action": [
-#            "kms:CreateGrant",
-#            "kms:ListGrants",
-#            "RevokeGrant"
-#        ],
-#        "Resource": "*",
-#        "Condition": {
-#            "Bool": {
-#                "kms:GrantIsForAWSResource": "true"
-#            }
-#        }
-#      }    
-#    ]
-#   }
-#  )
-#}
 
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
   name   = "${var.service}-${var.environment}-ssm-iam-policy"

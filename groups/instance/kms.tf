@@ -24,15 +24,23 @@ resource "aws_kms_grant" "artifactory_kms_grant" {
   key_id            = aws_kms_key.artifactory_kms_key.key_id
   grantee_principal = aws_iam_role.artifactory_instance_role.arn
   operations        = [
-    "Encrypt",
     "Decrypt",
     "DescribeKey",
-    "ReEncryptTo",
     "ReEncryptFrom",
     "GenerateDataKey",
-    "GenerateDataKeyPair",
-    "GenerateDataKeyPairWithoutPlaintext",
     "GenerateDataKeyWithoutPlaintext",
     "CreateGrant"
   ]
+  #   operations        = [
+  #   "Encrypt",
+  #   "Decrypt",
+  #   "DescribeKey",
+  #   "ReEncryptTo",
+  #   "ReEncryptFrom",
+  #   "GenerateDataKey",
+  #   "GenerateDataKeyPair",
+  #   "GenerateDataKeyPairWithoutPlaintext",
+  #   "GenerateDataKeyWithoutPlaintext",
+  #   "CreateGrant"
+  # ]
 }
