@@ -66,5 +66,5 @@ locals {
 
   admin_password                             = local.secrets.admin_password
 
-  efs_kms_key_id                             = local.security_efs_kms_keys_data.ebs
+  #efs_kms_key_id                             = local.security_efs_kms_keys_data.ebs
 }

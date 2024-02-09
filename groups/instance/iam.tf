@@ -79,30 +79,6 @@ resource  "aws_iam_policy" "kms_policy" {
   name        = "${var.service}-${var.environment}-kms-policy"
   description = "${var.service}-${var.environment}-dedicated-kms-key"
   policy      = data.aws_iam_policy_document.kms_key.json
-  # policy      = jsonencode(
-  # {
-  #     "Version": "2012-10-17",
-  #     "Statement": [
-  #         {
-  #             "Sid": "AllowKmsOperations",
-  #             "Effect": "Allow",
-  #             "Action": [
-  #                 "kms:Encrypt",
-  #                 "kms:Decrypt",
-  #                 "kms:DescribeKey",
-  #                 "kms:ReEncryptTo",
-  #                 "kms:ReEncryptFrom",
-  #                 "kms:GenerateDataKeyPair",
-  #                 "kms:GenerateDataKeyPairWithoutPlaintext",
-  #                 "kms:GenerateDataKeyWithoutPlaintext",
-  #                 "kms:CreateGrant",
-  #                 "kms:ListGrants",
-  #                 "kms:RevokeGrant"
-  #             ],
-  #             "Resource": "*"
-  #         }
-  #     ]
-  # })
 }
 
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
