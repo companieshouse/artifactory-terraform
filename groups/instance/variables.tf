@@ -92,9 +92,9 @@ variable "efs_permit_client_root_access" {
   type        = string
 }
 
-variable "efs_module_test_service" {
+variable "artifactory_efs" {
   description = "The service name to be used when creating AWS resources"
-  default     = "artifactory-efs-module-test"
+  default     = "artifactory-efs"
   type        = string
 }
 
