@@ -91,3 +91,7 @@ data "aws_acm_certificate" "certificate" {
   statuses    = ["ISSUED"]
   most_recent = true
 }
+
+# data "aws_efs_access_points" "artifacts_aws_efs_access_point" {
+#   file_system_id = module.efs_file_system.efs_filesystem_id
+# }

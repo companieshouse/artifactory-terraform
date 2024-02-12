@@ -127,3 +127,9 @@ variable "user_data_replace_on_change" {
   default     = "true"
   type        = string
 }
+
+variable "efs_artifacts_access_point_name" {
+  description = "The name to create and retrieve the artifacts EFS access point"
+  default     = "artifacts"
+  type        = string
+}

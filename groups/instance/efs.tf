@@ -74,14 +74,15 @@ module "efs_file_system" {
   performance_mode          = "generalPurpose"
 
   access_points = {
-    artifacts = {
+    #artifacts = {
+    "${var.efs_artifacts_access_point_name}" = {  
       permissions    = "0755"
       posix_user_gid = 991
       posix_user_uid = 991
-      root_directory = "/artifacts"   
+      root_directory = "/${var.efs_artifacts_access_point_name}"   
     }
   }
-
+  
   depends_on = [
     aws_kms_key.artifactory_kms_key
   ]

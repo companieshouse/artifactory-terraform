@@ -32,7 +32,7 @@ data "cloudinit_config" "artifactory" {
       artifactory_license                        = local.artifactory_license
       artifactory_access_token                   = local.artifactory_access_token
       efs_dns_name                               = module.efs_file_system.efs_filesystem_dns_name
-      efs_access_point_id                        = tolist(module.efs_file_system.efs_access_point_ids)[0]
+      efs_access_point_id                        = local.efs_access_point_id
       admin_password                             = local.admin_password
     })
   }

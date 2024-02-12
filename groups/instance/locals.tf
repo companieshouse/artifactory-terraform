@@ -65,6 +65,9 @@ locals {
   artifactory_license                        = local.secrets.artifactory_license
 
   admin_password                             = local.secrets.admin_password
-
+  
+  #efs_access_point_id                        = tolist(module.efs_file_system.efs_access_point_ids)[0]
+  efs_access_point_id                        = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
+  #efs_access_point_id                        =   module.efs_file_system.efs_access_point_ids[*].artifacts[artifacts].id
   #efs_kms_key_id                             = local.security_efs_kms_keys_data.ebs
 }
