@@ -8,7 +8,7 @@ write_files:
           security:
           node:          
           script:
-          ## The maximum time to wait for Tomcat to come up (START_TMO)
+          ## The max time to wait for Tomcat to come up (START_TMO)
              serviceStartTimeout: 120
           ## Database Configuration
           database:
@@ -749,8 +749,8 @@ write_files:
 
 runcmd:
   - systemctl enable artifactory
-  - sudo mount -t efs -o tls ${efs_dns_name}:/artifacts /var/lib/artifactory
-  - sudo echo "${efs_dns_name}:/artifacts /var/lib/artifactory efs defaults,_netdev,noresvport,tls 0 0" >> /etc/fstab
+  - sudo mount -t efs -o tls,accesspoint=${efs_access_point_id} ${efs_dns_name} /var/lib/artifactory
+  - sudo echo "${efs_dns_name} /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
   - sudo chown artifactory:artifactory /var/lib/artifactory
