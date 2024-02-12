@@ -8,7 +8,7 @@ write_files:
           security:
           node:          
           script:
-          ## The max time to wait for Tomcat to come up (START_TMO)
+          ## The maximum time to wait for Tomcat to come up (START_TMO)
              serviceStartTimeout: 120
           ## Database Configuration
           database:
