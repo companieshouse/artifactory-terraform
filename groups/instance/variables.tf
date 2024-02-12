@@ -121,3 +121,9 @@ variable "kms_enable_key_rotation" {
   default     = "false"
   type        = string
 }
+
+variable "user_data_replace_on_change" {
+  description = "When used in combination with user_data or user_data_base64 will trigger a destroy and recreate when set to true"
+  default     = "true"
+  type        = string
+}
