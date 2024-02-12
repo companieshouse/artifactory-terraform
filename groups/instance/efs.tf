@@ -61,7 +61,7 @@
 # ------------------------------------------------------------------------------
 module "efs_file_system" {
 
-  source                    = "git@github.com:companieshouse/terraform-modules//aws/efs?ref=1.0.243"
+  source                    = "git@github.com:companieshouse/terraform-modules//aws/efs?ref=1.0.249"
   environment               = var.environment
   service                   = var.service
   permit_client_root_access = var.efs_permit_client_root_access
@@ -81,4 +81,8 @@ module "efs_file_system" {
       root_directory = "/artifacts"   
     }
   }
+
+  depends_on = [
+    aws_kms_key.artifactory_kms_key
+  ]
 }
