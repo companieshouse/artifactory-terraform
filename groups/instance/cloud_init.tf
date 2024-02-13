@@ -31,7 +31,7 @@ data "cloudinit_config" "artifactory" {
       ldap_group_settings_subtree                = local.ldap_group_settings_subtree
       artifactory_license                        = local.artifactory_license
       artifactory_access_token                   = local.artifactory_access_token
-      efs_dns_name                               = module.efs_file_system.efs_filesystem_dns_name
+      efs_filesystem_id                          = module.efs_file_system.efs_filesystem_id
       efs_access_point_id                        = local.efs_access_point_id
       admin_password                             = local.admin_password
     })
