@@ -753,5 +753,5 @@ runcmd:
   - sudo mount -a
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
-  - sudo chown artifactory:artifactory /var/lib/artifactory
+  - sudo chown -R artifactory:artifactory /var/lib/artifactory
   - systemctl restart artifactory
