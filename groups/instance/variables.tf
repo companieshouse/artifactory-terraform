@@ -92,12 +92,6 @@ variable "efs_permit_client_root_access" {
   type        = string
 }
 
-# variable "artifactory_efs" {
-#   description = "The service name to be used when creating AWS resources"
-#   default     = "artifactory-efs"
-#   type        = string
-# }
-
 variable "kms_key_usage" {
   description = "Specifies the intended use of the key"
   default     = "ENCRYPT_DECRYPT"

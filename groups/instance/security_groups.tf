@@ -80,30 +80,3 @@ resource "aws_security_group" "alb_security_group" {
     Type    = "security-group"
   }
 }
-
-# resource "aws_security_group" "efs_security_group" {
-#   name        = "${var.environment}-${var.service}-efs"
-#   description = "Enable access for ${var.service}-${var.environment}-efs artifactory node"
-#   vpc_id      = data.aws_vpc.placement.id
-
-#   ingress {
-#     description     = "${var.service}-${var.environment}-efs-ingress-mount-target"
-#     from_port       = 2049
-#     to_port         = 2049
-#     protocol        = "tcp"
-#     security_groups = [aws_security_group.instance_security_group.id]
-#   }
-
-#   egress {
-#     description = "Allow outbound traffic"
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   tags = {
-#     Name    = "${var.environment}-${var.service}-efs-sg"
-#     Type    = "security-group"
-#   }  
-# }
