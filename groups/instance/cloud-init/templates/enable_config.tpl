@@ -749,8 +749,8 @@ write_files:
 
 runcmd:
   - systemctl enable artifactory
-  - sudo mount -t efs -o tls,accesspoint=${efs_access_point_id} ${efs_filesystem_id} /var/lib/artifactory
   - sudo echo "${efs_filesystem_id} /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
+  - sudo mount -a
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
   - sudo chown artifactory:artifactory /var/lib/artifactory
