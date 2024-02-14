@@ -11,7 +11,6 @@ resource "aws_instance" "artifactory" {
   key_name                    = local.ssh_keyname
   user_data_base64            = data.cloudinit_config.artifactory.rendered
   iam_instance_profile        = aws_iam_instance_profile.artifactory_instance_profile.name
-  user_data_replace_on_change = var.user_data_replace_on_change
   
   root_block_device {
     delete_on_termination = var.ebs_root_delete_on_termination

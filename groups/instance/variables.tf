@@ -88,8 +88,8 @@ variable "ebs_root_volume_type" {
 
 variable "efs_permit_client_root_access" {
   description = "Enable clients to perform root operations on the filesystem"
-  default     = "true"
-  type        = string
+  default     = true
+  type        = bool
 }
 
 variable "kms_key_usage" {
@@ -113,12 +113,6 @@ variable "kms_is_enabled" {
 variable "kms_enable_key_rotation" {
   description = "Specifies whether key rotation is enabled"
   default     = "false"
-  type        = string
-}
-
-variable "user_data_replace_on_change" {
-  description = "When used in combination with user_data or user_data_base64 will trigger a destroy and recreate when set to true"
-  default     = "true"
   type        = string
 }
 
