@@ -88,8 +88,8 @@ variable "ebs_root_volume_type" {
 
 variable "efs_permit_client_root_access" {
   description = "Enable clients to perform root operations on the filesystem"
-  default     = true
-  type        = bool
+  default     = "true"
+  type        = string
 }
 
 variable "kms_key_usage" {
