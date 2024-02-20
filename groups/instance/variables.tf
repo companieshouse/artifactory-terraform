@@ -49,3 +49,15 @@ variable "db_engine" {
   default     = "postgres"
   type        = string
 }
+
+variable "asg_scale_down" {
+  description = "The cron set to scale the Artifactory instance down"
+  default     = "0 23 * * *"
+  type        = string
+}
+
+variable "asg_scale_up" {
+  description = "The cron set to scale the Artifactory instance up"
+  default     = "0 06 * * *"
+  type        = string
+}
