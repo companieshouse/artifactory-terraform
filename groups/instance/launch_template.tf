@@ -4,14 +4,15 @@ resource "aws_launch_template" "artifactory_launch_template" {
   instance_type          = var.default_instance_type
   key_name               = local.ssh_keyname
   user_data              = data.cloudinit_config.artifactory.rendered
-  vpc_security_group_ids = [aws_security_group.instance_security_group.id]
+  #vpc_security_group_ids = [aws_security_group.instance_security_group.id]
   
   lifecycle {
     create_before_destroy = true
   }
   
   network_interfaces {
-    subnet_id  = tolist(data.aws_subnets.placement.ids)[1]
+    security_groups = aws_security_group.instance_security_group.id
+    subnet_id       = tolist(data.aws_subnets.placement.ids)[1]
   }
   
   iam_instance_profile {
