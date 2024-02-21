@@ -11,7 +11,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
   
   network_interfaces {
-    security_groups = aws_security_group.instance_security_group.id
+    security_groups = [aws_security_group.instance_security_group.id]
     subnet_id       = tolist(data.aws_subnets.placement.ids)[1]
   }
   
