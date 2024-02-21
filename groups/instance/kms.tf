@@ -1,4 +1,4 @@
-resource "aws_kms_key" "artifactory_kms_key"{
+resource "aws_kms_key" "artifactory_kms_key" {
   description              = "Artifactory Service Specific KMS Encryption Key"
   key_usage                = var.kms_key_usage
   customer_master_key_spec = var.kms_customer_master_key_spec
@@ -17,18 +17,4 @@ resource "aws_kms_key" "artifactory_kms_key"{
 resource "aws_kms_alias" "artifactory" {
   name          = "alias/${var.service}-${var.environment}-kms"
   target_key_id = aws_kms_key.artifactory_kms_key.key_id
-}
-
-resource "aws_kms_grant" "artifactory_kms_grant" {
-  name              = "${var.environment}-${var.service}-kms-grant"
-  key_id            = aws_kms_key.artifactory_kms_key.key_id
-  grantee_principal = aws_iam_role.artifactory_instance_role.arn
-  operations        = [
-    "Decrypt",
-    "DescribeKey",
-    "ReEncryptFrom",
-    "GenerateDataKey",
-    "GenerateDataKeyWithoutPlaintext",
-    "CreateGrant"
-  ]
 }

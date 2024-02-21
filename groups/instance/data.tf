@@ -10,7 +10,7 @@ data "vault_generic_secret" "secrets" {
 }
 
 data "vault_generic_secret" "security_kms_keys" {
-  path  = "aws-accounts/security/kms"
+  path = "aws-accounts/security/kms"
 }
 
 data "vault_generic_secret" "security_s3_buckets" {
@@ -78,7 +78,7 @@ data "aws_ami" "artifactory_ami" {
   most_recent = true
   owners      = [local.ami_owner_id]
   name_regex  = "${var.service}-${var.default_ami_version_pattern}"
-  
+
   filter {
     name   = "name"
     values = ["${var.service}-*"]

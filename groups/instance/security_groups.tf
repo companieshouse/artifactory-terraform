@@ -76,7 +76,7 @@ resource "aws_security_group" "alb_security_group" {
   }
 
   tags = {
-    Name    = "${var.environment}-${var.service}-lb"
-    Type    = "security-group"
+    Name = "${var.environment}-${var.service}-lb"
+    Type = "security-group"
   }
 }

@@ -25,15 +25,15 @@ locals {
 
   artifactory_web_access = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
 
-  dns_zone_name               = local.secrets.dns_zone_name
-  dns_zone_is_private         = local.secrets.dns_zone_is_private
-  
-  aws_route53_record_name     = "${var.service}-${var.environment}.${data.aws_route53_zone.selected.name}"
+  dns_zone_name       = local.secrets.dns_zone_name
+  dns_zone_is_private = local.secrets.dns_zone_is_private
 
-  ssl_certificate_name        = local.secrets.ssl_certificate_name
-  
-  create_ssl_certificate      = local.ssl_certificate_name == "" ? true : false
-  ssl_certificate_arn         = local.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
+  aws_route53_record_name = "${var.service}-${var.environment}.${data.aws_route53_zone.selected.name}"
+
+  ssl_certificate_name = local.secrets.ssl_certificate_name
+
+  create_ssl_certificate = local.ssl_certificate_name == "" ? true : false
+  ssl_certificate_arn    = local.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
 
   db_username = local.secrets.db_username
   db_password = local.secrets.db_password
@@ -62,9 +62,9 @@ locals {
   ldap_group_settings_strategy               = local.secrets.ldap_group_settings_strategy
   ldap_group_settings_subtree                = local.secrets.ldap_group_settings_subtree
 
-  artifactory_license                        = local.secrets.artifactory_license
+  artifactory_license = local.secrets.artifactory_license
 
-  admin_password                             = local.secrets.admin_password
+  admin_password = local.secrets.admin_password
 
-  efs_access_point_id                        = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
+  efs_access_point_id = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
 }

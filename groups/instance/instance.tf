@@ -4,14 +4,14 @@ resource "aws_key_pair" "artifactory" {
 }
 
 resource "aws_instance" "artifactory" {
-  ami                         = data.aws_ami.artifactory_ami.id
-  instance_type               = var.default_instance_type
-  subnet_id                   = tolist(data.aws_subnets.placement.ids)[1]
-  vpc_security_group_ids      = [aws_security_group.instance_security_group.id]
-  key_name                    = local.ssh_keyname
-  user_data_base64            = data.cloudinit_config.artifactory.rendered
-  iam_instance_profile        = aws_iam_instance_profile.artifactory_instance_profile.name
-  
+  ami                    = data.aws_ami.artifactory_ami.id
+  instance_type          = var.default_instance_type
+  subnet_id              = tolist(data.aws_subnets.placement.ids)[1]
+  vpc_security_group_ids = [aws_security_group.instance_security_group.id]
+  key_name               = local.ssh_keyname
+  user_data_base64       = data.cloudinit_config.artifactory.rendered
+  iam_instance_profile   = aws_iam_instance_profile.artifactory_instance_profile.name
+
   root_block_device {
     delete_on_termination = var.ebs_root_delete_on_termination
     iops                  = var.ebs_root_iops
@@ -26,7 +26,7 @@ resource "aws_instance" "artifactory" {
       Service     = var.service
       Environment = var.environment
       Snapshot    = "Daily"
-      RootDevice  = "True" 
+      RootDevice  = "True"
     }
   }
 
