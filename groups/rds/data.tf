@@ -14,11 +14,11 @@ data "aws_vpc" "placement" {
 }
 
 data "aws_subnet" "placement" {
-  for_each = data.aws_subnet_ids.placement.ids
+  for_each = data.aws_subnets.placement.ids
   id       = each.value
 }
 
-data "aws_subnet_ids" "placement" {
+data "aws_subnets" "placement" {
   vpc_id = data.aws_vpc.placement.id
 
   filter {

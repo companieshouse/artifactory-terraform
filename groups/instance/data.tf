@@ -10,7 +10,7 @@ data "vault_generic_secret" "secrets" {
 }
 
 data "vault_generic_secret" "security_kms_keys" {
-  path  = "aws-accounts/security/kms"
+  path = "aws-accounts/security/kms"
 }
 
 data "vault_generic_secret" "security_s3_buckets" {
@@ -38,27 +38,31 @@ data "aws_vpc" "automation" {
 }
 
 data "aws_subnet" "automation" {
-  for_each = data.aws_subnet_ids.automation.ids
+  for_each = toset(data.aws_subnets.automation.ids)
   id       = each.value
 }
 
 data "aws_subnet" "placement" {
-  for_each = data.aws_subnet_ids.placement.ids
+  for_each = toset(data.aws_subnets.placement.ids)
   id       = each.value
 }
 
-data "aws_subnet_ids" "automation" {
-  vpc_id = data.aws_vpc.automation.id
-
+data "aws_subnets" "automation" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.automation.id]
+  }
   filter {
     name   = "tag:Name"
     values = [local.automation_subnet_pattern]
   }
 }
 
-data "aws_subnet_ids" "placement" {
-  vpc_id = data.aws_vpc.placement.id
-
+data "aws_subnets" "placement" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.placement.id]
+  }
   filter {
     name   = "tag:Name"
     values = [local.placement_subnet_pattern]
@@ -74,7 +78,7 @@ data "aws_ami" "artifactory_ami" {
   most_recent = true
   owners      = [local.ami_owner_id]
   name_regex  = "${var.service}-${var.default_ami_version_pattern}"
-  
+
   filter {
     name   = "name"
     values = ["${var.service}-*"]
