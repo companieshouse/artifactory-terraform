@@ -49,3 +49,75 @@ variable "db_engine" {
   default     = "postgres"
   type        = string
 }
+
+variable "ebs_root_delete_on_termination" {
+  description = "Whether the volume should be destroyed on instance termination. Defaulted to false"
+  default     = "false"
+  type        = string
+}
+
+variable "ebs_root_encrypted" {
+  description = "Enables EBS encryption on the volume."
+  default     = "true"
+  type        = string
+}
+
+variable "ebs_root_iops" {
+  description = "Amount of provisioned IOPS."
+  default     = 3000
+  type        = number
+}
+
+variable "ebs_root_throughput" {
+  description = "Throughput to provision for a volume in mebibytes per second (MiB/s)"
+  default     = 125
+  type        = number
+}
+
+variable "ebs_root_volume_size" {
+  description = "Size of the volume in gibibytes (GiB)"
+  default     = 20
+  type        = number
+}
+
+variable "ebs_root_volume_type" {
+  description = "Type of volume"
+  default     = "gp3"
+  type        = string
+}
+
+variable "efs_permit_client_root_access" {
+  description = "Enable clients to perform root operations on the filesystem"
+  default     = true
+  type        = bool
+}
+
+variable "kms_key_usage" {
+  description = "Specifies the intended use of the key"
+  default     = "ENCRYPT_DECRYPT"
+  type        = string
+}
+
+variable "kms_customer_master_key_spec" {
+  description = "Specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports"
+  default     = "SYMMETRIC_DEFAULT"
+  type        = string
+}
+
+variable "kms_is_enabled" {
+  description = "Specifies whether the key is enabled"
+  default     = "true"
+  type        = string
+}
+
+variable "kms_enable_key_rotation" {
+  description = "Specifies whether key rotation is enabled"
+  default     = "false"
+  type        = string
+}
+
+variable "efs_artifacts_access_point_name" {
+  description = "The name to create and retrieve the artifacts EFS access point"
+  default     = "artifacts"
+  type        = string
+}

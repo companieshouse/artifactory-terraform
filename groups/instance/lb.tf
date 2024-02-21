@@ -4,7 +4,6 @@ resource "aws_lb" "artifactory" {
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.alb_security_group.id]
   subnets                    = local.automation_subnet_ids
-
   enable_deletion_protection = true
 
   tags = {
@@ -41,9 +40,9 @@ resource "aws_acm_certificate" "certificate" {
 resource "aws_route53_record" "certificate_validation" {
   for_each = local.create_ssl_certificate ? {
     for dvo in aws_acm_certificate.certificate[0].domain_validation_options : dvo.domain_name => {
-      name    = dvo.resource_record_name
-      type    = dvo.resource_record_type
-      record  = dvo.resource_record_value
+      name   = dvo.resource_record_name
+      type   = dvo.resource_record_type
+      record = dvo.resource_record_value
     }
   } : {}
 
