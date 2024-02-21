@@ -121,3 +121,21 @@ variable "efs_artifacts_access_point_name" {
   default     = "artifacts"
   type        = string
 }
+
+variable "block_device_name" {
+  description = "The name of the Root Block device"
+  default     = "/dev/xvda"
+  type        = string
+}
+
+variable "asg_scale_down" {
+  description = "The cron set to scale the Artifactory instance down"
+  default     = "0 23 * * *"
+  type        = string
+}
+
+variable "asg_scale_up" {
+  description = "The cron set to scale the Artifactory instance up"
+  default     = "0 06 * * *"
+  type        = string
+}
