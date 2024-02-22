@@ -60,6 +60,41 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:RevokeGrant"
     ]
   }
+
+  statement {
+    sid    = "Allow service-linked role use of the customer managed key"
+    effect = "Allow"
+    principals {
+      type        = "aws"
+      identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
+    }
+    resources = [aws_kms_key.artifactory_kms_key.arn]
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:DescribeKey",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+    ]
+  }
+
+  statement {
+    sid    = "Allow attachment of persistent resources"
+    effect = "Allow"
+    principals {
+      type        = "aws"
+      identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
+    }
+    resources = [aws_kms_key.artifactory_kms_key.arn]
+    actions = [
+      "kms:CreateGrant",
+    ]
+    condition {
+      test     = "Bool"
+      variable = "kms:GrantIsForAWSResource"
+      values   = ["true"]
+    }
+  }
 }
 
 resource "aws_iam_role" "artifactory_instance_role" {

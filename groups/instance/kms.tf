@@ -18,3 +18,17 @@ resource "aws_kms_alias" "artifactory" {
   name          = "alias/${var.service}-${var.environment}-kms"
   target_key_id = aws_kms_key.artifactory_kms_key.key_id
 }
+
+resource "aws_kms_grant" "artifactory_grant" {
+  name              = "${var.environment}-${var.service}-kms-grant"
+  key_id            = aws_kms_key.artifactory_kms_key.key_id
+  grantee_principal = "arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"
+  operations = [
+    "Decrypt",
+    "ReEncryptFrom",
+    "GenerateDataKey",
+    "GenerateDataKeyWithoutPlaintext",
+    "DescribeKey",
+    "CreateGrant"
+  ]
+}
