@@ -31,6 +31,6 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
 
   tags = {
-    Name = "${var.service}-${var.environment}-asg-launch-template"
+    Name = "${var.service}-${var.environment}-launch-template"
   }
 }
