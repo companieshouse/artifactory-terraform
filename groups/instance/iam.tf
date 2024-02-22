@@ -87,7 +87,7 @@ data "aws_iam_policy_document" "kms_key" {
     }
     resources = [aws_kms_key.artifactory_kms_key.arn]
     actions = [
-      "kms:CreateGrant",
+      "kms:CreateGrant"
     ]
     condition {
       test     = "Bool"
