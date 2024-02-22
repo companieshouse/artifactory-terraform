@@ -3,6 +3,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
   image_id      = data.aws_ami.artifactory_ami.id
   instance_type = var.default_instance_type
   key_name      = local.ssh_keyname
+  user_data     = data.cloudinit_config.artifactory.rendere
 
   lifecycle {
     create_before_destroy = true
