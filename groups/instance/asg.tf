@@ -6,7 +6,8 @@ resource "aws_autoscaling_group" "artifactory_asg" {
   health_check_grace_period = var.asg_health_check_grace_period
   health_check_type         = var.asg_health_check_type
   desired_capacity          = var.asg_desired_capacity
-  load_balancers            = [aws_lb.artifactory.name]
+  target_group_arns         = [aws_lb.artifactory.arn]
+  #load_balancers            = [aws_lb.artifactory.name]
   vpc_zone_identifier       = [tolist(data.aws_subnets.placement.ids)[1]]
   termination_policies      = [var.asg_termination_policies]
   enabled_metrics = [
