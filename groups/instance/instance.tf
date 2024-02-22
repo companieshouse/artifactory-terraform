@@ -4,6 +4,7 @@ resource "aws_key_pair" "artifactory" {
 }
 
 resource "aws_instance" "artifactory" {
+  user_data_base64 = data.cloudinit_config.artifactory.rendered
   launch_template {
     id      = aws_launch_template.artifactory_launch_template.id
     version = "$Latest"
