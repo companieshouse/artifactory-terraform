@@ -74,7 +74,7 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:Decrypt",
       "kms:DescribeKey",
       "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
+      "kms:GenerateDataKey*"
     ]
   }
 
