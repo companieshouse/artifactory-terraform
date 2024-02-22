@@ -68,7 +68,8 @@ data "aws_iam_policy_document" "kms_key_asg_access" {
     effect = "Allow"
     principals {
       type        = "aws"
-      identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
+      #identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
+      identifiers = ["arn:aws:iam::${local.account_id}:role/AWSServiceRoleForAutoScaling"]
     }
     resources = [aws_kms_key.artifactory_kms_key.arn]
     actions = [
@@ -85,7 +86,8 @@ data "aws_iam_policy_document" "kms_key_asg_access" {
     effect = "Allow"
     principals {
       type        = "aws"
-      identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
+      #identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
+      identifiers = ["arn:aws:iam::${local.account_id}:role/AWSServiceRoleForAutoScaling"]
     }
     resources = [aws_kms_key.artifactory_kms_key.arn]
     actions = [
