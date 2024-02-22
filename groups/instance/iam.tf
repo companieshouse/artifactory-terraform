@@ -57,26 +57,26 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:GenerateDataKey*",
       "kms:CreateGrant",
       "kms:ListGrants",
-      "kms:RevokeGrant"
+      "kms:RevokeGrant",
     ]
   }
 
-  statement {
-    sid    = "Allow service-linked role use of the customer managed key"
-    effect = "Allow"
-    principals {
-      type        = "aws"
-      identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
-    }
-    resources = [aws_kms_key.artifactory_kms_key.arn]
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:DescribeKey",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*"
-    ]
-  }
+  # statement {
+  #   sid    = "Allow service-linked role use of the customer managed key"
+  #   effect = "Allow"
+  #   principals {
+  #     type        = "aws"
+  #     identifiers = ["arn:aws:iam::${local.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"]
+  #   }
+  #   resources = [aws_kms_key.artifactory_kms_key.arn]
+  #   actions = [
+  #     "kms:Encrypt",
+  #     "kms:Decrypt",
+  #     "kms:DescribeKey",
+  #     "kms:ReEncrypt*",
+  #     "kms:GenerateDataKey*",
+  #   ]
+  # }
 
   # statement {
   #   sid    = "Allow attachment of persistent resources"
@@ -87,7 +87,7 @@ data "aws_iam_policy_document" "kms_key" {
   #   }
   #   resources = [aws_kms_key.artifactory_kms_key.arn]
   #   actions = [
-  #     "kms:CreateGrant"
+  #     "kms:CreateGrant",
   #   ]
   #   condition {
   #     test     = "Bool"
