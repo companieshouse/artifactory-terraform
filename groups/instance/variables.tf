@@ -129,13 +129,13 @@ variable "block_device_name" {
 }
 
 variable "asg_scale_down_recurrence" {
-  description = "The cron set to scale the Artifactory instance down"
+  description = "The cron time set, to scale the Artifactory instance down"
   default     = "0 23 * * *"
   type        = string
 }
 
 variable "asg_scale_up_recurrence" {
-  description = "The cron set to scale the Artifactory instance up"
+  description = "The cron time set, to scale the Artifactory instance up"
   default     = "0 06 * * *"
   type        = string
 }
@@ -147,7 +147,7 @@ variable "asg_health_check_grace_period" {
 }
 
 variable "asg_desired_capacity" {
-  description = "he number of Amazon EC2 instances that should be running in the group."
+  description = "The number of Amazon EC2 instances that should be running in the group."
   default     = 1
   type        = number
 }
@@ -189,19 +189,19 @@ variable "asg_launch_template_version" {
 }
 
 variable "asg_scale_down_desired_capacity" {
-  description = " The initial capacity of the Auto Scaling group after the scheduled action runs and the capacity it attempts to maintain"
+  description = " The scale down capacity of the Auto Scaling group"
   default     = 0
   type        = number
 }
 
 variable "asg_scale_down_min_size" {
-  description = "The minimum size of the auto scale group"
+  description = "The minimum size of the auto scale group wen scaling down"
   default     = 0
   type        = number
 }
 
 variable "asg_scale_down_max_size" {
-  description = "The maximum size of the auto scale group"
+  description = "The maximum size of the auto scale group when scaling down"
   default     = 0
   type        = number
 }
