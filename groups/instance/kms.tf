@@ -5,7 +5,7 @@ resource "aws_kms_key" "artifactory_kms_key" {
   is_enabled               = var.kms_is_enabled
   enable_key_rotation      = var.kms_enable_key_rotation
   policy                   = data.aws_iam_policy_document.kms_key_asg_access.json
-  
+
   tags = {
     Account     = var.account_name
     Service     = var.service
@@ -55,16 +55,16 @@ data "aws_iam_policy_document" "kms_key_asg_access" {
   statement {
     sid    = "Allow service-linked role use of the customer managed key"
     effect = "Allow"
-    
+
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         data.aws_iam_role.asg.arn
-        ]
+      ]
     }
-    
+
     resources = ["*"]
-    
+
     actions = [
       "kms:Encrypt",
       "kms:Decrypt",
@@ -77,20 +77,20 @@ data "aws_iam_policy_document" "kms_key_asg_access" {
   statement {
     sid    = "Allow attachment of persistent resources"
     effect = "Allow"
-    
+
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         data.aws_iam_role.asg.arn
-        ]
+      ]
     }
-    
+
     resources = ["*"]
-    
+
     actions = [
       "kms:CreateGrant"
     ]
-    
+
     condition {
       test     = "Bool"
       variable = "kms:GrantIsForAWSResource"

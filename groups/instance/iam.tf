@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "kms_key" {
       "kms:RevokeGrant"
     ]
   }
-} 
+}
 
 resource "aws_iam_role" "artifactory_instance_role" {
   name               = "${var.service}-${var.environment}-ssm-iam-role"
