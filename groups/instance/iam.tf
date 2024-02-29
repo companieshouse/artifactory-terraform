@@ -77,7 +77,7 @@ data "aws_iam_policy" "efs_service_core" {
 
 resource "aws_iam_policy" "kms_policy" {
   name        = "${var.service}-${var.environment}-kms-policy"
-  description = "${var.service}-${var.environment}-dedicated-kms-key"
+  description = "${var.service}-${var.environment}-dedicated-kms-key-policy"
   policy      = data.aws_iam_policy_document.kms_key.json
 }
 

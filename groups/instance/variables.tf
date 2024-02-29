@@ -121,3 +121,87 @@ variable "efs_artifacts_access_point_name" {
   default     = "artifacts"
   type        = string
 }
+
+variable "block_device_name" {
+  description = "The name of the Root Block device"
+  default     = "/dev/xvda"
+  type        = string
+}
+
+variable "asg_scale_down_recurrence" {
+  description = "The cron time set, to scale the Artifactory instance down"
+  default     = "0 23 * * *"
+  type        = string
+}
+
+variable "asg_scale_up_recurrence" {
+  description = "The cron time set, to scale the Artifactory instance up"
+  default     = "0 06 * * *"
+  type        = string
+}
+
+variable "asg_health_check_grace_period" {
+  description = "Time (in seconds) after instance comes into service before checking health. Default 300"
+  default     = 150
+  type        = number
+}
+
+variable "asg_desired_capacity" {
+  description = "The number of Amazon EC2 instances that should be running in the group."
+  default     = 1
+  type        = number
+}
+
+variable "asg_min_size" {
+  description = "The minimum size of the auto scale group"
+  default     = 1
+  type        = number
+}
+
+variable "asg_max_size" {
+  description = "The maximum size of the auto scale group"
+  default     = 1
+  type        = number
+}
+
+variable "asg_health_check_type" {
+  description = "EC2 or ELB. Controls how health checking is carried out"
+  default     = "EC2"
+  type        = string
+}
+
+variable "asg_termination_policies" {
+  description = "A list of policies to decide how the instances in the auto scale group should be terminated"
+  default     = "OldestInstance"
+  type        = string
+}
+
+variable "asg_default_cooldown" {
+  description = "The amount of time, in seconds, after a scaling activity completes before another scaling activity can start"
+  default     = 10
+  type        = number
+}
+
+variable "asg_launch_template_version" {
+  description = "Template version. Can be version number, $Latest, or $Default"
+  default     = "$Latest"
+  type        = string
+}
+
+variable "asg_scale_down_desired_capacity" {
+  description = " The scale down capacity of the Auto Scaling group"
+  default     = 0
+  type        = number
+}
+
+variable "asg_scale_down_min_size" {
+  description = "The minimum size of the auto scale group wen scaling down"
+  default     = 0
+  type        = number
+}
+
+variable "asg_scale_down_max_size" {
+  description = "The maximum size of the auto scale group when scaling down"
+  default     = 0
+  type        = number
+}

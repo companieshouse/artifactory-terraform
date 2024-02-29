@@ -91,3 +91,7 @@ data "aws_acm_certificate" "certificate" {
   statuses    = ["ISSUED"]
   most_recent = true
 }
+
+data "aws_iam_role" "asg" {
+  name = "AWSServiceRoleForAutoScaling"
+}
