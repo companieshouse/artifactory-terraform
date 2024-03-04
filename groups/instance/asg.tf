@@ -68,9 +68,9 @@ resource "aws_autoscaling_attachment" "artifactory_asg_attachment" {
 }
 
 resource "aws_autoscaling_schedule" "scale_down" {
-  desired_capacity       = var.asg_desired_capacity
-  min_size               = var.asg_min_size
-  max_size               = var.asg_max_size
+  desired_capacity       = var.asg_scale_down_desired_capacity
+  min_size               = var.asg_scale_down_min_size
+  max_size               = var.asg_scale_down_max_size
   recurrence             = var.asg_scale_down_recurrence
   scheduled_action_name  = "${var.environment}-${var.service}-scale-down"
   autoscaling_group_name = aws_autoscaling_group.artifactory_asg.name
