@@ -34,7 +34,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
 
   tag_specifications {
     resource_type = "instance"
-    
+
     tags = {
       Name = "${var.service}-${var.environment}"
     }
@@ -42,7 +42,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
 
   tag_specifications {
     resource_type = "volume"
-    
+
     tags = {
       Name        = "${var.service}-${var.environment}-root-volume"
       Service     = var.service
@@ -51,7 +51,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
       RootDevice  = "True"
     }
   }
-  
+
   tags = {
     Name = "${var.service}-${var.environment}-launch-template"
   }
