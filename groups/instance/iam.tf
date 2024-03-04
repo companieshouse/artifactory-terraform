@@ -62,6 +62,18 @@ data "aws_iam_policy_document" "kms_key" {
   }
 }
 
+data "aws_iam_policy_document" "access_ssm_parameters_policy_document" {
+  statement {
+    sid       = "AllowAccessToSsmParameters"
+    effect    = "Allow"
+    resources = ["arn:aws:ssm:${var.region}:${local.account_id}:parameter/${var.service}/${var.environment}/*"]
+    actions = [
+      "ssm:GetParametersByPath",
+      "ssm:GetParameter"
+    ]
+  }
+}
+
 resource "aws_iam_role" "artifactory_instance_role" {
   name               = "${var.service}-${var.environment}-ssm-iam-role"
   assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
@@ -79,6 +91,12 @@ resource "aws_iam_policy" "kms_policy" {
   name        = "${var.service}-${var.environment}-kms-policy"
   description = "${var.service}-${var.environment}-dedicated-kms-key-policy"
   policy      = data.aws_iam_policy_document.kms_key.json
+}
+
+resource "aws_iam_policy" "access_ssm_parameters_policy" {
+  name        = "${var.service}-${var.environment}-access-ssm-parameters-policy"
+  description = "${var.service}-${var.environment}-dedicated-access-ssm-parameters-policy"
+  policy      = data.aws_iam_policy_document.access_ssm_parameters_policy_document.json
 }
 
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
@@ -100,4 +118,9 @@ resource "aws_iam_role_policy_attachment" "efs_policy_attachment" {
 resource "aws_iam_role_policy_attachment" "kms_policy_attachment" {
   role       = aws_iam_role.artifactory_instance_role.name
   policy_arn = aws_iam_policy.kms_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "access_ssm_parameters_policy_attachment" {
+  role       = aws_iam_role.artifactory_instance_role.name
+  policy_arn = aws_iam_policy.access_ssm_parameters_policy.arn
 }

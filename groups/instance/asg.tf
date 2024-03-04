@@ -7,7 +7,7 @@ resource "aws_autoscaling_group" "artifactory_asg" {
   health_check_type         = var.asg_health_check_type
   desired_capacity          = var.asg_desired_capacity
   target_group_arns         = [aws_lb_target_group.front_end_8082.arn]
-  vpc_zone_identifier       = [tolist(data.aws_subnets.placement.ids)[1]]
+  vpc_zone_identifier       = tolist(data.aws_subnets.placement.ids)
   termination_policies      = [var.asg_termination_policies]
   enabled_metrics = [
     "GroupMinSize",
