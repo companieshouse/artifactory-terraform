@@ -90,8 +90,8 @@ resource "aws_lb_listener" "https" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "attach_8082" {
-  target_group_arn = aws_lb_target_group.front_end_8082.arn
-  target_id        = aws_instance.artifactory.id
-  port             = 8082
-}
+# resource "aws_lb_target_group_attachment" "attach_8082" {
+#   target_group_arn = aws_lb_target_group.front_end_8082.arn
+#   target_id        = aws_instance.artifactory.id
+#   port             = 8082
+# }
