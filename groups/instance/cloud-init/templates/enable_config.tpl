@@ -761,6 +761,7 @@ write_files:
       </config>
 
 runcmd:
+  - rm /opt/jfrog/artifactory/var/etc/system.yaml
   - /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/system.yaml
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/system.yaml
