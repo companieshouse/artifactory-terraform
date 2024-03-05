@@ -65,8 +65,6 @@ locals {
 
   artifactory_license = local.secrets.artifactory_license
 
-  admin_password = local.secrets.admin_password
-
   efs_access_point_id = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
 
   parameter_store_secrets = merge(
@@ -85,5 +83,5 @@ locals {
   admin_password_param_name                  = "/${var.service}/${var.environment}/admin_password"
   # ldap_setting_managerdn_param_name        = "/${var.service}/${var.environment}/ldap_setting_managerdn"
   # ldap_setting_manager_password_param_name = "/${var.service}/${var.environment}/ldap_setting_manager_password"
-  # artifactory_license_param_name           = "/${var.service}/${var.environment}/artifactory_license"
+  artifactory_license_param_name           = "/${var.service}/${var.environment}/artifactory_license"
 }
