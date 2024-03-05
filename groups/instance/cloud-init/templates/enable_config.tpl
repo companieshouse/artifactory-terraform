@@ -730,14 +730,9 @@ write_files:
     content: |
       #!/bin/bash
       AWSCLI_COMMAND=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${artifactory_license_param_name})
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/test.txt
+      cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
       $${AWSCLI_COMMAND}
       EOF
-  
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-    permissions: '0644'
-    content: |
-      ${artifactory_license}
 
   - path: /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
     permissions: 0750
@@ -762,6 +757,8 @@ write_files:
 
 runcmd:
   - /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
+  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
+  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
   - /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
   - sudo chmod 0600 /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
