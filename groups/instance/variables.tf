@@ -205,3 +205,9 @@ variable "asg_scale_down_max_size" {
   default     = 0
   type        = number
 }
+
+variable "aws_command" {
+  description = "The base aws cli get-parameter command"
+  default     = "aws ssm get-parameter --with-decryption --output text"
+  type        = string
+}

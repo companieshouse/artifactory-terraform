@@ -82,7 +82,7 @@ locals {
 
   # db_username_param_name                   = "/${var.service}/${var.environment}/db_username"
   # db_password_param_name                   = "/${var.service}/${var.environment}/db_password"
-  # admin_password_param_name                = "/${var.service}/${var.environment}/admin_password"
+  admin_password_param_name                  = "/${var.service}/${var.environment}/admin_password"
   # ldap_setting_managerdn_param_name        = "/${var.service}/${var.environment}/ldap_setting_managerdn"
   # ldap_setting_manager_password_param_name = "/${var.service}/${var.environment}/ldap_setting_manager_password"
   # artifactory_license_param_name           = "/${var.service}/${var.environment}/artifactory_license"
