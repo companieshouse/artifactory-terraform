@@ -33,7 +33,7 @@ data "cloudinit_config" "artifactory" {
       artifactory_access_token                   = local.artifactory_access_token
       efs_filesystem_id                          = module.efs_file_system.efs_filesystem_id
       efs_access_point_id                        = local.efs_access_point_id
-      admin_password                             = local.admin_password
+      #admin_password                             = local.admin_password
       admin_password_param_name                  = local.admin_password_param_name
       aws_command                                = var.aws_command
       region                                     = var.region

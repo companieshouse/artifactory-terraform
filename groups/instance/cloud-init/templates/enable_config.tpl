@@ -735,15 +735,10 @@ write_files:
     content: |
       #!/bin/bash
       AWSCLI_COMMAND=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${admin_password_param_name})
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/access/test.txt
+      cat <<EOF >> /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
       admin@*=$${AWSCLI_COMMAND}
       EOF
 
-  - path: /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-    permissions: '0600'
-    content: |
-      admin@*=${admin_password}
-      
   - path: /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
     permissions: '0644'
     content: |
@@ -757,10 +752,12 @@ write_files:
       </config>
 
 runcmd:
+  - /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
+  - sudo chmod 0600 /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
+  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - systemctl enable artifactory
   - sudo echo "${efs_filesystem_id} /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
   - sudo mount -a
-  - /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
   - systemctl restart artifactory
+  - rm /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
