@@ -29,12 +29,13 @@ data "cloudinit_config" "artifactory" {
       ldap_group_settings_group_name_attribute   = local.ldap_group_settings_group_name_attribute
       ldap_group_settings_strategy               = local.ldap_group_settings_strategy
       ldap_group_settings_subtree                = local.ldap_group_settings_subtree
-      #artifactory_license                        = local.artifactory_license
       artifactory_access_token                   = local.artifactory_access_token
       efs_filesystem_id                          = module.efs_file_system.efs_filesystem_id
       efs_access_point_id                        = local.efs_access_point_id
       admin_password_param_name                  = local.admin_password_param_name
       artifactory_license_param_name             = local.artifactory_license_param_name
+      db_username_param_name                     = local.db_username_param_name
+      db_password_param_name                     = local.db_password_param_name
       aws_command                                = var.aws_command
       region                                     = var.region
     })
