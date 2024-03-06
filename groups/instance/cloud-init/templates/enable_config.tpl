@@ -12,15 +12,15 @@ write_files:
           security:
           node:          
           script:
-          ## The max time to wait for Tomcat to come up (START_TMO)
-             serviceStartTimeout: 120
+              ## The max time to wait for Tomcat to come up (START_TMO)
+              serviceStartTimeout: 120
           ## Database Configuration
           database:
       type: postgresql
       driver: org.postgresql.Driver
-      url: "jdbc:postgresql://${db_fqdn}/${service}"
-      username: ${db_username}
-      password: ${db_password} 
+      url: "jdbc:postgresql://${db_fqdn}/artifactory"
+      username: $${AWSCLI_COMMAND_USERNAME}
+      password: $${AWSCLI_COMMAND_PASSWORD} 
       EOF
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
