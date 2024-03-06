@@ -9,18 +9,16 @@ write_files:
       ## @formatter:off
       ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
       shared:
-          security:
-          node:          
-          script:
-              ## The max time to wait for Tomcat to come up (START_TMO)
-              serviceStartTimeout: 120
-          ## Database Configuration
-          database:
-      type: postgresql
-      driver: org.postgresql.Driver
-      url: "jdbc:postgresql://${db_fqdn}/artifactory"
-      username: $${AWSCLI_COMMAND_USERNAME}
-      password: $${AWSCLI_COMMAND_PASSWORD} 
+      security:
+      node:          
+      database:
+        type: postgresql
+        driver: org.postgresql.Driver
+        url: "jdbc:postgresql://${db_fqdn}/artifactory"
+        username: $${AWSCLI_COMMAND_USERNAME}
+        password: $${AWSCLI_COMMAND_PASSWORD}
+      script:
+        serviceStartTimeout: 120
       EOF
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
@@ -761,6 +759,7 @@ write_files:
       </config>
 
 runcmd:
+  - cp /opt/jfrog/artifactory/var/etc/system.yaml /opt/jfrog/artifactory/var/etc/system.bkp
   - rm /opt/jfrog/artifactory/var/etc/system.yaml
   - /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/system.yaml
