@@ -7,19 +7,20 @@ write_files:
       AWSCLI_COMMAND_PASSWORD=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${db_password_param_name})      
       cat <<EOF >> /opt/jfrog/artifactory/var/etc/system.yaml
       ## @formatter:off
-      ## JFROG ARTIFACTORY SYSTEM CONFIGURATION FILE
-      configVersion: 1
+      ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
       shared:
           security:
-          node:
-          database:
-              type: postgresql
-              driver: org.postgresql.Driver
-              url: "jdbc:postgresql://${db_fqdn}/${service}"
-              username: $${AWSCLI_COMMAND_USERNAME}
-              password: $${AWSCLI_COMMAND_PASSWORD}
+          node:          
           script:
-              serviceStartTimeout: 120
+          ## The max time to wait for Tomcat to come up (START_TMO)
+             serviceStartTimeout: 120
+          ## Database Configuration
+          database:
+      type: postgresql
+      driver: org.postgresql.Driver
+      url: "jdbc:postgresql://${db_fqdn}/${service}"
+      username: ${db_username}
+      password: ${db_password} 
       EOF
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
@@ -760,7 +761,7 @@ write_files:
       </config>
 
 runcmd:
-  - rm /opt/jfrog/artifactory/var/etc/system.yaml
+  - cp /opt/jfrog/artifactory/var/etc/system.yaml /opt/jfrog/artifactory/var/etc/system.orginal
   - /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/system.yaml
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/system.yaml
