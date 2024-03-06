@@ -1,4 +1,15 @@
 write_files:
+
+
+  - path: /opt/jfrog/artifactory/var/etc/security/securitycreateMasterKeyYaml.sh
+    permissions: 0750
+    content: |
+      #!/bin/bash
+      AWSCLI_COMMAND_MASTERKEY=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${db_masterkey_param_name})    
+      cat <<EOF >> /opt/jfrog/artifactory/var/etc/security/master.key
+      $${AWSCLI_COMMAND_MASTERKEY}
+      EOF
+
   - path: /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
     permissions: 0750
     content: |
@@ -8,19 +19,19 @@ write_files:
       cat <<EOF >> /opt/jfrog/artifactory/var/etc/system.yaml
       ## @formatter:off
       ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
+      configVersion: 1
       shared:
           security:
-          node:          
-          script:
-              ## The max time to wait for Tomcat to come up (START_TMO)
-              serviceStartTimeout: 120
-          ## Database Configuration
+              masterKeyFile: "/opt/jfrog/artifactory/var/etc/security/master.key>"
+          node:
           database:
-      type: postgresql
-      driver: org.postgresql.Driver
-      url: "jdbc:postgresql://${db_fqdn}/artifactory"
-      username: $${AWSCLI_COMMAND_USERNAME}
-      password: $${AWSCLI_COMMAND_PASSWORD} 
+              type: postgresql
+              driver: org.postgresql.Driver
+              url: "jdbc:postgresql://${db_fqdn}/${service}"
+              username: 
+              password: 
+          script:
+              serviceStartTimeout: 120
       EOF
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
@@ -761,7 +772,11 @@ write_files:
       </config>
 
 runcmd:
-  - cp /opt/jfrog/artifactory/var/etc/system.yaml /opt/jfrog/artifactory/var/etc/system.orginal
+  - rm /opt/jfrog/artifactory/var/etc/security/master.key
+  - /opt/jfrog/artifactory/var/etc/security/securitycreateMasterKeyYaml.sh
+  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/security/master.key
+  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/security/master.key
+  - rm /opt/jfrog/artifactory/var/etc/system.yaml  
   - /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/system.yaml
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/system.yaml
@@ -779,3 +794,4 @@ runcmd:
   - rm /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
   - rm /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
   - rm /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
+  - rm /opt/jfrog/artifactory/var/etc/security/securitycreateMasterKeyYaml.sh

@@ -73,11 +73,13 @@ locals {
       "ldap_setting_manager_password" = local.secrets.ldap_setting_manager_password
       "artifactory_license"           = local.secrets.artifactory_license
       "admin_password"                = local.secrets.admin_password
+      "db_masterkey"                  = local.secrets.db_masterkey
     }
   )
 
   db_username_param_name                     = "/${var.service}/${var.environment}/db_username"
   db_password_param_name                     = "/${var.service}/${var.environment}/db_password"
+  db_masterkey_param_name                    = "/${var.service}/${var.environment}/db_masterkey"
   admin_password_param_name                  = "/${var.service}/${var.environment}/admin_password"
   # ldap_setting_managerdn_param_name        = "/${var.service}/${var.environment}/ldap_setting_managerdn"
   # ldap_setting_manager_password_param_name = "/${var.service}/${var.environment}/ldap_setting_manager_password"
