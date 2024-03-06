@@ -37,7 +37,7 @@ locals {
 
   db_username = local.secrets.db_username
   db_password = local.secrets.db_password
-  db_fqdn     = "${var.service}db.${data.aws_route53_zone.selected.name}"
+  db_fqdn     = "${var.service}-db.${data.aws_route53_zone.selected.name}:${local.secrets.db_port}"
 
   ssh_keyname    = "${var.service}-${var.environment}"
   ssh_public_key = local.secrets.public_key

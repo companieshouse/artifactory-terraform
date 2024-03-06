@@ -7,18 +7,19 @@ write_files:
       AWSCLI_COMMAND_PASSWORD=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${db_password_param_name})      
       cat <<EOF >> /opt/jfrog/artifactory/var/etc/system.yaml
       ## @formatter:off
-      ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
+      ## JFROG ARTIFACTORY SYSTEM CONFIGURATION FILE
+      configVersion: 1
       shared:
-      security:
-      node:          
-      database:
-        type: postgresql
-        driver: org.postgresql.Driver
-        url: "jdbc:postgresql://${db_fqdn}/artifactory"
-        username: $${AWSCLI_COMMAND_USERNAME}
-        password: $${AWSCLI_COMMAND_PASSWORD}
-      script:
-        serviceStartTimeout: 120
+          security:
+          node:
+          database:
+              type: postgresql
+              driver: org.postgresql.Driver
+              url: "jdbc:postgresql://${db_fqdn}/${service}"
+              username: $${AWSCLI_COMMAND_USERNAME}
+              password: $${AWSCLI_COMMAND_PASSWORD}
+          script:
+              serviceStartTimeout: 120
       EOF
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
@@ -759,7 +760,6 @@ write_files:
       </config>
 
 runcmd:
-  - cp /opt/jfrog/artifactory/var/etc/system.yaml /opt/jfrog/artifactory/var/etc/system.bkp
   - rm /opt/jfrog/artifactory/var/etc/system.yaml
   - /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/system.yaml
