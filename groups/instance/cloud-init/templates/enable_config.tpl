@@ -34,7 +34,7 @@ write_files:
       EOF
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
-    permissions: '0644'
+    permissions: 0750
     content: |
       #!/bin/bash
       AWSCLI_COMMAND_LDAPMANAGERDN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_managerdn_param_name})
@@ -802,3 +802,4 @@ runcmd:
   - rm /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
   - rm /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - rm /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
+  - rm /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
