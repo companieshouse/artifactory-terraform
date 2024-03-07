@@ -22,7 +22,7 @@ write_files:
       configVersion: 1
       shared:
           security:
-              masterKeyFile: "/opt/jfrog/artifactory/var/etc/security/master.key>"
+              masterKeyFile: "/opt/jfrog/artifactory/var/etc/security/master.key"
           node:
           database:
               type: postgresql
