@@ -31,7 +31,6 @@ resource "aws_launch_template" "artifactory_launch_template" {
     }
   }
 
-
   tag_specifications {
     resource_type = "instance"
 

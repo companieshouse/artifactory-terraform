@@ -15,8 +15,6 @@ data "cloudinit_config" "artifactory" {
       ldap_setting_email_attribute               = local.ldap_setting_email_attribute
       ldap_setting_ldap_url                      = local.ldap_setting_ldap_url
       ldap_setting_search_base                   = local.ldap_setting_search_base
-      #ldap_setting_managerdn                     = local.ldap_setting_managerdn
-      #ldap_setting_manager_password              = local.ldap_setting_manager_password
       ldap_setting_search_filter                 = local.ldap_setting_search_filter
       ldap_setting_search_subtree                = local.ldap_setting_search_subtree
       ldap_setting_allow_user_to_access_profile  = local.ldap_setting_allow_user_to_access_profile
@@ -36,7 +34,7 @@ data "cloudinit_config" "artifactory" {
       db_password_param_name                     = local.db_password_param_name
       db_masterkey_param_name                    = local.db_masterkey_param_name
       ldap_setting_managerdn_param_name          = local.ldap_setting_managerdn_param_name
-      ldap_setting_manager_password_param_name   = local.ldap_setting_manager_password_param_name 
+      ldap_setting_manager_password_param_name   = local.ldap_setting_manager_password_param_name
       aws_command                                = var.aws_command
       region                                     = var.region
       service                                    = var.service

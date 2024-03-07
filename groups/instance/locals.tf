@@ -12,43 +12,34 @@ locals {
     values(data.aws_subnet.placement).*.availability_zone,
     values(data.aws_subnet.placement).*.id
   ))
-  placement_subnet_pattern = local.secrets.placement_subnet_pattern
-  placement_vpc_pattern    = local.secrets.placement_vpc_pattern
-
   automation_subnet_ids = values(zipmap(
     values(data.aws_subnet.automation).*.availability_zone,
     values(data.aws_subnet.automation).*.id
   ))
+
+  placement_subnet_pattern  = local.secrets.placement_subnet_pattern
+  placement_vpc_pattern     = local.secrets.placement_vpc_pattern
   automation_subnet_pattern = local.secrets.automation_subnet_pattern
   automation_vpc_pattern    = local.secrets.automation_vpc_pattern
   concourse_access_cidrs    = local.secrets.concourse_access_cidrs
-
-  artifactory_web_access = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
-
-  dns_zone_name       = local.secrets.dns_zone_name
-  dns_zone_is_private = local.secrets.dns_zone_is_private
-
-  aws_route53_record_name = "${var.service}-${var.environment}.${data.aws_route53_zone.selected.name}"
-
-  ssl_certificate_name = local.secrets.ssl_certificate_name
-
-  create_ssl_certificate = local.ssl_certificate_name == "" ? true : false
-  ssl_certificate_arn    = local.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
-
-  db_fqdn     = "${var.service}-db.${data.aws_route53_zone.selected.name}:${local.secrets.db_port}"
-
-  ssh_keyname    = "${var.service}-${var.environment}"
-  ssh_public_key = local.secrets.public_key
-
-  ami_owner_id             = local.secrets.ami_owner_id
-  account_id               = local.secrets.ami_owner_id
-  artifactory_access_token = local.secrets.artifactory_access_token
+  artifactory_web_access    = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
+  dns_zone_name             = local.secrets.dns_zone_name
+  dns_zone_is_private       = local.secrets.dns_zone_is_private
+  aws_route53_record_name   = "${var.service}-${var.environment}.${data.aws_route53_zone.selected.name}"
+  ssl_certificate_name      = local.secrets.ssl_certificate_name
+  create_ssl_certificate    = local.ssl_certificate_name == "" ? true : false
+  ssl_certificate_arn       = local.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
+  db_fqdn                   = "${var.service}-db.${data.aws_route53_zone.selected.name}:${local.secrets.db_port}"
+  ssh_keyname               = "${var.service}-${var.environment}"
+  ssh_public_key            = local.secrets.public_key
+  ami_owner_id              = local.secrets.ami_owner_id
+  account_id                = local.secrets.ami_owner_id
+  artifactory_access_token  = local.secrets.artifactory_access_token
+  efs_access_point_id       = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
 
   ldap_setting_key                           = "ldap1"
   ldap_setting_email_attribute               = local.secrets.ldap_setting_email_attribute
   ldap_setting_ldap_url                      = local.secrets.ldap_setting_ldap_url
-  #ldap_setting_managerdn                     = local.secrets.ldap_setting_managerdn
-  #ldap_setting_manager_password              = local.secrets.ldap_setting_manager_password
   ldap_setting_search_base                   = local.secrets.ldap_setting_search_base
   ldap_setting_search_filter                 = local.secrets.ldap_setting_search_filter
   ldap_setting_search_subtree                = local.secrets.ldap_setting_search_subtree
@@ -60,8 +51,6 @@ locals {
   ldap_group_settings_group_name_attribute   = local.secrets.ldap_group_settings_group_name_attribute
   ldap_group_settings_strategy               = local.secrets.ldap_group_settings_strategy
   ldap_group_settings_subtree                = local.secrets.ldap_group_settings_subtree
-
-  efs_access_point_id = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
 
   parameter_store_secrets = merge(
     {
@@ -75,11 +64,11 @@ locals {
     }
   )
 
-  db_username_param_name                     = "/${var.service}/${var.environment}/db_username"
-  db_password_param_name                     = "/${var.service}/${var.environment}/db_password"
-  db_masterkey_param_name                    = "/${var.service}/${var.environment}/db_masterkey"
-  admin_password_param_name                  = "/${var.service}/${var.environment}/admin_password"
-  ldap_setting_managerdn_param_name          = "/${var.service}/${var.environment}/ldap_setting_managerdn"
-  ldap_setting_manager_password_param_name   = "/${var.service}/${var.environment}/ldap_setting_manager_password"
-  artifactory_license_param_name             = "/${var.service}/${var.environment}/artifactory_license"
+  db_username_param_name                   = "/${var.service}/${var.environment}/db_username"
+  db_password_param_name                   = "/${var.service}/${var.environment}/db_password"
+  db_masterkey_param_name                  = "/${var.service}/${var.environment}/db_masterkey"
+  admin_password_param_name                = "/${var.service}/${var.environment}/admin_password"
+  ldap_setting_managerdn_param_name        = "/${var.service}/${var.environment}/ldap_setting_managerdn"
+  ldap_setting_manager_password_param_name = "/${var.service}/${var.environment}/ldap_setting_manager_password"
+  artifactory_license_param_name           = "/${var.service}/${var.environment}/artifactory_license"
 }
