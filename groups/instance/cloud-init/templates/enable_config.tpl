@@ -78,8 +78,8 @@ write_files:
                           <searchFilter>${ldap_setting_search_filter}</searchFilter>
                           <searchBase>${ldap_setting_search_base}</searchBase>
                           <searchSubTree>${ldap_setting_search_subtree}</searchSubTree>
-                          <managerDn>$${ldap_setting_managerdn_param_name}</managerDn>
-                          <managerPassword>$${ldap_setting_manager_password_param_name}</managerPassword>
+                          <managerDn>$${AWSCLI_COMMAND_LDAPMANAGERDN}</managerDn>
+                          <managerPassword>$${AWSCLI_COMMAND_LDAPMANAGERPW}</managerPassword>
                       </search>
                           <autoCreateUser>true</autoCreateUser>
                           <emailAttribute>${ldap_setting_email_attribute}</emailAttribute>
