@@ -1,14 +1,5 @@
 write_files:
 
-  - path: /opt/jfrog/artifactory/var/etc/security/createJoinKeyYaml.sh
-    permissions: 0750
-    content: |
-      #!/bin/bash
-      AWSCLI_COMMAND_JOINKEY=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${join_key_param_name})    
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/security/join.key
-      $${AWSCLI_COMMAND_JOINKEY}
-      EOF
-
   - path: /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
     permissions: 0750
     content: |
@@ -30,7 +21,6 @@ write_files:
       configVersion: 1
       shared:
           security:
-              joinKeyFile: "/opt/jfrog/artifactory/var/etc/security/join.key"
               masterKeyFile: "/opt/jfrog/artifactory/var/etc/security/master.key"
           node:
           database:
@@ -781,10 +771,6 @@ write_files:
       </config>
 
 runcmd:
-  - rm /opt/jfrog/artifactory/var/etc/security/join.key
-  - /opt/jfrog/artifactory/var/etc/security/createJoinKeyYaml.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/security/join.key
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/security/join.key
   - rm /opt/jfrog/artifactory/var/etc/security/master.key
   - /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/security/master.key
@@ -808,4 +794,3 @@ runcmd:
   - rm /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
   - rm /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - rm /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
-  - rm /opt/jfrog/artifactory/var/etc/security/createJoinKeyYaml.sh

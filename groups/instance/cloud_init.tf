@@ -35,7 +35,6 @@ data "cloudinit_config" "artifactory" {
       db_username_param_name                     = local.db_username_param_name
       db_password_param_name                     = local.db_password_param_name
       db_masterkey_param_name                    = local.db_masterkey_param_name
-      join_key_param_name                        = local.join_key_param_name
       aws_command                                = var.aws_command
       region                                     = var.region
       service                                    = var.service
