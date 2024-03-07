@@ -803,3 +803,4 @@ runcmd:
   - rm /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - rm /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
   - rm /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
+  - systemctl restart artifactory
