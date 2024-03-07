@@ -11,8 +11,6 @@ data "cloudinit_config" "artifactory" {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/enable_config.tpl", {
       db_fqdn                                    = local.db_fqdn
-      #db_username                                = local.db_username
-      #db_password                                = local.db_password
       ldap_setting_key                           = local.ldap_setting_key
       ldap_setting_email_attribute               = local.ldap_setting_email_attribute
       ldap_setting_ldap_url                      = local.ldap_setting_ldap_url
@@ -37,6 +35,7 @@ data "cloudinit_config" "artifactory" {
       db_username_param_name                     = local.db_username_param_name
       db_password_param_name                     = local.db_password_param_name
       db_masterkey_param_name                    = local.db_masterkey_param_name
+      join_key_param_name                        = local.join_key_param_name
       aws_command                                = var.aws_command
       region                                     = var.region
       service                                    = var.service

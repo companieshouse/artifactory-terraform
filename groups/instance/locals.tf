@@ -74,6 +74,7 @@ locals {
       "artifactory_license"           = local.secrets.artifactory_license
       "admin_password"                = local.secrets.admin_password
       "db_masterkey"                  = local.secrets.db_masterkey
+      "join_key"                      = local.secrets.join_key
     }
   )
 
@@ -84,4 +85,5 @@ locals {
   # ldap_setting_managerdn_param_name        = "/${var.service}/${var.environment}/ldap_setting_managerdn"
   # ldap_setting_manager_password_param_name = "/${var.service}/${var.environment}/ldap_setting_manager_password"
   artifactory_license_param_name             = "/${var.service}/${var.environment}/artifactory_license"
+  join_key_param_name                        = "/${var.service}/${var.environment}/join_key"
 }
