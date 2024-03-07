@@ -33,9 +33,13 @@ write_files:
               serviceStartTimeout: 120
       EOF
 
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
     permissions: '0644'
     content: |
+      #!/bin/bash
+      AWSCLI_COMMAND_LDAPMANAGERDN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_managerdn_param_name})
+      AWSCLI_COMMAND_LDAPMANAGERPW=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_manager_password_param_name})
+      cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <config xmlns="http://artifactory.jfrog.org/xsd/3.1.32" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jfrog.org/xsd/artifactory-v3_1_32.xsd">
           <offlineMode>false</offlineMode>
@@ -74,8 +78,8 @@ write_files:
                           <searchFilter>${ldap_setting_search_filter}</searchFilter>
                           <searchBase>${ldap_setting_search_base}</searchBase>
                           <searchSubTree>${ldap_setting_search_subtree}</searchSubTree>
-                          <managerDn>${ldap_setting_managerdn}</managerDn>
-                          <managerPassword>${ldap_setting_manager_password}</managerPassword>
+                          <managerDn>$${ldap_setting_managerdn_param_name}</managerDn>
+                          <managerPassword>$${ldap_setting_manager_password_param_name}</managerPassword>
                       </search>
                           <autoCreateUser>true</autoCreateUser>
                           <emailAttribute>${ldap_setting_email_attribute}</emailAttribute>
@@ -739,6 +743,7 @@ write_files:
               <tokens/>
           </authentication>
       </config>
+      EOF
 
   - path: /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
     permissions: 0750
@@ -771,6 +776,9 @@ write_files:
       </config>
 
 runcmd:
+  - /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
+  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
+  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
   - rm /opt/jfrog/artifactory/var/etc/security/master.key
   - /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/security/master.key

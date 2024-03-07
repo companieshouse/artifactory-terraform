@@ -35,8 +35,6 @@ locals {
   create_ssl_certificate = local.ssl_certificate_name == "" ? true : false
   ssl_certificate_arn    = local.ssl_certificate_name == "" ? aws_acm_certificate_validation.certificate[0].certificate_arn : data.aws_acm_certificate.certificate[0].arn
 
-  db_username = local.secrets.db_username
-  db_password = local.secrets.db_password
   db_fqdn     = "${var.service}-db.${data.aws_route53_zone.selected.name}:${local.secrets.db_port}"
 
   ssh_keyname    = "${var.service}-${var.environment}"
@@ -49,8 +47,8 @@ locals {
   ldap_setting_key                           = "ldap1"
   ldap_setting_email_attribute               = local.secrets.ldap_setting_email_attribute
   ldap_setting_ldap_url                      = local.secrets.ldap_setting_ldap_url
-  ldap_setting_managerdn                     = local.secrets.ldap_setting_managerdn
-  ldap_setting_manager_password              = local.secrets.ldap_setting_manager_password
+  #ldap_setting_managerdn                     = local.secrets.ldap_setting_managerdn
+  #ldap_setting_manager_password              = local.secrets.ldap_setting_manager_password
   ldap_setting_search_base                   = local.secrets.ldap_setting_search_base
   ldap_setting_search_filter                 = local.secrets.ldap_setting_search_filter
   ldap_setting_search_subtree                = local.secrets.ldap_setting_search_subtree
@@ -81,7 +79,7 @@ locals {
   db_password_param_name                     = "/${var.service}/${var.environment}/db_password"
   db_masterkey_param_name                    = "/${var.service}/${var.environment}/db_masterkey"
   admin_password_param_name                  = "/${var.service}/${var.environment}/admin_password"
-  # ldap_setting_managerdn_param_name        = "/${var.service}/${var.environment}/ldap_setting_managerdn"
-  # ldap_setting_manager_password_param_name = "/${var.service}/${var.environment}/ldap_setting_manager_password"
+  ldap_setting_managerdn_param_name          = "/${var.service}/${var.environment}/ldap_setting_managerdn"
+  ldap_setting_manager_password_param_name   = "/${var.service}/${var.environment}/ldap_setting_manager_password"
   artifactory_license_param_name             = "/${var.service}/${var.environment}/artifactory_license"
 }
