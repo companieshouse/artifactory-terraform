@@ -16,7 +16,7 @@ data "cloudinit_config" "artifactory" {
     })
     merge_type = var.user_data_merge_strategy
   }
-  
+
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/system_yaml.tpl", {
