@@ -148,19 +148,19 @@ variable "asg_health_check_grace_period" {
 
 variable "asg_desired_capacity" {
   description = "The number of Amazon EC2 instances that should be running in the group."
-  default     = 1
+  default     = 0
   type        = number
 }
 
 variable "asg_min_size" {
   description = "The minimum size of the auto scale group"
-  default     = 1
+  default     = 0
   type        = number
 }
 
 variable "asg_max_size" {
   description = "The maximum size of the auto scale group"
-  default     = 1
+  default     = 0
   type        = number
 }
 
@@ -210,4 +210,9 @@ variable "aws_command" {
   description = "The base aws cli get-parameter command"
   default     = "aws ssm get-parameter --with-decryption --output text"
   type        = string
+}
+
+variable "user_data_merge_strategy" {
+  default     = "list(append)+dict(recurse_array)+str()"
+  description = "Merge strategy to apply to user-data sections for cloud-init"
 }

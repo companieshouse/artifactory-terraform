@@ -34,7 +34,6 @@ locals {
   ssh_public_key            = local.secrets.public_key
   ami_owner_id              = local.secrets.ami_owner_id
   account_id                = local.secrets.ami_owner_id
-  artifactory_access_token  = local.secrets.artifactory_access_token
   efs_access_point_id       = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
 
   ldap_setting_key                           = "ldap1"
@@ -61,6 +60,7 @@ locals {
       "artifactory_license"           = local.secrets.artifactory_license
       "admin_password"                = local.secrets.admin_password
       "db_masterkey"                  = local.secrets.db_masterkey
+      "artifactory_access_token"      = local.secrets.artifactory_access_token
     }
   )
 
@@ -71,4 +71,5 @@ locals {
   ldap_setting_managerdn_param_name        = "/${var.service}/${var.environment}/ldap_setting_managerdn"
   ldap_setting_manager_password_param_name = "/${var.service}/${var.environment}/ldap_setting_manager_password"
   artifactory_license_param_name           = "/${var.service}/${var.environment}/artifactory_license"
+  artifactory_access_token_param_name      = "/${var.service}/${var.environment}/artifactory_access_token"
 }

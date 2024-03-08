@@ -1,44 +1,11 @@
 write_files:
-
-  - path: /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
-    permissions: 0750
-    content: |
-      #!/bin/bash
-      AWSCLI_COMMAND_MASTERKEY=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${db_masterkey_param_name})    
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/security/master.key
-      $${AWSCLI_COMMAND_MASTERKEY}
-      EOF
-
-  - path: /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
-    permissions: 0750
-    content: |
-      #!/bin/bash
-      AWSCLI_COMMAND_USERNAME=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${db_username_param_name})
-      AWSCLI_COMMAND_PASSWORD=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${db_password_param_name})      
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/system.yaml
-      ## @formatter:off
-      ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
-      configVersion: 1
-      shared:
-          security:
-              masterKeyFile: "/opt/jfrog/artifactory/var/etc/security/master.key"
-          node:
-          database:
-              type: postgresql
-              driver: org.postgresql.Driver
-              url: "jdbc:postgresql://${db_fqdn}/${service}"
-              username: $${AWSCLI_COMMAND_USERNAME}
-              password: $${AWSCLI_COMMAND_PASSWORD}
-          script:
-              serviceStartTimeout: 120
-      EOF
-
   - path: /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
     permissions: 0750
     content: |
       #!/bin/bash
       AWSCLI_COMMAND_LDAPMANAGERDN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_managerdn_param_name})
       AWSCLI_COMMAND_LDAPMANAGERPW=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_manager_password_param_name})
+      AWSCLI_COMMAND_ACCESSTOKEN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${artifactory_access_token_param_name})
       cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <config xmlns="http://artifactory.jfrog.org/xsd/3.1.32" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jfrog.org/xsd/artifactory-v3_1_32.xsd">
@@ -107,7 +74,7 @@ write_files:
                   <loginAttempts>5</loginAttempts>
               </userLockPolicy>
               <accessClientSettings>
-                  <adminToken>${artifactory_access_token}</adminToken>
+                  <adminToken>$${AWSCLI_COMMAND_ACCESSTOKEN}</adminToken>
                   <userTokenMaxExpiresInMinutes>60</userTokenMaxExpiresInMinutes>
               </accessClientSettings>
               <buildGlobalBasicReadAllowed>false</buildGlobalBasicReadAllowed>
@@ -744,63 +711,3 @@ write_files:
           </authentication>
       </config>
       EOF
-
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
-    permissions: 0750
-    content: |
-      #!/bin/bash
-      AWSCLI_COMMAND=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${artifactory_license_param_name})
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-      $${AWSCLI_COMMAND}
-      EOF
-
-  - path: /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
-    permissions: 0750
-    content: |
-      #!/bin/bash
-      AWSCLI_COMMAND=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${admin_password_param_name})
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-      admin@*=$${AWSCLI_COMMAND}
-      EOF
-
-  - path: /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
-    permissions: '0644'
-    content: |
-      <config version="v1">
-          <chain template="file-system"/>
-          <provider id="file-system" type="file-system">
-              <baseDataDir>/var/opt/jfrog/artifactory/data/artifactory</baseDataDir>
-              <fileStoreDir>/var/lib/artifactory/filestore</fileStoreDir>
-              <tempDir>/var/lib/artifactory/tmp</tempDir>
-          </provider>
-      </config>
-
-runcmd:
-  - /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
-  - rm /opt/jfrog/artifactory/var/etc/security/master.key
-  - /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/security/master.key
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/security/master.key
-  - rm /opt/jfrog/artifactory/var/etc/system.yaml  
-  - /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/system.yaml
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/system.yaml
-  - /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-  - /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
-  - sudo chmod 0600 /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-  - systemctl enable artifactory
-  - sudo echo "${efs_filesystem_id} /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
-  - sudo mount -a
-  - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
-  - systemctl restart artifactory
-  - rm /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
-  - rm /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
-  - rm /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
-  - rm /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
-  - rm /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
-  - systemctl restart artifactory
