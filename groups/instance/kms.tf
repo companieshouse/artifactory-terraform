@@ -16,7 +16,7 @@ resource "aws_kms_key" "artifactory_kms_key" {
 }
 
 resource "aws_kms_alias" "artifactory" {
-  name          = "alias/${var.service}-${var.environment}-kms"
+  name          = "alias/${local.base_path}-kms"
   target_key_id = aws_kms_key.artifactory_kms_key.key_id
 }
 

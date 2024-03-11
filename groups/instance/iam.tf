@@ -1,5 +1,5 @@
 resource "aws_iam_instance_profile" "artifactory_instance_profile" {
-  name = "${var.service}-${var.environment}-iam-profile"
+  name = "${local.base_path}-iam-profile"
   role = aws_iam_role.artifactory_instance_role.name
 }
 
@@ -68,14 +68,13 @@ data "aws_iam_policy_document" "access_ssm_parameters_policy_document" {
     effect    = "Allow"
     resources = ["arn:aws:ssm:${var.region}:${local.account_id}:parameter/${var.service}/${var.environment}/*"]
     actions = [
-      "ssm:GetParametersByPath",
-      "ssm:GetParameter"
+      "ssm:GetParametersByPath"
     ]
   }
 }
 
 resource "aws_iam_role" "artifactory_instance_role" {
-  name               = "${var.service}-${var.environment}-ssm-iam-role"
+  name               = "${local.base_path}-ssm-iam-role"
   assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
 }
 
@@ -88,19 +87,19 @@ data "aws_iam_policy" "efs_service_core" {
 }
 
 resource "aws_iam_policy" "kms_policy" {
-  name        = "${var.service}-${var.environment}-kms-policy"
-  description = "${var.service}-${var.environment}-dedicated-kms-key-policy"
+  name        = "${local.base_path}-kms-policy"
+  description = "${local.base_path}-dedicated-kms-key-policy"
   policy      = data.aws_iam_policy_document.kms_key.json
 }
 
 resource "aws_iam_policy" "access_ssm_parameters_policy" {
-  name        = "${var.service}-${var.environment}-access-ssm-parameters-policy"
-  description = "${var.service}-${var.environment}-dedicated-access-ssm-parameters-policy"
+  name        = "${local.base_path}-access-ssm-parameters-policy"
+  description = "${local.base_path}-dedicated-access-ssm-parameters-policy"
   policy      = data.aws_iam_policy_document.access_ssm_parameters_policy_document.json
 }
 
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
-  name   = "${var.service}-${var.environment}-ssm-iam-policy"
+  name   = "${local.base_path}-ssm-iam-policy"
   role   = aws_iam_role.artifactory_instance_role.id
   policy = data.aws_iam_policy_document.ssm_service.json
 }

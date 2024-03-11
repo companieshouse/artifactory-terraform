@@ -39,7 +39,7 @@ resource "aws_autoscaling_group" "artifactory_asg" {
 
   tag {
     key                 = "Name"
-    value               = "${var.service}-${var.environment}"
+    value               = "${local.base_path}"
     propagate_at_launch = true
   }
 

@@ -46,7 +46,7 @@ resource "aws_security_group" "instance_security_group" {
 
 resource "aws_security_group" "alb_security_group" {
   name        = "${var.environment}-${var.service}-lb"
-  description = "Restricts access for ${var.service}-${var.environment} lb artifactory nodes"
+  description = "Restricts access for ${local.base_path} lb artifactory nodes"
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {

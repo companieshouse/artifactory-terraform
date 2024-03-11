@@ -1,8 +1,8 @@
 resource "aws_launch_template" "artifactory_launch_template" {
-  name          = "${var.service}-${var.environment}-launch-template"
+  name          = "${local.base_path}-launch-template"
   image_id      = data.aws_ami.artifactory_ami.id
   instance_type = var.default_instance_type
-  key_name      = local.ssh_keyname
+  key_name      = local.base_path
   user_data     = data.cloudinit_config.artifactory.rendered
 
   lifecycle {
@@ -35,7 +35,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
     resource_type = "instance"
 
     tags = {
-      Name = "${var.service}-${var.environment}"
+      Name = "${local.base_path}"
     }
   }
 
@@ -43,7 +43,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
     resource_type = "volume"
 
     tags = {
-      Name        = "${var.service}-${var.environment}-root-volume"
+      Name        = "${local.base_path}-root-volume"
       Service     = var.service
       Environment = var.environment
       Snapshot    = "Daily"
@@ -52,6 +52,6 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
 
   tags = {
-    Name = "${var.service}-${var.environment}-launch-template"
+    Name = "${local.base_path}-launch-template"
   }
 }
