@@ -205,3 +205,20 @@ variable "asg_scale_down_max_size" {
   default     = 0
   type        = number
 }
+
+variable "aws_command" {
+  description = "The base aws cli get-parameter command"
+  default     = "aws ssm get-parameter --with-decryption --output text"
+  type        = string
+}
+
+variable "user_data_merge_strategy" {
+  default     = "list(append)+dict(recurse_array)+str()"
+  description = "Merge strategy to apply to user-data sections for cloud-init"
+}
+
+variable "asg_time_zone" {
+  description = "Specifies the time zone for a cron expression"
+  default     = "Europe/London"
+  type        = string
+}

@@ -7,7 +7,7 @@ resource "aws_autoscaling_group" "artifactory_asg" {
   health_check_type         = var.asg_health_check_type
   desired_capacity          = var.asg_desired_capacity
   target_group_arns         = [aws_lb_target_group.front_end_8082.arn]
-  vpc_zone_identifier       = [tolist(data.aws_subnets.placement.ids)[1]]
+  vpc_zone_identifier       = tolist(data.aws_subnets.placement.ids)
   termination_policies      = [var.asg_termination_policies]
   enabled_metrics = [
     "GroupMinSize",
@@ -39,7 +39,7 @@ resource "aws_autoscaling_group" "artifactory_asg" {
 
   tag {
     key                 = "Name"
-    value               = "${var.service}-${var.environment}"
+    value               = "${local.base_path}"
     propagate_at_launch = true
   }
 
@@ -68,11 +68,12 @@ resource "aws_autoscaling_attachment" "artifactory_asg_attachment" {
 }
 
 resource "aws_autoscaling_schedule" "scale_down" {
-  desired_capacity       = var.asg_desired_capacity
-  min_size               = var.asg_min_size
-  max_size               = var.asg_max_size
+  desired_capacity       = var.asg_scale_down_desired_capacity
+  min_size               = var.asg_scale_down_min_size
+  max_size               = var.asg_scale_down_max_size
   recurrence             = var.asg_scale_down_recurrence
   scheduled_action_name  = "${var.environment}-${var.service}-scale-down"
+  time_zone              = var.asg_time_zone
   autoscaling_group_name = aws_autoscaling_group.artifactory_asg.name
 }
 
@@ -81,6 +82,7 @@ resource "aws_autoscaling_schedule" "scale_up" {
   min_size               = var.asg_min_size
   max_size               = var.asg_max_size
   recurrence             = var.asg_scale_up_recurrence
+  time_zone              = var.asg_time_zone
   scheduled_action_name  = "${var.environment}-${var.service}-scale-up"
   autoscaling_group_name = aws_autoscaling_group.artifactory_asg.name
 }

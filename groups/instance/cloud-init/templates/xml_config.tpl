@@ -1,26 +1,12 @@
 write_files:
-  - path: /opt/jfrog/artifactory/var/etc/system.yaml
-    permissions: '0644'
+  - path: /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
+    permissions: 0750
     content: |
-      ## @formatter:off
-      ## ARTIFACTORY SYSTEM CONFIGURATION FILE 
-      shared:
-          security:
-          node:          
-          script:
-          ## The max time to wait for Tomcat to come up (START_TMO)
-             serviceStartTimeout: 120
-          ## Database Configuration
-          database:
-      type: postgresql
-      driver: org.postgresql.Driver
-      url: "jdbc:postgresql://${db_fqdn}/artifactory"
-      username: ${db_username}
-      password: ${db_password}    
-
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
-    permissions: '0644'
-    content: |
+      #!/bin/bash
+      AWSCLI_COMMAND_LDAPMANAGERDN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_managerdn_param_name})
+      AWSCLI_COMMAND_LDAPMANAGERPW=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_manager_password_param_name})
+      AWSCLI_COMMAND_ACCESSTOKEN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${artifactory_access_token_param_name})
+      cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <config xmlns="http://artifactory.jfrog.org/xsd/3.1.32" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jfrog.org/xsd/artifactory-v3_1_32.xsd">
           <offlineMode>false</offlineMode>
@@ -59,8 +45,8 @@ write_files:
                           <searchFilter>${ldap_setting_search_filter}</searchFilter>
                           <searchBase>${ldap_setting_search_base}</searchBase>
                           <searchSubTree>${ldap_setting_search_subtree}</searchSubTree>
-                          <managerDn>${ldap_setting_managerdn}</managerDn>
-                          <managerPassword>${ldap_setting_manager_password}</managerPassword>
+                          <managerDn>$${AWSCLI_COMMAND_LDAPMANAGERDN}</managerDn>
+                          <managerPassword>$${AWSCLI_COMMAND_LDAPMANAGERPW}</managerPassword>
                       </search>
                           <autoCreateUser>true</autoCreateUser>
                           <emailAttribute>${ldap_setting_email_attribute}</emailAttribute>
@@ -88,7 +74,7 @@ write_files:
                   <loginAttempts>5</loginAttempts>
               </userLockPolicy>
               <accessClientSettings>
-                  <adminToken>${artifactory_access_token}</adminToken>
+                  <adminToken>$${AWSCLI_COMMAND_ACCESSTOKEN}</adminToken>
                   <userTokenMaxExpiresInMinutes>60</userTokenMaxExpiresInMinutes>
               </accessClientSettings>
               <buildGlobalBasicReadAllowed>false</buildGlobalBasicReadAllowed>
@@ -724,33 +710,4 @@ write_files:
               <tokens/>
           </authentication>
       </config>
-
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-    permissions: '0644'
-    content: |
-      ${artifactory_license}
-
-  - path: /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-    permissions: '0600'
-    content: |
-      admin@*=${admin_password}
-
-  - path: /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
-    permissions: '0644'
-    content: |
-      <config version="v1">
-          <chain template="file-system"/>
-          <provider id="file-system" type="file-system">
-              <baseDataDir>/var/opt/jfrog/artifactory/data/artifactory</baseDataDir>
-              <fileStoreDir>/var/lib/artifactory/filestore</fileStoreDir>
-              <tempDir>/var/lib/artifactory/tmp</tempDir>
-          </provider>
-      </config>
-
-runcmd:
-  - systemctl enable artifactory
-  - sudo echo "${efs_filesystem_id} /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
-  - sudo mount -a
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-  - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
-  - systemctl restart artifactory
+      EOF
