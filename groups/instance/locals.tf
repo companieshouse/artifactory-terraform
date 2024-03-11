@@ -33,7 +33,7 @@ locals {
   ssh_public_key            = local.secrets.public_key
   ami_owner_id              = local.secrets.ami_owner_id
   account_id                = local.secrets.ami_owner_id
-  efs_access_point_id       = module.efs_file_system.efs_access_point_ids["${var.efs_artifacts_access_point_name}"].id
+  efs_access_point_id       = module.efs_file_system.efs_access_point_ids[var.efs_artifacts_access_point_name].id
   param_base_path           = "/${var.service}/${var.environment}"
   base_path                 = "${var.service}-${var.environment}"
 

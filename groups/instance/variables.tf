@@ -216,3 +216,9 @@ variable "user_data_merge_strategy" {
   default     = "list(append)+dict(recurse_array)+str()"
   description = "Merge strategy to apply to user-data sections for cloud-init"
 }
+
+variable "asg_time_zone" {
+  description = "Specifies the time zone for a cron expression"
+  default     = "Europe/London"
+  type        = string
+}

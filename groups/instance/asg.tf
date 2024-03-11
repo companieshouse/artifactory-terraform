@@ -73,6 +73,7 @@ resource "aws_autoscaling_schedule" "scale_down" {
   max_size               = var.asg_scale_down_max_size
   recurrence             = var.asg_scale_down_recurrence
   scheduled_action_name  = "${var.environment}-${var.service}-scale-down"
+  time_zone              = var.asg_time_zone
   autoscaling_group_name = aws_autoscaling_group.artifactory_asg.name
 }
 
@@ -81,6 +82,7 @@ resource "aws_autoscaling_schedule" "scale_up" {
   min_size               = var.asg_min_size
   max_size               = var.asg_max_size
   recurrence             = var.asg_scale_up_recurrence
+  time_zone              = var.asg_time_zone
   scheduled_action_name  = "${var.environment}-${var.service}-scale-up"
   autoscaling_group_name = aws_autoscaling_group.artifactory_asg.name
 }
