@@ -39,11 +39,11 @@ write_files:
                   <ldapSetting>
                       <key>${ldap_setting_key}</key>
                       <enabled>true</enabled>
-                      <ldapUrl>${ldap_setting_ldap_url}</ldapUrl>
+                      <ldapUrl>${ldaps_setting_ldap_url}</ldapUrl>
                       <userDnPattern></userDnPattern>
                       <search>
                           <searchFilter>${ldap_setting_search_filter}</searchFilter>
-                          <searchBase>${ldap_setting_search_base}</searchBase>
+                          <searchBase>${ldaps_setting_search_base}</searchBase>
                           <searchSubTree>${ldap_setting_search_subtree}</searchSubTree>
                           <managerDn>$${AWSCLI_COMMAND_LDAPMANAGERDN}</managerDn>
                           <managerPassword>$${AWSCLI_COMMAND_LDAPMANAGERPW}</managerPassword>
