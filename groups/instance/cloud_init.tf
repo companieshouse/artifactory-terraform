@@ -11,6 +11,7 @@ data "cloudinit_config" "artifactory" {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/get_ldap_cert.tpl", {
       artifactory_auth_ldaps_host = local.artifactory_auth_ldaps_host
+      service                     = var.service
     })
     merge_type = var.user_data_merge_strategy
   }
