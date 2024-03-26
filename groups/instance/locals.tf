@@ -38,9 +38,10 @@ locals {
   base_path                 = "${var.service}-${var.environment}"
 
   ldap_setting_key                           = "ldap1"
+  artifactory_auth_ldaps_host                = local.secrets.artifactory_auth_ldaps_host
   ldap_setting_email_attribute               = local.secrets.ldap_setting_email_attribute
-  ldap_setting_ldap_url                      = local.secrets.ldap_setting_ldap_url
-  ldap_setting_search_base                   = local.secrets.ldap_setting_search_base
+  ldaps_setting_ldap_url                     = local.secrets.ldaps_setting_ldap_url
+  ldaps_setting_search_base                  = local.secrets.ldaps_setting_search_base
   ldap_setting_search_filter                 = local.secrets.ldap_setting_search_filter
   ldap_setting_search_subtree                = local.secrets.ldap_setting_search_subtree
   ldap_setting_allow_user_to_access_profile  = local.secrets.ldap_setting_allow_user_to_access_profile

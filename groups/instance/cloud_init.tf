@@ -9,6 +9,15 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
+    content = templatefile("${path.module}/cloud-init/templates/get_ldap_cert.tpl", {
+      artifactory_auth_ldaps_host = local.artifactory_auth_ldaps_host
+      service                     = var.service
+    })
+    merge_type = var.user_data_merge_strategy
+  }
+
+  part {
+    content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/master_key.tpl", {
       aws_command             = var.aws_command
       region                  = var.region
@@ -38,9 +47,9 @@ data "cloudinit_config" "artifactory" {
       ldap_setting_managerdn_param_name          = local.ldap_setting_managerdn_param_name
       ldap_setting_manager_password_param_name   = local.ldap_setting_manager_password_param_name
       ldap_setting_key                           = local.ldap_setting_key
-      ldap_setting_ldap_url                      = local.ldap_setting_ldap_url
+      ldaps_setting_ldap_url                     = local.ldaps_setting_ldap_url
       ldap_setting_search_filter                 = local.ldap_setting_search_filter
-      ldap_setting_search_base                   = local.ldap_setting_search_base
+      ldaps_setting_search_base                  = local.ldaps_setting_search_base
       ldap_setting_search_subtree                = local.ldap_setting_search_subtree
       ldap_setting_email_attribute               = local.ldap_setting_email_attribute
       ldap_setting_allow_user_to_access_profile  = local.ldap_setting_allow_user_to_access_profile
