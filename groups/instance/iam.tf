@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "kms_key" {
   statement {
     sid       = "AllowKmsOperations"
     effect    = "Allow"
-    resources = [aws_kms_key.artifactory_kms_key.arn]
+    resources = [aws_kms_key.artifactory.arn]
     actions = [
       "kms:Encrypt",
       "kms:Decrypt",
