@@ -49,12 +49,6 @@ variable "db_engine_major_version" {
   type        = string
 }
 
-variable "db_engine_minor_version" {
-  description = "Database engine minor version"
-  default     = "10"
-  type        = string
-}
-
 variable "db_instance_class" {
   description = "Database instance class"
   default     = "db.t4g.small"

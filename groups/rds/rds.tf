@@ -34,7 +34,7 @@ resource "aws_db_instance" "db" {
   allocated_storage               = var.db_storage_gb
   db_name                         = var.service
   engine                          = var.db_engine
-  engine_version                  = local.db_engine_version
+  engine_version                  = var.db_engine_major_version
   instance_class                  = var.db_instance_class
   username                        = local.db_username
   password                        = local.db_password
