@@ -12,7 +12,7 @@ terraform {
     }
     vault = {
       source  = "hashicorp/vault"
-      version = ">= 3.23.0, < 4.0.0"
+      version = ">= 4.0, < 5.0"
     }
   }
   backend "s3" {}

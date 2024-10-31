@@ -19,5 +19,4 @@ locals {
   db_subnet                = local.secrets.db_subnet
   db_username              = local.secrets.db_username
   db_password              = local.secrets.db_password
-  db_engine_version        = "${var.db_engine_major_version}.${var.db_engine_minor_version}"
 }

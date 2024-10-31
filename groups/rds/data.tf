@@ -14,12 +14,16 @@ data "aws_vpc" "placement" {
 }
 
 data "aws_subnet" "placement" {
-  for_each = data.aws_subnets.placement.ids
+  for_each = toset(data.aws_subnets.placement.ids)
+
   id       = each.value
 }
 
 data "aws_subnets" "placement" {
-  vpc_id = data.aws_vpc.placement.id
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.placement.id]
+  }
 
   filter {
     name   = "tag:Name"
