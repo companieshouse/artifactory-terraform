@@ -95,7 +95,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
   user_data     = data.cloudinit_config.artifactory.rendered
 
   network_interfaces {
-    security_groups = [aws_security_group.instance_security_group.id]
+    security_groups = [aws_security_group.ec2.id]
     subnet_id       = tolist(data.aws_subnets.placement.ids)[1]
   }
 

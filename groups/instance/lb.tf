@@ -2,7 +2,7 @@ resource "aws_lb" "artifactory" {
   name                       = "${local.resource_prefix}-lb"
   internal                   = true
   load_balancer_type         = "application"
-  security_groups            = [aws_security_group.alb_security_group.id]
+  security_groups            = [aws_security_group.alb.id]
   subnets                    = local.automation_subnet_ids
   enable_deletion_protection = true
 

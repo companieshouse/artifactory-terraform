@@ -1,80 +1,86 @@
-resource "aws_security_group" "instance_security_group" {
+resource "aws_security_group" "ec2" {
   name        = "${local.resource_prefix}-instance"
-  description = "Allow TLS inbound traffic"
+  description = "Security group for ${local.resource_prefix} EC2 instances"
   vpc_id      = data.aws_vpc.placement.id
-
-  ingress {
-    description     = "Artifactory"
-    from_port       = 8081
-    to_port         = 8082
-    protocol        = "tcp"
-    cidr_blocks     = [local.concourse_access_cidrs]
-    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
-    security_groups = [aws_security_group.alb_security_group.id]
-  }
-
-  ingress {
-    description     = "SSH"
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    cidr_blocks     = [local.concourse_access_cidrs]
-    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
-  }
-
-  ingress {
-    description     = "Access for EFS"
-    from_port       = 2049
-    to_port         = 2049
-    protocol        = "tcp"
-    security_groups = [aws_security_group.alb_security_group.id]
-  }
-
-  egress {
-    description = "Allow outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   tags = {
     Name = "${local.resource_prefix}-instance"
   }
 }
 
-resource "aws_security_group" "alb_security_group" {
+resource "aws_vpc_security_group_egress_rule" "ec2_egress" {
+  security_group_id = aws_security_group.ec2.id
+  description       = "Permit egress from Artifactory EC2"
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "alb_ingress" {
+  security_group_id            = aws_security_group.ec2.id
+  description                  = "Permit application access from the ALB"
+  from_port                    = 8081
+  ip_protocol                  = "tcp"
+  referenced_security_group_id = aws_security_group.alb.id
+  to_port                      = 8082
+}
+
+resource "aws_security_group" "alb" {
   name        = "${local.resource_prefix}-lb"
-  description = "Restricts access for ${local.resource_prefix} lb artifactory nodes"
+  description = "Security group for ${local.resource_prefix} ALB"
   vpc_id      = data.aws_vpc.placement.id
-
-  ingress {
-    description     = "lb HTTP ingress from admin and concourse CIDRs"
-    from_port       = 80
-    to_port         = 80
-    protocol        = "tcp"
-    cidr_blocks     = local.artifactory_web_access
-    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
-  }
-
-  ingress {
-    description     = "lb HTTPS ingress from admin and concourse CIDRs"
-    from_port       = 443
-    to_port         = 443
-    protocol        = "tcp"
-    cidr_blocks     = local.artifactory_web_access
-    prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
-  }
-
-  egress {
-    description = "Allow outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   tags = {
     Name = "${var.environment}-${var.service}-lb"
   }
+}
+
+resource "aws_vpc_security_group_egress_rule" "alb_egress" {
+  security_group_id = aws_security_group.alb.id
+  description       = "Permit egress from Artifactory ALB"
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "http_ingress_cidrs" {
+  for_each = local.web_access_cidrs_map
+
+  security_group_id = aws_security_group.alb.id
+  description       = "Permit HTTP ingress from ${each.value}"
+  cidr_ipv4         = each.value
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
+resource "aws_vpc_security_group_ingress_rule" "https_ingress_cidrs" {
+  for_each = local.web_access_cidrs_map
+
+  security_group_id = aws_security_group.alb.id
+  description       = "Permit HTTP ingress from ${each.value}"
+  cidr_ipv4         = each.value
+  from_port         = 443
+  ip_protocol       = "tcp"
+  to_port           = 443
+}
+
+resource "aws_vpc_security_group_ingress_rule" "http_ingress_prefixlist" {
+  for_each = toset(local.web_access_prefix_list_ids)
+
+  security_group_id = aws_security_group.alb.id
+  description       = "Permit HTTP ingress from ${each.value}"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  prefix_list_id    = each.value
+  to_port           = 80
+}
+
+resource "aws_vpc_security_group_ingress_rule" "https_ingress_prefixlist" {
+  for_each = toset(local.web_access_prefix_list_ids)
+
+  security_group_id = aws_security_group.alb.id
+  description       = "Permit HTTP ingress from ${each.value}"
+  from_port         = 443
+  ip_protocol       = "tcp"
+  prefix_list_id    = each.value
+  to_port           = 443
 }

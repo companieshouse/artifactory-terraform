@@ -1,8 +1,9 @@
 data "aws_ec2_managed_prefix_list" "administration" {
-  filter {
-    name   = "prefix-list-name"
-    values = ["administration-cidr-ranges"]
-  }
+  name   = "administration-cidr-ranges"
+}
+
+data "aws_ec2_managed_prefix_list" "concourse" {
+  name   = "shared-services-management-cidrs"
 }
 
 data "vault_generic_secret" "secrets" {

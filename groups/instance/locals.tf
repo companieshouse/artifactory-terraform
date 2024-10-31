@@ -26,8 +26,15 @@ locals {
   automation_subnet_pattern = local.secrets.automation_subnet_pattern
   automation_vpc_pattern    = local.secrets.automation_vpc_pattern
 
-  concourse_access_cidrs = local.secrets.concourse_access_cidrs
-  artifactory_web_access = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
+  concourse_access_cidrs     = local.secrets.concourse_access_cidrs
+  web_access_cidrs           = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
+  web_access_cidrs_map       = {
+    for idx, cidr in local.web_access_cidrs : idx => cidr
+  }
+  web_access_prefix_list_ids = [
+    data.aws_ec2_managed_prefix_list.administration.id,
+    data.aws_ec2_managed_prefix_list.concourse.id
+  ]
 
   dns_zone_name           = local.secrets.dns_zone_name
   aws_route53_record_name = "${local.resource_prefix}.${data.aws_route53_zone.selected.name}"
