@@ -37,28 +37,10 @@ locals {
   param_base_path           = "/${var.service}/${var.environment}"
   base_path                 = "${var.service}-${var.environment}"
 
-  ldap_setting_key                           = "ldap1"
-  artifactory_auth_ldaps_host                = local.secrets.artifactory_auth_ldaps_host
-  ldap_setting_email_attribute               = local.secrets.ldap_setting_email_attribute
-  ldaps_setting_ldap_url                     = local.secrets.ldaps_setting_ldap_url
-  ldaps_setting_search_base                  = local.secrets.ldaps_setting_search_base
-  ldap_setting_search_filter                 = local.secrets.ldap_setting_search_filter
-  ldap_setting_search_subtree                = local.secrets.ldap_setting_search_subtree
-  ldap_setting_allow_user_to_access_profile  = local.secrets.ldap_setting_allow_user_to_access_profile
-  ldap_group_settings_description_attribute  = local.secrets.ldap_group_settings_description_attribute
-  ldap_group_settings_filter                 = local.secrets.ldap_group_settings_filter
-  ldap_group_settings_group_basedn           = local.secrets.ldap_group_settings_group_basedn
-  ldap_group_settings_group_member_attribute = local.secrets.ldap_group_settings_group_member_attribute
-  ldap_group_settings_group_name_attribute   = local.secrets.ldap_group_settings_group_name_attribute
-  ldap_group_settings_strategy               = local.secrets.ldap_group_settings_strategy
-  ldap_group_settings_subtree                = local.secrets.ldap_group_settings_subtree
-
   parameter_store_secrets = merge(
     {
       "db_username"                   = local.secrets.db_username
       "db_password"                   = local.secrets.db_password
-      "ldap_setting_managerdn"        = local.secrets.ldap_setting_managerdn
-      "ldap_setting_manager_password" = local.secrets.ldap_setting_manager_password
       "artifactory_license"           = local.secrets.artifactory_license
       "admin_password"                = local.secrets.admin_password
       "db_masterkey"                  = local.secrets.db_masterkey
@@ -70,8 +52,6 @@ locals {
   db_password_param_name                   = "${local.param_base_path}/db_password"
   db_masterkey_param_name                  = "${local.param_base_path}/db_masterkey"
   admin_password_param_name                = "${local.param_base_path}/admin_password"
-  ldap_setting_managerdn_param_name        = "${local.param_base_path}/ldap_setting_managerdn"
-  ldap_setting_manager_password_param_name = "${local.param_base_path}/ldap_setting_manager_password"
   artifactory_license_param_name           = "${local.param_base_path}/artifactory_license"
   artifactory_access_token_param_name      = "${local.param_base_path}/artifactory_access_token"
 }

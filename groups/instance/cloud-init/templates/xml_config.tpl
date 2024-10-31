@@ -3,8 +3,6 @@ write_files:
     permissions: 0750
     content: |
       #!/bin/bash
-      AWSCLI_COMMAND_LDAPMANAGERDN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_managerdn_param_name})
-      AWSCLI_COMMAND_LDAPMANAGERPW=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${ldap_setting_manager_password_param_name})
       AWSCLI_COMMAND_ACCESSTOKEN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${artifactory_access_token_param_name})
       cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -20,8 +18,8 @@ write_files:
               <showAddonsInfoCookie>1681908647859</showAddonsInfoCookie>
           </addons>
           <security>
-              <anonAccessEnabled>false</anonAccessEnabled>
-              <hideUnauthorizedResources>false</hideUnauthorizedResources>
+              <anonAccessEnabled>true</anonAccessEnabled>
+              <hideUnauthorizedResources>true</hideUnauthorizedResources>
               <passwordSettings>
                   <encryptionPolicy>supported</encryptionPolicy>
                   <expirationPolicy>
@@ -35,40 +33,6 @@ write_files:
                       <timeToBlockInMinutes>60</timeToBlockInMinutes>
                   </resetPolicy>
               </passwordSettings>
-              <ldapSettings>
-                  <ldapSetting>
-                      <key>${ldap_setting_key}</key>
-                      <enabled>true</enabled>
-                      <ldapUrl>${ldaps_setting_ldap_url}</ldapUrl>
-                      <userDnPattern></userDnPattern>
-                      <search>
-                          <searchFilter>${ldap_setting_search_filter}</searchFilter>
-                          <searchBase>${ldaps_setting_search_base}</searchBase>
-                          <searchSubTree>${ldap_setting_search_subtree}</searchSubTree>
-                          <managerDn>$${AWSCLI_COMMAND_LDAPMANAGERDN}</managerDn>
-                          <managerPassword>$${AWSCLI_COMMAND_LDAPMANAGERPW}</managerPassword>
-                      </search>
-                          <autoCreateUser>true</autoCreateUser>
-                          <emailAttribute>${ldap_setting_email_attribute}</emailAttribute>
-                          <ldapPoisoningProtection>true</ldapPoisoningProtection>
-                          <allowUserToAccessProfile>${ldap_setting_allow_user_to_access_profile}</allowUserToAccessProfile>
-                          <pagingSupportEnabled>true</pagingSupportEnabled>
-                  </ldapSetting>
-              </ldapSettings>
-              <ldapGroupSettings>
-                  <ldapGroupSetting>
-                      <name>${ldap_setting_key}</name>
-                      <groupBaseDn>${ldap_group_settings_group_basedn}</groupBaseDn>
-                      <groupNameAttribute>${ldap_group_settings_group_name_attribute}</groupNameAttribute>
-                      <groupMemberAttribute>${ldap_group_settings_group_member_attribute}</groupMemberAttribute>
-                      <subTree>${ldap_group_settings_subtree}</subTree>
-                      <filter>${ldap_group_settings_filter}</filter>
-                      <descriptionAttribute>${ldap_group_settings_description_attribute}</descriptionAttribute>
-                      <strategy>${ldap_group_settings_strategy}</strategy>
-                      <enabledLdap>${ldap_setting_key}</enabledLdap>
-                      <forceAttributeSearch>false</forceAttributeSearch>
-                  </ldapGroupSetting>
-              </ldapGroupSettings>
               <userLockPolicy>
                   <enabled>false</enabled>
                   <loginAttempts>5</loginAttempts>
