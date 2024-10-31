@@ -2,7 +2,7 @@ account_name = "shared-services"
 environment  = "platform"
 region       = "eu-west-2"
 
-db_instance_class = "db.t3.medium"
+db_instance_class    = "db.t3.small"
 db_instance_multi_az = true
 
 db_engine_major_version = 14
