@@ -36,7 +36,7 @@ module "efs_file_system" {
   permit_client_root_access = var.efs_permit_client_root_access
   vpc_id                    = data.aws_vpc.placement.id
   subnet_ids                = data.aws_subnets.placement.ids
-  kms_key_arn               = aws_kms_key.artifactory_kms_key.arn
+  kms_key_arn               = aws_kms_key.artifactory.arn
   throughput_mode           = "elastic"
   performance_mode          = "generalPurpose"
 
@@ -49,6 +49,6 @@ module "efs_file_system" {
     }
   }
   depends_on = [
-    aws_kms_key.artifactory_kms_key
+    aws_kms_key.artifactory
   ]
 }
