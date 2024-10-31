@@ -32,7 +32,7 @@ resource "aws_db_option_group" "db_option_group" {
 
 resource "aws_db_instance" "db" {
   allocated_storage               = var.db_storage_gb
-  name                            = var.service
+  db_name                         = var.service
   engine                          = var.db_engine
   engine_version                  = local.db_engine_version
   instance_class                  = var.db_instance_class

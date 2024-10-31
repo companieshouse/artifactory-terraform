@@ -6,7 +6,22 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 5.0, < 6.0"
     }
+    vault = {
+      source  = "hashicorp/vault"
+      version = ">= 4.0, < 5.0"
+    }
   }
 
   backend "s3" {}
+}
+
+provider "aws" {
+  region = var.region
+  default_tags {
+    tags = {
+      Environment = var.environment
+      Team        = var.team
+      Service     = var.service
+    }
+  }
 }
