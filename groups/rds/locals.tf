@@ -2,7 +2,7 @@ locals {
   account_ids = data.vault_generic_secret.account_ids.data
   secrets     = data.vault_generic_secret.secrets.data
 
-  resource_prefix = "${var.service}-${var.environment}"
+  resource_prefix = "${var.environment}-${var.service}"
 
   placement_subnet_cidrs = values(zipmap(
     values(data.aws_subnet.placement).*.availability_zone,
