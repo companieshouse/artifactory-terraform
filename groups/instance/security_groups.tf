@@ -1,5 +1,5 @@
 resource "aws_security_group" "instance_security_group" {
-  name        = "${var.environment}-${var.service}-instance"
+  name        = "${local.resource_prefix}-instance"
   description = "Allow TLS inbound traffic"
   vpc_id      = data.aws_vpc.placement.id
 
@@ -39,14 +39,13 @@ resource "aws_security_group" "instance_security_group" {
   }
 
   tags = {
-    Name = "${var.environment}-${var.service}-instance"
-    Type = "security-group"
+    Name = "${local.resource_prefix}-instance"
   }
 }
 
 resource "aws_security_group" "alb_security_group" {
-  name        = "${var.environment}-${var.service}-lb"
-  description = "Restricts access for ${local.base_path} lb artifactory nodes"
+  name        = "${local.resource_prefix}-lb"
+  description = "Restricts access for ${local.resource_prefix} lb artifactory nodes"
   vpc_id      = data.aws_vpc.placement.id
 
   ingress {
@@ -77,6 +76,5 @@ resource "aws_security_group" "alb_security_group" {
 
   tags = {
     Name = "${var.environment}-${var.service}-lb"
-    Type = "security-group"
   }
 }

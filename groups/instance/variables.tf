@@ -50,6 +50,12 @@ variable "db_engine" {
   type        = string
 }
 
+variable "dns_zone_is_private" {
+  default     = true
+  description = "Defines whether the configured DNS zone is a private zone (true) or public (false)"
+  type        = bool
+}
+
 variable "ebs_root_delete_on_termination" {
   description = "Whether the volume should be destroyed on instance termination. Defaulted to false"
   default     = "false"

@@ -1,5 +1,5 @@
 resource "aws_lb" "artifactory" {
-  name                       = "${var.environment}-${var.service}-lb"
+  name                       = "${local.resource_prefix}-lb"
   internal                   = true
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.alb_security_group.id]
@@ -7,12 +7,12 @@ resource "aws_lb" "artifactory" {
   enable_deletion_protection = true
 
   tags = {
-    Name = "${var.environment}-${var.service}-lb"
+    Name = "${local.resource_prefix}-lb"
   }
 }
 
 resource "aws_lb_target_group" "front_end_8082" {
-  name     = "${var.environment}-${var.service}-tg-8082"
+  name     = "${local.resource_prefix}-tg-8082"
   port     = 8082
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.placement.id
@@ -31,9 +31,10 @@ resource "aws_lb_target_group" "front_end_8082" {
 }
 
 resource "aws_acm_certificate" "certificate" {
-  count                     = local.create_ssl_certificate ? 1 : 0
-  domain_name               = "${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"
-  subject_alternative_names = ["*.${var.service}.${var.environment}.${data.aws_route53_zone.selected.name}"]
+  count = local.create_ssl_certificate ? 1 : 0
+
+  domain_name               = "${local.resource_prefix}.${data.aws_route53_zone.selected.name}"
+  subject_alternative_names = ["*.${local.resource_prefix}.${data.aws_route53_zone.selected.name}"]
   validation_method         = "DNS"
 }
 
