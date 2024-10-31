@@ -1,15 +1,7 @@
-resource "aws_security_group" "db_security_group" {
-  name        = "${var.environment}-${var.service}-rds"
-  description = "Restricts access for ${var.service}-${var.environment} artifactory nodes"
+resource "aws_security_group" "rds" {
+  name        = "${local.resource_prefix}-rds"
+  description = "Security group for ${local.resource_prefix} artifactory RDS"
   vpc_id      = data.aws_vpc.placement.id
-
-  ingress {
-    description = "Database ingress from permitted CIDRs"
-    from_port   = var.db_port
-    to_port     = var.db_port
-    protocol    = "tcp"
-    cidr_blocks = local.placement_subnet_cidrs
-  }
 
   egress {
     description = "Allow outbound traffic"
@@ -20,9 +12,24 @@ resource "aws_security_group" "db_security_group" {
   }
 
   tags = {
-    Name    = "${var.environment}-${var.service}-rds"
-    Service = var.service
-    Type    = "security-group"
+    Name    = "${local.resource_prefix}-rds"
   }
+}
 
+resource "aws_vpc_security_group_egress_rule" "artifactory" {
+  security_group_id = aws_security_group.rds.id
+  description       = "Permit egress from Artifactory RDS"
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "artifactory" {
+  for_each = toset(local.placement_subnet_cidrs)
+
+  security_group_id = aws_security_group.rds.id
+  description       = "Permit access from Artifactor subnet ${each.value}"
+  cidr_ipv4         = each.value
+  from_port         = var.db_port
+  ip_protocol       = "tcp"
+  to_port           = var.db_port
 }

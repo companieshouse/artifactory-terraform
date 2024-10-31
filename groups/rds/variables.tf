@@ -55,6 +55,12 @@ variable "db_instance_class" {
   type        = string
 }
 
+variable "db_instance_multi_az" {
+  default     = false
+  description = "Defines whether the RDS should be deployed as Multi-AZ (true) or not (false)"
+  type        = bool
+}
+
 variable "db_storage_type" {
   description = "Database storage type"
   default     = "gp2"
@@ -95,4 +101,10 @@ variable "db_maintenance_window" {
   description = "Database maintenance window"
   default     = "Sat:00:00-Sat:03:00"
   type        = string
+}
+
+variable "dns_zone_is_private" {
+  default     = true
+  description = "Defines whether the configured DNS zone is a private zone (true) or public (false)"
+  type        = bool
 }
