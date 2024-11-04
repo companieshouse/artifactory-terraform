@@ -3,7 +3,7 @@ environment  = "platform"
 region       = "eu-west-2"
 
 db_instance_class    = "db.t3.small"
-db_instance_multi_az = true
+db_instance_multi_az = false
 
 db_engine_major_version = 14
 

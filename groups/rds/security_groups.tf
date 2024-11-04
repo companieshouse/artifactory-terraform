@@ -3,14 +3,6 @@ resource "aws_security_group" "rds" {
   description = "Security group for ${local.resource_prefix} artifactory RDS"
   vpc_id      = data.aws_vpc.placement.id
 
-  egress {
-    description = "Allow outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   tags = {
     Name    = "${local.resource_prefix}-rds"
   }

@@ -34,7 +34,7 @@ locals {
     },
     gp3 = {
       small = {
-        iops       = 3000
+        iops       = null
         throughput = null
       },
       large = {
