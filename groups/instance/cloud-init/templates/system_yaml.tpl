@@ -13,6 +13,7 @@ write_files:
           security:
               masterKeyFile: "/opt/jfrog/artifactory/var/etc/security/master.key"
           node:
+              ip: 0.0.0.0
           database:
               type: postgresql
               driver: org.postgresql.Driver
