@@ -62,26 +62,6 @@ resource "aws_autoscaling_attachment" "artifactory_asg_attachment" {
   lb_target_group_arn    = aws_lb_target_group.front_end_8082.arn
 }
 
-resource "aws_autoscaling_schedule" "scale_down" {
-  desired_capacity       = var.asg_scale_down_desired_capacity
-  min_size               = var.asg_scale_down_min_size
-  max_size               = var.asg_scale_down_max_size
-  recurrence             = var.asg_scale_down_recurrence
-  scheduled_action_name  = "${local.resource_prefix}-scale-down"
-  time_zone              = var.asg_time_zone
-  autoscaling_group_name = aws_autoscaling_group.artifactory_asg.name
-}
-
-resource "aws_autoscaling_schedule" "scale_up" {
-  desired_capacity       = var.asg_desired_capacity
-  min_size               = var.asg_min_size
-  max_size               = var.asg_max_size
-  recurrence             = var.asg_scale_up_recurrence
-  time_zone              = var.asg_time_zone
-  scheduled_action_name  = "${local.resource_prefix}-scale-up"
-  autoscaling_group_name = aws_autoscaling_group.artifactory_asg.name
-}
-
 resource "aws_key_pair" "artifactory" {
   key_name   = local.resource_prefix
   public_key = local.ssh_public_key

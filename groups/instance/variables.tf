@@ -137,18 +137,6 @@ variable "block_device_name" {
   type        = string
 }
 
-variable "asg_scale_down_recurrence" {
-  description = "The cron time set, to scale the Artifactory instance down"
-  default     = "0 23 * * *"
-  type        = string
-}
-
-variable "asg_scale_up_recurrence" {
-  description = "The cron time set, to scale the Artifactory instance up"
-  default     = "0 06 * * *"
-  type        = string
-}
-
 variable "asg_health_check_grace_period" {
   description = "Time (in seconds) after instance comes into service before checking health. Default 300"
   default     = 150
@@ -195,24 +183,6 @@ variable "asg_launch_template_version" {
   description = "Template version. Can be version number, $Latest, or $Default"
   default     = "$Latest"
   type        = string
-}
-
-variable "asg_scale_down_desired_capacity" {
-  description = " The scale down capacity of the Auto Scaling group"
-  default     = 0
-  type        = number
-}
-
-variable "asg_scale_down_min_size" {
-  description = "The minimum size of the auto scale group wen scaling down"
-  default     = 0
-  type        = number
-}
-
-variable "asg_scale_down_max_size" {
-  description = "The maximum size of the auto scale group when scaling down"
-  default     = 0
-  type        = number
 }
 
 variable "aws_command" {
