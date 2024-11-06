@@ -12,10 +12,11 @@ resource "aws_lb" "artifactory" {
 }
 
 resource "aws_lb_target_group" "front_end_8082" {
-  name     = "${local.resource_prefix}-tg-8082"
-  port     = 8082
-  protocol = "HTTP"
-  vpc_id   = data.aws_vpc.placement.id
+  name                 = "${local.resource_prefix}-tg-8082"
+  deregistration_delay = var.alb_deregistration_delay
+  port                 = 8082
+  protocol             = "HTTP"
+  vpc_id               = data.aws_vpc.placement.id
 
   health_check {
     enabled             = true

@@ -137,6 +137,12 @@ variable "block_device_name" {
   type        = string
 }
 
+variable "alb_deregistration_delay" {
+  default     = 60
+  description = "The time, in seconds, that connections will be drained before the target is removed from the ALB target group"
+  type        = number
+}
+
 variable "asg_health_check_grace_period" {
   description = "Time (in seconds) after instance comes into service before checking health. Default 300"
   default     = 150
