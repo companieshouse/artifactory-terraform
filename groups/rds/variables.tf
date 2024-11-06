@@ -108,3 +108,8 @@ variable "dns_zone_is_private" {
   description = "Defines whether the configured DNS zone is a private zone (true) or public (false)"
   type        = bool
 }
+
+variable "rds_kms_key_alias" {
+  description = "Alias for the KMS key used to encrypt RDS storage, including the alias/ prefix"
+  type        = string
+}

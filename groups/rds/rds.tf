@@ -48,6 +48,8 @@ resource "aws_db_instance" "db" {
 
   allocated_storage  = var.db_storage_gb
   iops               = local.db_storage_iops
+  kms_key_id         = data.aws_kms_alias.rds.target_key_arn
+  storage_encrypted  = true
   storage_throughput = local.db_storage_throughput
   storage_type       = var.db_storage_type
 
