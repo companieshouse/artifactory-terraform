@@ -80,7 +80,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.artifactory_instance_profile.name
+    name = aws_iam_instance_profile.artifactory.name
   }
 
   block_device_mappings {
