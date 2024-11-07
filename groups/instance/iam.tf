@@ -73,6 +73,18 @@ data "aws_iam_policy_document" "access_ssm_parameters_policy_document" {
   }
 }
 
+data "aws_iam_policy_document" "cloudwatch" {
+  statement {
+    sid       = "AllowCloudWatchData"
+    effect    = "Allow"
+    actions   = [
+      "cloudwatch:PutMetricData",
+      "logs:CreateLogGroup"
+    ]
+    resources = ["*"]
+  }
+}
+
 resource "aws_iam_role" "artifactory_instance_role" {
   name               = "${local.resource_prefix}-ssm-iam-role"
   assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
@@ -96,6 +108,12 @@ resource "aws_iam_policy" "access_ssm_parameters_policy" {
   name        = "${local.resource_prefix}-access-ssm-parameters-policy"
   description = "${local.resource_prefix}-dedicated-access-ssm-parameters-policy"
   policy      = data.aws_iam_policy_document.access_ssm_parameters_policy_document.json
+}
+
+resource "aws_iam_policy" "cloudwatch" {
+  name        = "${local.resource_prefix}-cloudwatch-policy"
+  description = "${local.resource_prefix} Cloudwatch policy"
+  policy      = data.aws_iam_policy_document.cloudwatch.json
 }
 
 resource "aws_iam_role_policy" "artifactory_instance_policy" {
@@ -122,4 +140,9 @@ resource "aws_iam_role_policy_attachment" "kms_policy_attachment" {
 resource "aws_iam_role_policy_attachment" "access_ssm_parameters_policy_attachment" {
   role       = aws_iam_role.artifactory_instance_role.name
   policy_arn = aws_iam_policy.access_ssm_parameters_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch" {
+  role       = aws_iam_role.artifactory_instance_role.name
+  policy_arn = aws_iam_policy.cloudwatch.arn
 }

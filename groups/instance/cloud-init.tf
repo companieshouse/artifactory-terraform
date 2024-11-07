@@ -75,4 +75,12 @@ data "cloudinit_config" "artifactory" {
     })
     merge_type = var.user_data_merge_strategy
   }
+
+  part {
+    content_type = "text/cloud-config"
+    content      = templatefile("${path.module}/cloud-init/templates/cloudwatch-agent.tpl", {
+      cloudwatch_namespace = local.resource_prefix
+    })
+    merge_type = var.user_data_merge_strategy
+  }
 }
