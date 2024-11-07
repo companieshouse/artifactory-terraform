@@ -4,7 +4,7 @@ resource "aws_security_group" "rds" {
   vpc_id      = data.aws_vpc.placement.id
 
   tags = {
-    Name    = "${local.resource_prefix}-rds"
+    Name = "${local.resource_prefix}-rds"
   }
 }
 

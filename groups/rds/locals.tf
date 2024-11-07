@@ -15,13 +15,13 @@ locals {
   placement_subnet_pattern = local.secrets.placement_subnet_pattern
   placement_vpc_pattern    = local.secrets.placement_vpc_pattern
 
-  dns_zone_name            = local.secrets.dns_zone_name
+  dns_zone_name = local.secrets.dns_zone_name
 
-  db_username              = local.secrets.db_username
-  db_password              = local.secrets.db_password
+  db_username = local.secrets.db_username
+  db_password = local.secrets.db_password
 
   db_storage_threshold = 400
-  db_storage_map       = {
+  db_storage_map = {
     small = {
       iops       = null
       throughput = null

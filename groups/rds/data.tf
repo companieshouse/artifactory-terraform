@@ -16,7 +16,7 @@ data "aws_vpc" "placement" {
 data "aws_subnet" "placement" {
   for_each = toset(data.aws_subnets.placement.ids)
 
-  id       = each.value
+  id = each.value
 }
 
 data "aws_subnets" "placement" {
