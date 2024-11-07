@@ -51,7 +51,7 @@ resource "aws_db_instance" "db" {
   kms_key_id         = data.aws_kms_alias.rds.target_key_arn
   storage_encrypted  = true
   storage_throughput = local.db_storage_throughput
-  storage_type       = var.db_storage_type
+  storage_type       = "gp3"
 
   enabled_cloudwatch_logs_exports = var.rds_cloudwatch_logs_exports
   backup_retention_period         = var.db_backup_retention_period
