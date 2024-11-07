@@ -29,7 +29,7 @@ resource "aws_autoscaling_group" "artifactory_asg" {
 
   launch_template {
     id      = aws_launch_template.artifactory_launch_template.id
-    version = "${var.asg_launch_template_version}"
+    version = var.asg_launch_template_version
   }
 
   tag {

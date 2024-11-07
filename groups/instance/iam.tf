@@ -75,9 +75,9 @@ data "aws_iam_policy_document" "ssm_parameters" {
 
 data "aws_iam_policy_document" "cloudwatch" {
   statement {
-    sid       = "AllowCloudWatchData"
-    effect    = "Allow"
-    actions   = [
+    sid    = "AllowCloudWatchData"
+    effect = "Allow"
+    actions = [
       "cloudwatch:PutMetricData",
       "logs:CreateLogGroup"
     ]

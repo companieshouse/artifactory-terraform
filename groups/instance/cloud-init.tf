@@ -33,9 +33,9 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/xml_config.tpl", {
-      aws_command                                = var.aws_command
-      region                                     = var.region
-      artifactory_access_token_param_name        = local.artifactory_access_token_param_name
+      aws_command                         = var.aws_command
+      region                              = var.region
+      artifactory_access_token_param_name = local.artifactory_access_token_param_name
     })
     merge_type = var.user_data_merge_strategy
   }
@@ -78,7 +78,7 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/cloud-init/templates/cloudwatch-agent.tpl", {
+    content = templatefile("${path.module}/cloud-init/templates/cloudwatch-agent.tpl", {
       cloudwatch_namespace = local.resource_prefix
     })
     merge_type = var.user_data_merge_strategy
