@@ -72,6 +72,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_subnet_ids"></a> [subnet\_ids](#output\_subnet\_ids) | n/a |
-| <a name="output_vpc_ids"></a> [vpc\_ids](#output\_vpc\_ids) | n/a |
+| <a name="output_rds_route53_name"></a> [rds\_route53\_name](#output\_rds\_route53\_name) | Returns the Route53 name, or FQDN, for the RDS instance |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Returns the id of the RDS security group |
+| <a name="output_subnet_ids"></a> [subnet\_ids](#output\_subnet\_ids) | Returns a list of the subnet ids used during deployment |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | Returns the id of the VPC used during deployment |
 <!-- END_TF_DOCS -->
