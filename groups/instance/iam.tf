@@ -66,22 +66,14 @@ data "aws_iam_policy_document" "ssm_parameters" {
   statement {
     sid       = "AllowAccessToSsmParameters"
     effect    = "Allow"
-    resources = ["arn:aws:ssm:${var.region}:${local.account_id}:parameter/${var.service}/${var.environment}/*"]
+
+    resources = [
+      "arn:aws:ssm:${var.region}:${local.account_id}:parameter/${var.service}/${var.environment}/*"
+    ]
+
     actions = [
       "ssm:GetParametersByPath"
     ]
-  }
-}
-
-data "aws_iam_policy_document" "cloudwatch" {
-  statement {
-    sid    = "AllowCloudWatchData"
-    effect = "Allow"
-    actions = [
-      "cloudwatch:PutMetricData",
-      "logs:CreateLogGroup"
-    ]
-    resources = ["*"]
   }
 }
 
@@ -98,6 +90,10 @@ data "aws_iam_policy" "efs_service_core" {
   arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
 }
 
+data "aws_iam_policy" "cloudwatch_managed" {
+  arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
+
 resource "aws_iam_policy" "kms_key" {
   name        = "${local.resource_prefix}-kms-policy"
   description = "${local.resource_prefix} KMS policy"
@@ -108,12 +104,6 @@ resource "aws_iam_policy" "ssm_parameters" {
   name        = "${local.resource_prefix}-ssm-parameters-policy"
   description = "${local.resource_prefix} SSM Parameters policy"
   policy      = data.aws_iam_policy_document.ssm_parameters.json
-}
-
-resource "aws_iam_policy" "cloudwatch" {
-  name        = "${local.resource_prefix}-cloudwatch-policy"
-  description = "${local.resource_prefix} Cloudwatch policy"
-  policy      = data.aws_iam_policy_document.cloudwatch.json
 }
 
 resource "aws_iam_role_policy" "ssm_service" {
@@ -142,7 +132,7 @@ resource "aws_iam_role_policy_attachment" "ssm_parameters" {
   policy_arn = aws_iam_policy.ssm_parameters.arn
 }
 
-resource "aws_iam_role_policy_attachment" "cloudwatch" {
+resource "aws_iam_role_policy_attachment" "cloudwatch_managed" {
   role       = aws_iam_role.artifactory.name
-  policy_arn = aws_iam_policy.cloudwatch.arn
+  policy_arn = data.aws_iam_policy.cloudwatch_managed.arn
 }
