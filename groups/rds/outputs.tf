@@ -15,5 +15,5 @@ output "security_group_id" {
 
 output "rds_route53_name" {
   description = "Returns the Route53 name, or FQDN, for the RDS instance"
-  value       = aws_route53_entry.db.name
+  value       = aws_route53_record.db.name
 }
