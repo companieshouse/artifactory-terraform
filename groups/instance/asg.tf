@@ -29,7 +29,7 @@ resource "aws_autoscaling_group" "artifactory_asg" {
 
   launch_template {
     id      = aws_launch_template.artifactory_launch_template.id
-    version = "${var.asg_launch_template_version}"
+    version = var.asg_launch_template_version
   }
 
   tag {
@@ -69,8 +69,8 @@ resource "aws_key_pair" "artifactory" {
 
 resource "aws_launch_template" "artifactory_launch_template" {
   name          = "${local.resource_prefix}-launch-template"
-  image_id      = data.aws_ami.artifactory_ami.id
-  instance_type = var.default_instance_type
+  image_id      = data.aws_ami.artifactory.id
+  instance_type = var.instance_type
   key_name      = local.resource_prefix
   user_data     = data.cloudinit_config.artifactory.rendered
 
@@ -80,7 +80,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.artifactory_instance_profile.name
+    name = aws_iam_instance_profile.artifactory.name
   }
 
   block_device_mappings {

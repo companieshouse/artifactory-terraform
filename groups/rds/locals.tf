@@ -15,35 +15,23 @@ locals {
   placement_subnet_pattern = local.secrets.placement_subnet_pattern
   placement_vpc_pattern    = local.secrets.placement_vpc_pattern
 
-  dns_zone_name            = local.secrets.dns_zone_name
+  dns_zone_name = local.secrets.dns_zone_name
 
-  db_username              = local.secrets.db_username
-  db_password              = local.secrets.db_password
+  db_username = local.secrets.db_username
+  db_password = local.secrets.db_password
 
   db_storage_threshold = 400
-  db_storage_map       = {
-    gp2 = {
-      small = {
-        iops       = null
-        throughput = null
-      },
-      large = {
-        iops       = null
-        throughput = null
-      }
+  db_storage_map = {
+    small = {
+      iops       = null
+      throughput = null
     },
-    gp3 = {
-      small = {
-        iops       = null
-        throughput = null
-      },
-      large = {
-        iops       = 12000
-        throughput = 500
-      }
+    large = {
+      iops       = 12000
+      throughput = 500
     }
   }
 
-  db_storage_iops       = var.db_storage_gb < local.db_storage_threshold ? local.db_storage_map[var.db_storage_type].small.iops : local.db_storage_map[var.db_storage_type].large.iops
-  db_storage_throughput = var.db_storage_gb < local.db_storage_threshold ? local.db_storage_map[var.db_storage_type].small.throughput : local.db_storage_map[var.db_storage_type].large.throughput
+  db_storage_iops       = var.db_storage_gb < local.db_storage_threshold ? local.db_storage_map.small.iops : local.db_storage_map.large.iops
+  db_storage_throughput = var.db_storage_gb < local.db_storage_threshold ? local.db_storage_map.small.throughput : local.db_storage_map.large.throughput
 }

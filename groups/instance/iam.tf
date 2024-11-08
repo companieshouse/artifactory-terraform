@@ -1,9 +1,9 @@
-resource "aws_iam_instance_profile" "artifactory_instance_profile" {
+resource "aws_iam_instance_profile" "artifactory" {
   name = "${local.resource_prefix}-iam-profile"
-  role = aws_iam_role.artifactory_instance_role.name
+  role = aws_iam_role.artifactory.name
 }
 
-data "aws_iam_policy_document" "iam_instance_policy" {
+data "aws_iam_policy_document" "assume_role" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
@@ -62,20 +62,24 @@ data "aws_iam_policy_document" "kms_key" {
   }
 }
 
-data "aws_iam_policy_document" "access_ssm_parameters_policy_document" {
+data "aws_iam_policy_document" "ssm_parameters" {
   statement {
     sid       = "AllowAccessToSsmParameters"
     effect    = "Allow"
-    resources = ["arn:aws:ssm:${var.region}:${local.account_id}:parameter/${var.service}/${var.environment}/*"]
+
+    resources = [
+      "arn:aws:ssm:${var.region}:${local.account_id}:parameter/${var.service}/${var.environment}/*"
+    ]
+
     actions = [
       "ssm:GetParametersByPath"
     ]
   }
 }
 
-resource "aws_iam_role" "artifactory_instance_role" {
-  name               = "${local.resource_prefix}-ssm-iam-role"
-  assume_role_policy = data.aws_iam_policy_document.iam_instance_policy.json
+resource "aws_iam_role" "artifactory" {
+  name               = "${local.resource_prefix}-role"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 data "aws_iam_policy" "ssm_service_core" {
@@ -86,40 +90,49 @@ data "aws_iam_policy" "efs_service_core" {
   arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
 }
 
-resource "aws_iam_policy" "kms_policy" {
+data "aws_iam_policy" "cloudwatch_managed" {
+  arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
+
+resource "aws_iam_policy" "kms_key" {
   name        = "${local.resource_prefix}-kms-policy"
-  description = "${local.resource_prefix}-dedicated-kms-key-policy"
+  description = "${local.resource_prefix} KMS policy"
   policy      = data.aws_iam_policy_document.kms_key.json
 }
 
-resource "aws_iam_policy" "access_ssm_parameters_policy" {
-  name        = "${local.resource_prefix}-access-ssm-parameters-policy"
-  description = "${local.resource_prefix}-dedicated-access-ssm-parameters-policy"
-  policy      = data.aws_iam_policy_document.access_ssm_parameters_policy_document.json
+resource "aws_iam_policy" "ssm_parameters" {
+  name        = "${local.resource_prefix}-ssm-parameters-policy"
+  description = "${local.resource_prefix} SSM Parameters policy"
+  policy      = data.aws_iam_policy_document.ssm_parameters.json
 }
 
-resource "aws_iam_role_policy" "artifactory_instance_policy" {
+resource "aws_iam_role_policy" "ssm_service" {
   name   = "${local.resource_prefix}-ssm-iam-policy"
-  role   = aws_iam_role.artifactory_instance_role.id
+  role   = aws_iam_role.artifactory.id
   policy = data.aws_iam_policy_document.ssm_service.json
 }
 
-resource "aws_iam_role_policy_attachment" "ssm_service_policy_attachment" {
-  role       = aws_iam_role.artifactory_instance_role.name
+resource "aws_iam_role_policy_attachment" "ssm_service_core" {
+  role       = aws_iam_role.artifactory.name
   policy_arn = data.aws_iam_policy.ssm_service_core.arn
 }
 
-resource "aws_iam_role_policy_attachment" "efs_policy_attachment" {
-  role       = aws_iam_role.artifactory_instance_role.name
+resource "aws_iam_role_policy_attachment" "efs_service_core" {
+  role       = aws_iam_role.artifactory.name
   policy_arn = data.aws_iam_policy.efs_service_core.arn
 }
 
-resource "aws_iam_role_policy_attachment" "kms_policy_attachment" {
-  role       = aws_iam_role.artifactory_instance_role.name
-  policy_arn = aws_iam_policy.kms_policy.arn
+resource "aws_iam_role_policy_attachment" "kms_key" {
+  role       = aws_iam_role.artifactory.name
+  policy_arn = aws_iam_policy.kms_key.arn
 }
 
-resource "aws_iam_role_policy_attachment" "access_ssm_parameters_policy_attachment" {
-  role       = aws_iam_role.artifactory_instance_role.name
-  policy_arn = aws_iam_policy.access_ssm_parameters_policy.arn
+resource "aws_iam_role_policy_attachment" "ssm_parameters" {
+  role       = aws_iam_role.artifactory.name
+  policy_arn = aws_iam_policy.ssm_parameters.arn
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_managed" {
+  role       = aws_iam_role.artifactory.name
+  policy_arn = data.aws_iam_policy.cloudwatch_managed.arn
 }

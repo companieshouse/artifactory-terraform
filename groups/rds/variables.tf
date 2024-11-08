@@ -61,12 +61,6 @@ variable "db_instance_multi_az" {
   type        = bool
 }
 
-variable "db_storage_type" {
-  description = "Database storage type"
-  default     = "gp2"
-  type        = string
-}
-
 variable "db_storage_gb" {
   description = "Database storage gigabytes"
   default     = 20

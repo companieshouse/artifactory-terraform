@@ -33,9 +33,9 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/xml_config.tpl", {
-      aws_command                                = var.aws_command
-      region                                     = var.region
-      artifactory_access_token_param_name        = local.artifactory_access_token_param_name
+      aws_command                         = var.aws_command
+      region                              = var.region
+      artifactory_access_token_param_name = local.artifactory_access_token_param_name
     })
     merge_type = var.user_data_merge_strategy
   }
@@ -72,6 +72,14 @@ data "cloudinit_config" "artifactory" {
     content = templatefile("${path.module}/cloud-init/files/bootstrap_commands.yaml", {
       efs_filesystem_id   = module.efs_file_system.efs_filesystem_id
       efs_access_point_id = local.efs_access_point_id
+    })
+    merge_type = var.user_data_merge_strategy
+  }
+
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.module}/cloud-init/templates/cloudwatch-agent.tpl", {
+      cloudwatch_namespace = local.resource_prefix
     })
     merge_type = var.user_data_merge_strategy
   }

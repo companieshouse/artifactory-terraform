@@ -27,14 +27,14 @@ variable "team" {
 }
 
 # ------------------
-variable "default_instance_type" {
-  description = "The default instance type to use for instances"
+variable "instance_type" {
+  description = "The instance type to use for instances"
   default     = "t3.large"
   type        = string
 }
 
-variable "default_ami_version_pattern" {
-  description = "The default AMI version pattern to use when matching AMIs for instances"
+variable "ami_version_pattern" {
+  description = "The AMI version pattern to use when matching AMIs for instances"
   default     = "\\d.\\d.\\d"
   type        = string
 }
