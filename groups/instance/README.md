@@ -66,7 +66,7 @@ Terraform scripts to provision EC2 instance and supporting resources for Artifac
 | [aws_vpc_security_group_ingress_rule.https_ingress_cidrs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.https_ingress_prefixlist](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_acm_certificate.certificate](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) | data source |
-| [aws_ami.artifactory_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_ami.artifactory](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_ec2_managed_prefix_list.administration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_managed_prefix_list) | data source |
 | [aws_ec2_managed_prefix_list.concourse](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_managed_prefix_list) | data source |
@@ -98,6 +98,7 @@ Terraform scripts to provision EC2 instance and supporting resources for Artifac
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | The name of the AWS account we are using | `string` | n/a | yes |
 | <a name="input_alb_deregistration_delay"></a> [alb\_deregistration\_delay](#input\_alb\_deregistration\_delay) | The time, in seconds, that connections will be drained before the target is removed from the ALB target group | `number` | `60` | no |
+| <a name="input_ami_version_pattern"></a> [ami\_version\_pattern](#input\_ami\_version\_pattern) | The AMI version pattern to use when matching AMIs for instances | `string` | `"\\d.\\d.\\d"` | no |
 | <a name="input_asg_default_cooldown"></a> [asg\_default\_cooldown](#input\_asg\_default\_cooldown) | The amount of time, in seconds, after a scaling activity completes before another scaling activity can start | `number` | `10` | no |
 | <a name="input_asg_desired_capacity"></a> [asg\_desired\_capacity](#input\_asg\_desired\_capacity) | The number of Amazon EC2 instances that should be running in the group. | `number` | `1` | no |
 | <a name="input_asg_health_check_grace_period"></a> [asg\_health\_check\_grace\_period](#input\_asg\_health\_check\_grace\_period) | Time (in seconds) after instance comes into service before checking health. Default 300 | `number` | `150` | no |
@@ -110,8 +111,6 @@ Terraform scripts to provision EC2 instance and supporting resources for Artifac
 | <a name="input_aws_command"></a> [aws\_command](#input\_aws\_command) | The base aws cli get-parameter command | `string` | `"aws ssm get-parameter --with-decryption --output text"` | no |
 | <a name="input_block_device_name"></a> [block\_device\_name](#input\_block\_device\_name) | The name of the Root Block device | `string` | `"/dev/xvda"` | no |
 | <a name="input_db_engine"></a> [db\_engine](#input\_db\_engine) | Database engine | `string` | `"postgres"` | no |
-| <a name="input_default_ami_version_pattern"></a> [default\_ami\_version\_pattern](#input\_default\_ami\_version\_pattern) | The default AMI version pattern to use when matching AMIs for instances | `string` | `"\\d.\\d.\\d"` | no |
-| <a name="input_default_instance_type"></a> [default\_instance\_type](#input\_default\_instance\_type) | The default instance type to use for instances | `string` | `"t3.large"` | no |
 | <a name="input_dns_zone_is_private"></a> [dns\_zone\_is\_private](#input\_dns\_zone\_is\_private) | Defines whether the configured DNS zone is a private zone (true) or public (false) | `bool` | `true` | no |
 | <a name="input_ebs_root_delete_on_termination"></a> [ebs\_root\_delete\_on\_termination](#input\_ebs\_root\_delete\_on\_termination) | Whether the volume should be destroyed on instance termination. Defaulted to false | `string` | `"false"` | no |
 | <a name="input_ebs_root_encrypted"></a> [ebs\_root\_encrypted](#input\_ebs\_root\_encrypted) | Enables EBS encryption on the volume. | `string` | `"true"` | no |
@@ -124,6 +123,7 @@ Terraform scripts to provision EC2 instance and supporting resources for Artifac
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment name to be used when creating AWS resources | `string` | n/a | yes |
 | <a name="input_hashicorp_vault_password"></a> [hashicorp\_vault\_password](#input\_hashicorp\_vault\_password) | The password used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
 | <a name="input_hashicorp_vault_username"></a> [hashicorp\_vault\_username](#input\_hashicorp\_vault\_username) | The username used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type to use for instances | `string` | `"t3.large"` | no |
 | <a name="input_kms_customer_master_key_spec"></a> [kms\_customer\_master\_key\_spec](#input\_kms\_customer\_master\_key\_spec) | Specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports | `string` | `"SYMMETRIC_DEFAULT"` | no |
 | <a name="input_kms_enable_key_rotation"></a> [kms\_enable\_key\_rotation](#input\_kms\_enable\_key\_rotation) | Specifies whether key rotation is enabled | `string` | `"false"` | no |
 | <a name="input_kms_is_enabled"></a> [kms\_is\_enabled](#input\_kms\_is\_enabled) | Specifies whether the key is enabled | `string` | `"true"` | no |
