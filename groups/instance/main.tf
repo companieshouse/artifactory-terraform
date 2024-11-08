@@ -43,8 +43,8 @@ module "efs_file_system" {
   access_points = {
     "${var.efs_artifacts_access_point_name}" = {
       permissions    = "0755"
-      posix_user_gid = 986
-      posix_user_uid = 991
+      posix_user_gid = 992
+      posix_user_uid = 992
       root_directory = "/${var.efs_artifacts_access_point_name}"
     }
   }
