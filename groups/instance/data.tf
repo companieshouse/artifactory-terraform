@@ -79,10 +79,10 @@ data "aws_route53_zone" "selected" {
   private_zone = var.dns_zone_is_private
 }
 
-data "aws_ami" "artifactory_ami" {
+data "aws_ami" "artifactory" {
   most_recent = true
   owners      = [local.ami_owner_id]
-  name_regex  = "${var.service}-${var.default_ami_version_pattern}"
+  name_regex  = "${var.service}-${var.ami_version_pattern}"
 
   filter {
     name   = "name"

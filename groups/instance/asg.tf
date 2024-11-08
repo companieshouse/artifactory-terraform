@@ -69,8 +69,8 @@ resource "aws_key_pair" "artifactory" {
 
 resource "aws_launch_template" "artifactory_launch_template" {
   name          = "${local.resource_prefix}-launch-template"
-  image_id      = data.aws_ami.artifactory_ami.id
-  instance_type = var.default_instance_type
+  image_id      = data.aws_ami.artifactory.id
+  instance_type = var.instance_type
   key_name      = local.resource_prefix
   user_data     = data.cloudinit_config.artifactory.rendered
 
