@@ -5,8 +5,8 @@ write_files:
       <config version="v1">
           <chain template="file-system"/>
           <provider id="file-system" type="file-system">
-              <baseDataDir>/var/opt/jfrog/artifactory/data/artifactory</baseDataDir>
-              <fileStoreDir>/var/lib/artifactory/filestore</fileStoreDir>
-              <tempDir>/var/lib/artifactory/tmp</tempDir>
+              <baseDataDir>/var/lib/artifactory/data</baseDataDir>
+              <fileStoreDir>filestore</fileStoreDir>
+              <tempDir>tmp</tempDir>
           </provider>
       </config>

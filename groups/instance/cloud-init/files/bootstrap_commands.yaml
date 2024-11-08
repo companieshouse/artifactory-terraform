@@ -17,7 +17,7 @@ runcmd:
   - sudo chmod 0600 /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
   - systemctl enable artifactory
-  - sudo echo "${efs_filesystem_id} /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
+  - sudo echo "${efs_filesystem_id}:/ /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
   - sudo mount -a
   - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
   - systemctl restart artifactory
