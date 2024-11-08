@@ -8,27 +8,9 @@ variable "environment" {
   type        = string
 }
 
-variable "default_instance_type" {
-  description = "The default instance type to use for instances"
-  default     = "t3.large"
-  type        = string
-}
-
-variable "default_ami_version_pattern" {
-  description = "The default AMI version pattern to use when matching AMIs for instances"
-  default     = "\\d.\\d.\\d"
-  type        = string
-}
-
 variable "region" {
   description = "The AWS region in which resources will be created"
   default     = "eu-west-2"
-  type        = string
-}
-
-variable "repository_name" {
-  description = "The name of the repository in which we are operating"
-  default     = "artifactory"
   type        = string
 }
 
@@ -44,10 +26,37 @@ variable "team" {
   type        = string
 }
 
+# ------------------
+variable "default_instance_type" {
+  description = "The default instance type to use for instances"
+  default     = "t3.large"
+  type        = string
+}
+
+variable "default_ami_version_pattern" {
+  description = "The default AMI version pattern to use when matching AMIs for instances"
+  default     = "\\d.\\d.\\d"
+  type        = string
+}
+
+
+variable "repository_name" {
+  description = "The name of the repository in which we are operating"
+  default     = "artifactory"
+  type        = string
+}
+
+
 variable "db_engine" {
   description = "Database engine"
   default     = "postgres"
   type        = string
+}
+
+variable "dns_zone_is_private" {
+  default     = true
+  description = "Defines whether the configured DNS zone is a private zone (true) or public (false)"
+  type        = bool
 }
 
 variable "ebs_root_delete_on_termination" {
@@ -128,16 +137,10 @@ variable "block_device_name" {
   type        = string
 }
 
-variable "asg_scale_down_recurrence" {
-  description = "The cron time set, to scale the Artifactory instance down"
-  default     = "0 23 * * *"
-  type        = string
-}
-
-variable "asg_scale_up_recurrence" {
-  description = "The cron time set, to scale the Artifactory instance up"
-  default     = "0 06 * * *"
-  type        = string
+variable "alb_deregistration_delay" {
+  default     = 60
+  description = "The time, in seconds, that connections will be drained before the target is removed from the ALB target group"
+  type        = number
 }
 
 variable "asg_health_check_grace_period" {
@@ -186,24 +189,6 @@ variable "asg_launch_template_version" {
   description = "Template version. Can be version number, $Latest, or $Default"
   default     = "$Latest"
   type        = string
-}
-
-variable "asg_scale_down_desired_capacity" {
-  description = " The scale down capacity of the Auto Scaling group"
-  default     = 0
-  type        = number
-}
-
-variable "asg_scale_down_min_size" {
-  description = "The minimum size of the auto scale group wen scaling down"
-  default     = 0
-  type        = number
-}
-
-variable "asg_scale_down_max_size" {
-  description = "The maximum size of the auto scale group when scaling down"
-  default     = 0
-  type        = number
 }
 
 variable "aws_command" {

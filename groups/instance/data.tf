@@ -1,8 +1,9 @@
 data "aws_ec2_managed_prefix_list" "administration" {
-  filter {
-    name   = "prefix-list-name"
-    values = ["administration-cidr-ranges"]
-  }
+  name   = "administration-cidr-ranges"
+}
+
+data "aws_ec2_managed_prefix_list" "concourse" {
+  name   = "shared-services-management-cidrs"
 }
 
 data "vault_generic_secret" "secrets" {
@@ -71,7 +72,7 @@ data "aws_subnets" "placement" {
 
 data "aws_route53_zone" "selected" {
   name         = local.dns_zone_name
-  private_zone = local.dns_zone_is_private
+  private_zone = var.dns_zone_is_private
 }
 
 data "aws_ami" "artifactory_ami" {

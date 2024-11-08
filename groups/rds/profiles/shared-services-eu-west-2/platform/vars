@@ -1,0 +1,13 @@
+account_name = "shared-services"
+environment  = "platform"
+region       = "eu-west-2"
+
+db_instance_class    = "db.t3.small"
+db_instance_multi_az = false
+
+db_engine_major_version = 14
+
+db_storage_type = "gp3"
+db_storage_gb   = 100
+
+rds_kms_key_alias = "alias/shared/euw2/rds"

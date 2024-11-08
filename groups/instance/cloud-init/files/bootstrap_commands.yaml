@@ -1,5 +1,4 @@
 runcmd:
-  - /opt/jfrog/artifactory/var/etc/security/keys/trusted/get-ldap-certificate.sh
   - /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
@@ -27,5 +26,4 @@ runcmd:
   - rm /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
   - rm /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
   - rm /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
-  - rm /opt/jfrog/artifactory/var/etc/security/keys/trusted/get-ldap-certificate.sh
   - systemctl restart artifactory

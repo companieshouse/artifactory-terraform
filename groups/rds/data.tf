@@ -33,5 +33,9 @@ data "aws_subnets" "placement" {
 
 data "aws_route53_zone" "selected" {
   name         = local.dns_zone_name
-  private_zone = local.dns_zone_is_private
+  private_zone = var.dns_zone_is_private
+}
+
+data "aws_kms_alias" "rds" {
+  name = var.rds_kms_key_alias
 }
