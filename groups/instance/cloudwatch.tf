@@ -4,6 +4,6 @@ resource "aws_cloudwatch_log_group" "artifactory" {
   kms_key_id        = aws_kms_key.artifactory.key_id
 
   tags = {
-    Name = "${local.resource_prefix}"
+    Name = local.resource_prefix
   }
 }
