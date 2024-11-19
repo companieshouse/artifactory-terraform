@@ -8,6 +8,13 @@ write_files:
           "metrics_collection_interval": 60,
           "run_as_user": "cwagent"
         },
+%{ if cloudwatch_log_collection_enabled ~}
+        "logs": {
+          "logs_collected": {
+            "collect_list": ${cloudwatch_collect_list_json}
+          },
+        }
+%{ endif ~}
         "metrics": {
           "aggregation_dimensions": [
             [

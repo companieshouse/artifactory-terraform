@@ -39,7 +39,6 @@ variable "ami_version_pattern" {
   type        = string
 }
 
-
 variable "repository_name" {
   description = "The name of the repository in which we are operating"
   default     = "artifactory"
@@ -203,7 +202,30 @@ variable "user_data_merge_strategy" {
 }
 
 variable "asg_time_zone" {
-  description = "Specifies the time zone for a cron expression"
   default     = "Europe/London"
+  description = "Specifies the time zone for a cron expression"
+  type        = string
+}
+
+variable "cloudwatch_log_group_retention_in_days" {
+  default     = 14
+  description = "The number of days to retain cloudwatch logs"
+  type        = number
+}
+
+variable "cloudwatch_logs_collected" {
+  default     = []
+  description = "A list of objects that contain key=value pairs, used to generate cloudwatch agent config for collecting application logs"
+  type        = list(object(
+    {
+      name             = string
+      timestamp_format = optional(string, "%Y-%m-%dT%H:%M:%S.000Z")
+    }
+  ))
+}
+
+variable "artifactory_base_path" {
+  default     = "/opt/jfrog/artifactory"
+  description = "The base install path for Artifactory"
   type        = string
 }
