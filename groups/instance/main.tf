@@ -48,7 +48,4 @@ module "efs_file_system" {
       root_directory = "/${var.efs_artifacts_access_point_name}"
     }
   }
-  depends_on = [
-    aws_kms_key.artifactory
-  ]
 }
