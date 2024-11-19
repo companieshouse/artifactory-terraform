@@ -12,8 +12,8 @@ write_files:
         "logs": {
           "logs_collected": {
             "collect_list": ${cloudwatch_collect_list_json}
-          },
-        }
+          }
+        },
 %{ endif ~}
         "metrics": {
           "aggregation_dimensions": [
