@@ -219,7 +219,7 @@ variable "cloudwatch_logs_collected" {
   type        = list(object(
     {
       name             = string
-      timestamp_format = optional(string, "%Y-%m-%dT%H:%M:%S.000Z")
+      timestamp_format = optional(string, "%Y-%m-%dT%H:%M:%S.%f")
     }
   ))
 }
