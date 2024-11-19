@@ -1,3 +1,12 @@
 account_name = "shared-services"
 environment  = "platform"
 region       = "eu-west-2"
+
+#cloudwatch_logs_collected = [
+#  {
+#    name = "artifactory-service.log"
+#  },
+#  {
+#    name = "artifactory-request-out.log"
+#  }
+#]
