@@ -95,4 +95,32 @@ data "aws_iam_policy_document" "kms_key_asg_access" {
       values   = ["true"]
     }
   }
+
+  statement {
+    sid    = "Allow Cloudwatch Logs access for encrypted logs"
+    effect = "Allow"
+
+    principals {
+      type = "Service"
+      identifiers = [
+        "logs.${var.region}.amazonaws.com"
+      ]
+    }
+
+    resources = ["*"]
+
+    actions = [
+      "kms:Encrypt*",
+      "kms:Decrypt*",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:Describe*"
+    ]
+
+    condition {
+      test     = "ArnEquals"
+      variable = "kms:EncryptionContext:aws:logs:arn"
+      values   = ["arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:${local.resource_prefix}"]
+    }
+  }
 }
