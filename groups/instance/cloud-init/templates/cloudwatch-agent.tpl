@@ -10,8 +10,8 @@ write_files:
         },
 %{ if cloudwatch_log_collection_enabled ~}
         "logs": {
-          "files": {
-            "logs_collected": {
+          "logs_collected": {
+            "files": {
               "collect_list": ${cloudwatch_collect_list_json}
             }
           }
