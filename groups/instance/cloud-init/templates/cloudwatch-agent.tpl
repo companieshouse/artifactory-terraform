@@ -6,14 +6,16 @@ write_files:
       {
         "agent": {
           "metrics_collection_interval": 60,
-          "run_as_user": "cwagent"
+          "run_as_user": "artifactory"
         },
 %{ if cloudwatch_log_collection_enabled ~}
         "logs": {
           "logs_collected": {
-            "collect_list": ${cloudwatch_collect_list_json}
-          },
-        }
+            "files": {
+              "collect_list": ${cloudwatch_collect_list_json}
+            }
+          }
+        },
 %{ endif ~}
         "metrics": {
           "aggregation_dimensions": [
