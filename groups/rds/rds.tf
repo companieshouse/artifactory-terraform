@@ -53,12 +53,18 @@ resource "aws_db_instance" "db" {
   storage_throughput = local.db_storage_throughput
   storage_type       = "gp3"
 
-  enabled_cloudwatch_logs_exports = var.rds_cloudwatch_logs_exports
   backup_retention_period         = var.db_backup_retention_period
   backup_window                   = var.db_backup_window
+  enabled_cloudwatch_logs_exports = var.rds_cloudwatch_logs_exports
   maintenance_window              = var.db_maintenance_window
-  final_snapshot_identifier       = "${var.environment}-${var.service}-${var.db_engine}-final-deletion-snapshot"
-  skip_final_snapshot             = false
+
+  monitoring_interval                   = var.db_enhanced_monitoring_interval
+  performance_insights_enabled          = var.db_performance_insights_enabled
+  performance_insights_retention_period = var.db_performance_insights_retention_period
+  performance_insights_kms_key_id       = data.aws_kms_alias.rds.target_key_arn
+
+  final_snapshot_identifier = "${var.environment}-${var.service}-${var.db_engine}-final-deletion-snapshot"
+  skip_final_snapshot       = false
 
   db_subnet_group_name   = aws_db_subnet_group.rds.name
   vpc_security_group_ids = [aws_security_group.rds.id]

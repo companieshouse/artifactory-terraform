@@ -97,6 +97,24 @@ variable "db_maintenance_window" {
   type        = string
 }
 
+variable "db_enhanced_monitoring_interval" {
+  default     = 0
+  description = "The number of minutes between collection of Enhanced Monitoring statistics; 0 disables the facility"
+  type        = number
+}
+
+variable "db_performance_insights_enabled" {
+  default     = true
+  description = "Defines whether RDS Performance Insights will be enabled (true) or disabled (false)"
+  type        = bool
+}
+
+variable "db_performance_insights_retention_period" {
+  default     = 7
+  description = "The number of days that Performance Insight data will be retained"
+  type        = number
+}
+
 variable "dns_zone_is_private" {
   default     = true
   description = "Defines whether the configured DNS zone is a private zone (true) or public (false)"
