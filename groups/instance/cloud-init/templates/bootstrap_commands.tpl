@@ -4,31 +4,18 @@ runcmd:
   - lvresize -l +100%FREE ${block_device.lvm_logical_volume_device_node}
   - ${block_device.filesystem_resize_command}
   %{~ endfor ~}
-  - /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
-  - rm /opt/jfrog/artifactory/var/etc/security/master.key
-  - /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/security/master.key
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/security/master.key
-  - rm /opt/jfrog/artifactory/var/etc/system.yaml  
-  - /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/system.yaml
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/system.yaml
-  - /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
-  - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.lic
-  - /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
-  - sudo chmod 0600 /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
-  - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
+  - ${artifactory_base_path}/var/etc/artifactory/createXmlConfig.sh
+  - ${artifactory_base_path}/var/etc/security/createMasterKeyYaml.sh
+  - ${artifactory_base_path}/var/etc/createSystemYaml.sh
+  - ${artifactory_base_path}/var/etc/artifactory/createLic.sh
+  - ${artifactory_base_path}/var/etc/access/createBootstrap.sh
   - systemctl enable artifactory
-  - sudo echo "${efs_filesystem_id}:/ /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
-  - sudo mount -a
-  - sudo chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
+  - echo "${efs_filesystem_id}:/ /var/lib/artifactory efs _netdev,tls,accesspoint=${efs_access_point_id} 0 0" >> /etc/fstab
+  - mount -a
   - systemctl restart artifactory
-  - rm /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
-  - rm /opt/jfrog/artifactory/var/etc/artifactory/createLic.sh
-  - rm /opt/jfrog/artifactory/var/etc/createSystemYaml.sh
-  - rm /opt/jfrog/artifactory/var/etc/security/createMasterKeyYaml.sh
-  - rm /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
+  - rm ${artifactory_base_path}/var/etc/access/createBootstrap.sh
+  - rm ${artifactory_base_path}/var/etc/artifactory/createLic.sh
+  - rm ${artifactory_base_path}/var/etc/createSystemYaml.sh
+  - rm ${artifactory_base_path}/var/etc/security/createMasterKeyYaml.sh
+  - rm ${artifactory_base_path}/var/etc/artifactory/createXmlConfig.sh
   - systemctl restart artifactory

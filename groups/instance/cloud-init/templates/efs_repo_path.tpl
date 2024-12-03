@@ -1,6 +1,7 @@
 write_files:
-  - path: /var/opt/jfrog/artifactory/etc/artifactory/binarystore.xml
-    permissions: '0644'
+  - path: ${artifactory_base_path}/var/etc/artifactory/binarystore.xml
+    owner: ${artifactory_user}:${artifactory_group}
+    permissions: 0640
     content: |
       <config version="v1">
           <chain template="file-system"/>
