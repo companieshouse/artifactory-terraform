@@ -84,7 +84,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
 
   block_device_mappings {
-    device_name = var.block_device_name
+    device_name = "/dev/xvda"
 
     ebs {
       delete_on_termination = var.ebs_root_delete_on_termination
