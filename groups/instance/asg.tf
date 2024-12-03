@@ -98,7 +98,7 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
 
   dynamic "block_device_mappings" {
-    for_each = local.ebs_additional_volumes
+    for_each = local.lvm_block_devices_filtered
 
     iterator = block_device
     content {

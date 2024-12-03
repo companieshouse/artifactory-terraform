@@ -78,7 +78,7 @@ locals {
     ]) : null
   cloudwatch_log_collection_enabled = length(var.cloudwatch_logs_collected) > 0 ? true : false
 
-  ebs_additional_volumes = [
+  lvm_block_devices_filtered = [
     for block_device in data.aws_ami.artifactory.block_device_mappings :
     block_device if block_device.device_name != data.aws_ami.artifactory.root_device_name &&
     length(block_device.ebs) != 0
