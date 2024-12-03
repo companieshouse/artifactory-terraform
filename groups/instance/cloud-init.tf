@@ -69,9 +69,10 @@ data "cloudinit_config" "artifactory" {
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/files/bootstrap_commands.yaml", {
+    content = templatefile("${path.module}/cloud-init/templates/bootstrap_commands.tpl", {
       efs_filesystem_id   = module.efs_file_system.efs_filesystem_id
       efs_access_point_id = local.efs_access_point_id
+      lvm_block_devices   = var.lvm_block_devices
     })
     merge_type = var.user_data_merge_strategy
   }

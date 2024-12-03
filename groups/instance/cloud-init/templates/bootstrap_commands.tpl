@@ -1,4 +1,9 @@
 runcmd:
+  %{~ for block_device in lvm_block_devices ~}
+  - pvresize ${block_device.lvm_physical_volume_device_node}
+  - lvresize -l +100%FREE ${block_device.lvm_logical_volume_device_node}
+  - ${block_device.filesystem_resize_command}
+  %{~ endfor ~}
   - /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
   - sudo chmod 0644 /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
   - sudo chown artifactory:artifactory /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
