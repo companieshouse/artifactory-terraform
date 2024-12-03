@@ -64,12 +64,6 @@ variable "ebs_root_delete_on_termination" {
   type        = string
 }
 
-variable "ebs_root_encrypted" {
-  description = "Enables EBS encryption on the volume."
-  default     = "true"
-  type        = string
-}
-
 variable "ebs_root_iops" {
   description = "Amount of provisioned IOPS."
   default     = 3000
@@ -228,4 +222,15 @@ variable "artifactory_base_path" {
   default     = "/opt/jfrog/artifactory"
   description = "The base install path for Artifactory"
   type        = string
+}
+
+variable "lvm_block_devices" {
+  description = "A list of objects representing LVM block devices; each LVM volume group is assumed to contain a single physical volume and each logical volume is assumed to belong to a single volume group; the filesystem for each logical volume will be expanded to use all available space within the volume group using the filesystem resize command specified; block device configuration applies only on resource creation"
+  type = list(object({
+    aws_volume_size_gb: string,
+    delete_on_termination: bool,
+    filesystem_resize_command: string,
+    lvm_logical_volume_device_node: string,
+    lvm_physical_volume_device_node: string,
+  }))
 }

@@ -10,3 +10,11 @@ cloudwatch_logs_collected = [
     name = "artifactory-request-out.log"
   }
 ]
+
+lvm_block_devices = [{
+  aws_volume_size_gb             : "50",
+  delete_on_termination          : true,
+  filesystem_resize_command      : "xfs_growfs /var/opt/jfrog",
+  lvm_logical_volume_device_node : "/dev/mapper/artifactory-var_data",
+  lvm_physical_volume_device_node: "/dev/sdb"
+}]
