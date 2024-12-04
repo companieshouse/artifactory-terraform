@@ -52,7 +52,7 @@ No modules.
 | <a name="input_db_deletion_protection"></a> [db\_deletion\_protection](#input\_db\_deletion\_protection) | Database deletion protection | `bool` | `true` | no |
 | <a name="input_db_engine"></a> [db\_engine](#input\_db\_engine) | Database engine | `string` | `"postgres"` | no |
 | <a name="input_db_engine_major_version"></a> [db\_engine\_major\_version](#input\_db\_engine\_major\_version) | Database engine major version | `string` | `"13"` | no |
-| <a name="input_db_instance_class"></a> [db\_instance\_class](#input\_db\_instance\_class) | Database instance class | `string` | `"db.t4g.small"` | no |
+| <a name="input_db_instance_class"></a> [db\_instance\_class](#input\_db\_instance\_class) | Database instance class | `string` | `"db.t3.small"` | no |
 | <a name="input_db_instance_multi_az"></a> [db\_instance\_multi\_az](#input\_db\_instance\_multi\_az) | Defines whether the RDS should be deployed as Multi-AZ (true) or not (false) | `bool` | `false` | no |
 | <a name="input_db_maintenance_window"></a> [db\_maintenance\_window](#input\_db\_maintenance\_window) | Database maintenance window | `string` | `"Sat:00:00-Sat:03:00"` | no |
 | <a name="input_db_port"></a> [db\_port](#input\_db\_port) | The port that the database can be reached on | `number` | `5432` | no |
@@ -63,8 +63,7 @@ No modules.
 | <a name="input_hashicorp_vault_username"></a> [hashicorp\_vault\_username](#input\_hashicorp\_vault\_username) | The username used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
 | <a name="input_rds_cloudwatch_logs_exports"></a> [rds\_cloudwatch\_logs\_exports](#input\_rds\_cloudwatch\_logs\_exports) | List of chosen log exports for database RDS Cloudwatch Logs | `list(any)` | <pre>[<br>  "postgresql",<br>  "upgrade"<br>]</pre> | no |
 | <a name="input_rds_kms_key_alias"></a> [rds\_kms\_key\_alias](#input\_rds\_kms\_key\_alias) | Alias for the KMS key used to encrypt RDS storage, including the alias/ prefix | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The AWS region in which resources will be created | `string` | n/a | yes |
-| <a name="input_repository_name"></a> [repository\_name](#input\_repository\_name) | The name of the repository in which we're operating | `string` | `"artifactory"` | no |
+| <a name="input_region"></a> [region](#input\_region) | The AWS region in which resources will be created | `string` | `"eu-west-2"` | no |
 | <a name="input_service"></a> [service](#input\_service) | The service name to be used when creating AWS resources | `string` | `"artifactory"` | no |
 | <a name="input_team"></a> [team](#input\_team) | The name of the team | `string` | `"platform"` | no |
 
