@@ -201,6 +201,11 @@ variable "artifactory_base_path" {
   type        = string
 }
 
+variable "artifactory_config_server_name" {
+  description = "The full display name for the Artifactory server instance"
+  type        = string
+}
+
 variable "artifactory_group" {
   default     = "artifactory"
   description = "The system group that the Artifactory service user is a member of"
