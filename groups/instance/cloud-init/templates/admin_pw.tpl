@@ -1,9 +1,11 @@
 write_files:
-  - path: /opt/jfrog/artifactory/var/etc/access/createBootstrap.sh
+  - path: ${artifactory_base_path}/var/etc/access/createBootstrap.sh
     permissions: 0750
     content: |
       #!/bin/bash
       AWSCLI_COMMAND=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${admin_password_param_name})
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/access/bootstrap.creds
+      cat <<EOF > ${artifactory_base_path}/var/etc/access/bootstrap.creds
       admin@*=$${AWSCLI_COMMAND}
       EOF
+      chmod 0640 ${artifactory_base_path}/var/etc/access/bootstrap.creds
+      chown ${artifactory_user}:${artifactory_group} ${artifactory_base_path}/var/etc/access/bootstrap.creds
