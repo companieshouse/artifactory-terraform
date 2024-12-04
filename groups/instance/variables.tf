@@ -201,6 +201,11 @@ variable "artifactory_base_path" {
   type        = string
 }
 
+variable "artifactory_config_server_name" {
+  description = "The full display name for the Artifactory server instance"
+  type        = string
+}
+
 variable "artifactory_group" {
   default     = "artifactory"
   description = "The system group that the Artifactory service user is a member of"
@@ -222,7 +227,7 @@ variable "aws_command" {
 variable "cloudwatch_logs_collected" {
   default     = []
   description = "A list of objects that contain key=value pairs, used to generate cloudwatch agent config for collecting application logs"
-  type        = list(object(
+  type = list(object(
     {
       name             = string
       timestamp_format = optional(string, "%Y-%m-%dT%H:%M:%S.%f")
@@ -233,11 +238,11 @@ variable "cloudwatch_logs_collected" {
 variable "lvm_block_devices" {
   description = "A list of objects representing LVM block devices; each LVM volume group is assumed to contain a single physical volume and each logical volume is assumed to belong to a single volume group; the filesystem for each logical volume will be expanded to use all available space within the volume group using the filesystem resize command specified; block device configuration applies only on resource creation"
   type = list(object({
-    aws_volume_size_gb: string,
-    delete_on_termination: bool,
-    filesystem_resize_command: string,
-    lvm_logical_volume_device_node: string,
-    lvm_physical_volume_device_node: string,
+    aws_volume_size_gb : string,
+    delete_on_termination : bool,
+    filesystem_resize_command : string,
+    lvm_logical_volume_device_node : string,
+    lvm_physical_volume_device_node : string,
   }))
 }
 

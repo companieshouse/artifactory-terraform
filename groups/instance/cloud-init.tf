@@ -40,6 +40,7 @@ data "cloudinit_config" "artifactory" {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/xml_config.tpl", {
       artifactory_base_path               = var.artifactory_base_path
+      artifactory_config_server_name      = var.artifactory_config_server_name
       artifactory_group                   = var.artifactory_group
       artifactory_user                    = var.artifactory_user
       aws_command                         = var.aws_command

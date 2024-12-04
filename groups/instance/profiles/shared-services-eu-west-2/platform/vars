@@ -2,6 +2,8 @@ account_name = "shared-services"
 environment  = "platform"
 region       = "eu-west-2"
 
+artifactory_config_server_name = "Shared Services Artifactory"
+
 cloudwatch_logs_collected = [
   {
     name = "artifactory-service.log"
