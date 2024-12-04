@@ -146,7 +146,7 @@ variable "asg_desired_capacity" {
 
 variable "asg_health_check_grace_period" {
   default     = 150
-  description = "Time (in seconds) after instance comes into service before checking health. Default 300"
+  description = "Time (in seconds) after instance comes into service before checking health. Default 150"
   type        = number
 }
 
