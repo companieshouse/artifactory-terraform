@@ -64,8 +64,8 @@ data "aws_iam_policy_document" "kms_key" {
 
 data "aws_iam_policy_document" "ssm_parameters" {
   statement {
-    sid       = "AllowAccessToSsmParameters"
-    effect    = "Allow"
+    sid    = "AllowAccessToSsmParameters"
+    effect = "Allow"
 
     resources = [
       "arn:aws:ssm:${var.region}:${local.account_id}:parameter/${var.service}/${var.environment}/*"
