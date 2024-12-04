@@ -7,5 +7,5 @@ write_files:
       cat <<EOF > ${artifactory_base_path}/var/etc/access/bootstrap.creds
       admin@*=$${AWSCLI_COMMAND}
       EOF
-      chmod 0640 ${artifactory_base_path}/var/etc/access/bootstrap.creds
+      chmod 0600 ${artifactory_base_path}/var/etc/access/bootstrap.creds
       chown ${artifactory_user}:${artifactory_group} ${artifactory_base_path}/var/etc/access/bootstrap.creds
