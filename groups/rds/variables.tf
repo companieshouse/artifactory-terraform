@@ -99,7 +99,7 @@ variable "dns_zone_is_private" {
 variable "rds_cloudwatch_logs_exports" {
   default     = ["postgresql", "upgrade"]
   description = "List of chosen log exports for database RDS Cloudwatch Logs"
-  type        = list(any)
+  type        = list(string)
 }
 
 variable "rds_kms_key_alias" {
