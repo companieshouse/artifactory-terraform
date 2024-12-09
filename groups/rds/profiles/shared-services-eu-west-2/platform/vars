@@ -6,4 +6,6 @@ db_instance_multi_az    = true
 db_engine_major_version = 14
 db_storage_gb           = 100
 
+db_enhanced_monitoring_interval = 5
+
 rds_kms_key_alias = "alias/shared/euw2/rds"
