@@ -84,16 +84,36 @@ resource "aws_launch_template" "artifactory_launch_template" {
   }
 
   block_device_mappings {
-    device_name = var.block_device_name
+    device_name = "/dev/xvda"
 
     ebs {
       delete_on_termination = var.ebs_root_delete_on_termination
+      encrypted             = true
       iops                  = var.ebs_root_iops
-      encrypted             = var.ebs_root_encrypted
       kms_key_id            = aws_kms_key.artifactory.arn
       volume_size           = var.ebs_root_volume_size
       throughput            = var.ebs_root_throughput
       volume_type           = var.ebs_root_volume_type
+    }
+  }
+
+  dynamic "block_device_mappings" {
+    for_each = local.lvm_block_devices_filtered
+
+    iterator = block_device
+    content {
+      device_name = block_device.value.device_name
+
+      ebs {
+        delete_on_termination = var.lvm_block_devices[index(var.lvm_block_devices.*.lvm_physical_volume_device_node, block_device.value.device_name)].delete_on_termination
+        encrypted             = true
+        iops                  = block_device.value.ebs.iops
+        kms_key_id            = aws_kms_key.artifactory.arn
+        snapshot_id           = block_device.value.ebs.snapshot_id
+        throughput            = block_device.value.ebs.throughput
+        volume_size           = var.lvm_block_devices[index(var.lvm_block_devices.*.lvm_physical_volume_device_node, block_device.value.device_name)].aws_volume_size_gb
+        volume_type           = block_device.value.ebs.volume_type
+      }
     }
   }
 

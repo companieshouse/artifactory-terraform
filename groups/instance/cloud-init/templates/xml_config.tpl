@@ -1,13 +1,14 @@
 write_files:
-  - path: /opt/jfrog/artifactory/var/etc/artifactory/createXmlConfig.sh
+  - path: ${artifactory_base_path}/var/etc/artifactory/createXmlConfig.sh
     permissions: 0750
     content: |
       #!/bin/bash
       AWSCLI_COMMAND_ACCESSTOKEN=$(${aws_command} --region ${region} --query 'Parameter.Value' --name ${artifactory_access_token_param_name})
-      cat <<EOF >> /opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.xml
+      cat <<EOF > ${artifactory_base_path}/var/etc/artifactory/artifactory.config.import.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <config xmlns="http://artifactory.jfrog.org/xsd/3.1.32" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jfrog.org/xsd/artifactory-v3_1_32.xsd">
           <offlineMode>false</offlineMode>
+          <serverName>${artifactory_config_server_name}</serverName>
           <archiveIndexEnabled>true</archiveIndexEnabled>
           <helpLinksEnabled>true</helpLinksEnabled>
           <fileUploadMaxSizeMb>100</fileUploadMaxSizeMb>
@@ -675,3 +676,5 @@ write_files:
           </authentication>
       </config>
       EOF
+      chmod 0640 ${artifactory_base_path}/var/etc/artifactory/artifactory.config.import.xml
+      chown ${artifactory_user}:${artifactory_group} ${artifactory_base_path}/var/etc/artifactory/artifactory.config.import.xml

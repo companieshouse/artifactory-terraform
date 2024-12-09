@@ -66,4 +66,21 @@ locals {
   admin_password_param_name           = "${local.param_base_path}/admin_password"
   artifactory_license_param_name      = "${local.param_base_path}/artifactory_license"
   artifactory_access_token_param_name = "${local.param_base_path}/artifactory_access_token"
+
+  cloudwatch_collect_list_json = length(var.cloudwatch_logs_collected) > 0 ? jsonencode(
+    [
+      for log in var.cloudwatch_logs_collected : {
+        "file_path"        = "${var.artifactory_base_path}/var/log/${log.name}",
+        "log_group_name"   = aws_cloudwatch_log_group.artifactory.name,
+        "log_stream_name"  = "{instance_id}-${log.name}",
+        "timestamp_format" = log.timestamp_format
+      }
+  ]) : null
+  cloudwatch_log_collection_enabled = length(var.cloudwatch_logs_collected) > 0 ? true : false
+
+  lvm_block_devices_filtered = [
+    for block_device in data.aws_ami.artifactory.block_device_mappings :
+    block_device if block_device.device_name != data.aws_ami.artifactory.root_device_name &&
+    length(block_device.ebs) != 0
+  ]
 }

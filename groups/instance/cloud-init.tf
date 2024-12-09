@@ -10,6 +10,9 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/master_key.tpl", {
+      artifactory_base_path   = var.artifactory_base_path
+      artifactory_group       = var.artifactory_group
+      artifactory_user        = var.artifactory_user
       aws_command             = var.aws_command
       region                  = var.region
       db_masterkey_param_name = local.db_masterkey_param_name
@@ -20,6 +23,9 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/system_yaml.tpl", {
+      artifactory_base_path  = var.artifactory_base_path
+      artifactory_group      = var.artifactory_group
+      artifactory_user       = var.artifactory_user
       aws_command            = var.aws_command
       region                 = var.region
       db_username_param_name = local.db_username_param_name
@@ -33,6 +39,10 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/xml_config.tpl", {
+      artifactory_base_path               = var.artifactory_base_path
+      artifactory_config_server_name      = var.artifactory_config_server_name
+      artifactory_group                   = var.artifactory_group
+      artifactory_user                    = var.artifactory_user
       aws_command                         = var.aws_command
       region                              = var.region
       artifactory_access_token_param_name = local.artifactory_access_token_param_name
@@ -43,6 +53,9 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/license.tpl", {
+      artifactory_base_path          = var.artifactory_base_path
+      artifactory_group              = var.artifactory_group
+      artifactory_user               = var.artifactory_user
       aws_command                    = var.aws_command
       region                         = var.region
       artifactory_license_param_name = local.artifactory_license_param_name
@@ -53,6 +66,9 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/admin_pw.tpl", {
+      artifactory_base_path     = var.artifactory_base_path
+      artifactory_group         = var.artifactory_group
+      artifactory_user          = var.artifactory_user
       aws_command               = var.aws_command
       region                    = var.region
       admin_password_param_name = local.admin_password_param_name
@@ -63,15 +79,22 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/efs_repo_path.tpl", {
+      artifactory_base_path = var.artifactory_base_path
+      artifactory_group     = var.artifactory_group
+      artifactory_user      = var.artifactory_user
     })
     merge_type = var.user_data_merge_strategy
   }
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/files/bootstrap_commands.yaml", {
-      efs_filesystem_id   = module.efs_file_system.efs_filesystem_id
-      efs_access_point_id = local.efs_access_point_id
+    content = templatefile("${path.module}/cloud-init/templates/bootstrap_commands.tpl", {
+      artifactory_base_path = var.artifactory_base_path
+      artifactory_group     = var.artifactory_group
+      artifactory_user      = var.artifactory_user
+      efs_filesystem_id     = module.efs_file_system.efs_filesystem_id
+      efs_access_point_id   = local.efs_access_point_id
+      lvm_block_devices     = var.lvm_block_devices
     })
     merge_type = var.user_data_merge_strategy
   }
@@ -79,7 +102,9 @@ data "cloudinit_config" "artifactory" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/cloud-init/templates/cloudwatch-agent.tpl", {
-      cloudwatch_namespace = local.resource_prefix
+      cloudwatch_collect_list_json      = local.cloudwatch_collect_list_json
+      cloudwatch_log_collection_enabled = local.cloudwatch_log_collection_enabled
+      cloudwatch_namespace              = local.resource_prefix
     })
     merge_type = var.user_data_merge_strategy
   }
