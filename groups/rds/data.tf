@@ -39,3 +39,5 @@ data "aws_route53_zone" "selected" {
 data "aws_kms_alias" "rds" {
   name = var.rds_kms_key_alias
 }
+
+data "aws_caller_identity" "current" {}

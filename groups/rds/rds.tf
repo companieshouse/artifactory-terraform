@@ -59,6 +59,7 @@ resource "aws_db_instance" "db" {
   maintenance_window              = var.db_maintenance_window
 
   monitoring_interval                   = var.db_enhanced_monitoring_interval
+  monitoring_role_arn                   = aws_iam_role.monitoring.arn
   performance_insights_enabled          = var.db_performance_insights_enabled
   performance_insights_retention_period = var.db_performance_insights_retention_period
   performance_insights_kms_key_id       = data.aws_kms_alias.rds.target_key_arn
