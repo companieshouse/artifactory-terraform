@@ -61,9 +61,9 @@ variable "dns_zone_is_private" {
 }
 
 variable "ebs_root_delete_on_termination" {
-  default     = "false"
+  default     = true
   description = "Whether the volume should be destroyed on instance termination. Defaulted to false"
-  type        = string
+  type        = bool
 }
 
 variable "ebs_root_iops" {
