@@ -1,4 +1,6 @@
 locals {
+  account_ids = data.vault_generic_secret.account_ids.data
+
   secrets                    = data.vault_generic_secret.secrets.data
   security_kms_keys_data     = data.vault_generic_secret.security_kms_keys.data
   security_s3_buckets_data   = data.vault_generic_secret.security_s3_buckets.data
@@ -26,8 +28,22 @@ locals {
   automation_subnet_pattern = local.secrets.automation_subnet_pattern
   automation_vpc_pattern    = local.secrets.automation_vpc_pattern
 
+  account_access_data            = jsondecode(local.secrets.account_access)
+  account_access_subnet_patterns = local.account_access_data.subnet_patterns
+  account_access_vpc_patterns    = local.account_access_data.vpc_patterns
+
+  heritage_development_app_subnet_pattern = local.account_access_subnet_patterns["heritage-development-app"]
+  heritage_development_vpc_pattern        = local.account_access_vpc_patterns["heritage-development"]
+  heritage_devleopment_cidr_blocks        = [
+    for subnet, cidr in module.heritage_dev_euw2_app_subnets.subnet_cidrs : cidr
+  ]
+
   concourse_access_cidrs = local.secrets.concourse_access_cidrs
-  web_access_cidrs       = concat(local.placement_subnet_cidrs, [local.concourse_access_cidrs])
+  web_access_cidrs       = concat(
+    local.placement_subnet_cidrs,
+    [local.concourse_access_cidrs],
+    local.heritage_devleopment_cidr_blocks
+  )
 
   web_access_cidrs_map = {
     for idx, cidr in local.web_access_cidrs : idx => cidr
