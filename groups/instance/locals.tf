@@ -34,7 +34,7 @@ locals {
 
   heritage_development_app_subnet_pattern = local.account_access_subnet_patterns["heritage-development-app"]
   heritage_development_vpc_pattern        = local.account_access_vpc_patterns["heritage-development"]
-  heritage_devleopment_cidr_blocks        = [
+  heritage_development_cidr_blocks        = [
     for subnet, cidr in module.heritage_dev_euw2_app_subnets.subnet_cidrs : cidr
   ]
 
@@ -42,7 +42,7 @@ locals {
   web_access_cidrs       = concat(
     local.placement_subnet_cidrs,
     [local.concourse_access_cidrs],
-    local.heritage_devleopment_cidr_blocks
+    local.heritage_development_cidr_blocks
   )
 
   web_access_cidrs_map = {
